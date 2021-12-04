@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/_10sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up or Login"
+        android:textStyle="bold"
+        android:textSize="@dimen/_16ssp"
+        android:textColor="@color/black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We will send you a confirmation code"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:ccp_countryPreference="us,in"/>
+
+        <EditText
+            android:id="@+id/editText_carrierNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="999-999-9999"
+            android:background="@android:color/transparent"
+            android:inputType="phone"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/gotoOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        app:icon="@drawable/ic_forward"
+        app:iconGravity="textEnd"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms_condition"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="or Login using phone no"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+</LinearLayout>

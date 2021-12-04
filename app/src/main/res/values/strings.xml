@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SP Robotics</string>
+    <string name="terms_condition"><font color="#FF898989">By tapping continue, you agree to the</font><font color="#000"> Terms of Use</font><font color="#FF898989"> and</font> <font color="#000">Privacy Policy</font></string>
+</resources>

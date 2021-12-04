@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".view.welcome.WelcomeOneActivity">
+
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:src="@drawable/ic_study" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="What's your child's age?"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:layout_marginVertical="@dimen/_20sdp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+       <com.google.android.material.card.MaterialCardView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:strokeColor="#929292"
+           app:strokeWidth="@dimen/_1sdp"
+           app:cardCornerRadius="@dimen/_5sdp"
+           android:layout_marginEnd="@dimen/_10sdp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Upto 10"
+               android:padding="@dimen/_10sdp"/>
+
+       </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:strokeColor="#929292"
+            app:strokeWidth="@dimen/_1sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 - 13"
+                android:padding="@dimen/_10sdp"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:strokeColor="#929292"
+            app:strokeWidth="@dimen/_1sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Above 13"
+                android:padding="@dimen/_10sdp"/>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="@dimen/_8sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_margin="@dimen/_3sdp"
+            android:background="@drawable/linearlayout_circle_grey" />
+
+        <LinearLayout
+            android:layout_width="@dimen/_8sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_margin="@dimen/_3sdp"
+            android:background="@drawable/linearlayout_circle" />
+
+        <LinearLayout
+            android:layout_width="@dimen/_8sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_margin="@dimen/_3sdp"
+            android:background="@drawable/linearlayout_circle_grey" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:cornerRadius="@dimen/_10sdp"
+        android:padding="@dimen/_15sdp"
+        android:text="Finish"/>
+
+</LinearLayout>
