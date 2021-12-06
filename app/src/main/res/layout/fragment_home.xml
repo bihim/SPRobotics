@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ScrollView
@@ -37,14 +37,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hi Guest"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_14ssp"/>
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_10ssp"
-                        android:text="Welcome to the world of practical learning"/>
+                        android:text="Welcome to the world of practical learning"
+                        android:textSize="@dimen/_10ssp" />
 
                 </LinearLayout>
 
@@ -88,9 +88,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/_6ssp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"/>
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,7 +109,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
                             android:id="@+id/noti_count_view"
@@ -125,69 +125,75 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/_6ssp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"/>
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardElevation="@dimen/_10ssp"
-                    app:cardCornerRadius="@dimen/_5sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_marginVertical="@dimen/_10sdp">
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_10ssp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="JUNIOR"
                         android:background="@color/fragment_home_card_color"
-                        android:textColor="@color/white"
                         android:paddingHorizontal="@dimen/_20sdp"
                         android:paddingVertical="@dimen/_10sdp"
-                        android:textStyle="bold"/>
+                        android:text="JUNIOR"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardElevation="@dimen/_10ssp"
-                    app:cardCornerRadius="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    app:strokeWidth="@dimen/_1sdp"
-                    app:strokeColor="@color/fragment_home_card_text_color">
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_10ssp"
+                    app:strokeColor="@color/fragment_home_card_text_color"
+                    app:strokeWidth="@dimen/_1sdp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_20sdp"
+                        android:paddingVertical="@dimen/_10sdp"
                         android:text="SENIOR"
                         android:textColor="@color/fragment_home_card_text_color"
-                        android:paddingHorizontal="@dimen/_20sdp"
-                        android:paddingVertical="@dimen/_10sdp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardElevation="@dimen/_10ssp"
-                    app:cardCornerRadius="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    app:strokeWidth="@dimen/_1sdp"
-                    app:strokeColor="@color/fragment_home_card_text_color">
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_10ssp"
+                    app:strokeColor="@color/fragment_home_card_text_color"
+                    app:strokeWidth="@dimen/_1sdp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SUPER SENIOR"
-                        android:textColor="@color/fragment_home_card_text_color"
                         android:paddingHorizontal="@dimen/_20sdp"
                         android:paddingVertical="@dimen/_10sdp"
-                        android:textStyle="bold"/>
+                        android:text="SUPER SENIOR"
+                        android:textColor="@color/fragment_home_card_text_color"
+                        android:textStyle="bold" />
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
@@ -196,11 +202,58 @@
                 android:id="@+id/course_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/recyclerview_course"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
                 tools:itemCount="2"
-                app:spanCount="2">
+                tools:listitem="@layout/recyclerview_course">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Popular Courses"
+                    android:textColor="@color/fragment_home_card_color"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end">
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="View All"
+                        android:textColor="@color/black"
+                        app:icon="@drawable/ic_forward"
+                        app:iconGravity="textEnd"
+                        app:iconTint="@color/black" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/course_recyclerview_popular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="2"
+                tools:listitem="@layout/recyclerview_course">
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
