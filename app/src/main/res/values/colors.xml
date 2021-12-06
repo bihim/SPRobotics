@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#E66363</color>
+    <color name="fragment_home_card_color">#3498db</color>
+    <color name="fragment_home_card_text_color">#565656</color>
 </resources>
