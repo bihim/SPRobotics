@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/bottomsheet_email_picker.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/bottomsheet_otp_picker.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/layout/recyclerview_course.xml" value="0.33" />
       </map>
     </option>
   </component>
