@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         findViewById(view);
-        setButtonCallbacks(view);
+        setButtonCallbacks();
         return view;
     }
     private void findViewById(View view){
@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
         recyclerViewCoursePopular = view.findViewById(R.id.course_recyclerview_popular);
     }
 
-    private void setButtonCallbacks(View view){
+    private void setButtonCallbacks(){
         imageButtonCart.setOnClickListener(v->{
 
         });

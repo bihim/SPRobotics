@@ -10,4 +10,11 @@
     <color name="main_color">#E66363</color>
     <color name="fragment_home_card_color">#3498db</color>
     <color name="fragment_home_card_text_color">#565656</color>
+    <color name="enroll_color">#8e44ad</color>
+    <color name="buy_color">#27ae60</color>
+    <color name="color1">#355C7D</color>
+    <color name="color2">#725A7A</color>
+    <color name="color3">#C56D86</color>
+    <color name="color4">#FF7582</color>
+    <color name="color5">#2A3950</color>
 </resources>

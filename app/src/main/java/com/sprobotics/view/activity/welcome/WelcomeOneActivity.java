@@ -1,4 +1,4 @@
-package com.sprobotics.view.welcome;
+package com.sprobotics.view.activity.welcome;
 
 import androidx.appcompat.app.AppCompatActivity;
 

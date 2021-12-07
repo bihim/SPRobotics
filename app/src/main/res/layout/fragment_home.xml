@@ -68,7 +68,8 @@
                             android:background="?selectableItemBackground"
                             android:padding="@dimen/_7sdp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/shopping_cart"
+                            android:src="@drawable/ic_cart"
+
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +151,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/fragment_home_card_color"
+                        android:background="@color/color1"
                         android:paddingHorizontal="@dimen/_20sdp"
                         android:paddingVertical="@dimen/_10sdp"
                         android:text="JUNIOR"
@@ -223,7 +224,7 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:text="Popular Courses"
-                    android:textColor="@color/fragment_home_card_color"
+                    android:textColor="@color/color1"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />
 

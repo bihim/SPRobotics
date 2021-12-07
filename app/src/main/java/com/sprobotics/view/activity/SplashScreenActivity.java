@@ -1,4 +1,4 @@
-package com.sprobotics.view;
+package com.sprobotics.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.sprobotics.R;
-import com.sprobotics.view.welcome.WelcomeOneActivity;
+import com.sprobotics.view.activity.welcome.WelcomeOneActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

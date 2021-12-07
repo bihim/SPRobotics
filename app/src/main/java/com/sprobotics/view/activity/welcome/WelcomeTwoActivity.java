@@ -1,4 +1,4 @@
-package com.sprobotics.view.welcome;
+package com.sprobotics.view.activity.welcome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.google.android.material.button.MaterialButton;
 import com.sprobotics.R;
-import com.sprobotics.view.MainActivity;
+import com.sprobotics.view.activity.MainActivity;
 
 public class WelcomeTwoActivity extends AppCompatActivity {
 
