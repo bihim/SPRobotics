@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.sprobotics.R;
+import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.view.activity.welcome.WelcomeOneActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
