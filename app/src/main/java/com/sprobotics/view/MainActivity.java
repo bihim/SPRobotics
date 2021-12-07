@@ -1,9 +1,17 @@
 package com.sprobotics.view;
 
+import static com.sprobotics.network.util.Constant.MOBILE_LOGIN;
+import static com.sprobotics.network.util.Constant.MOBILE_OTP;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,13 +19,31 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.labters.lottiealertdialoglibrary.ClickListener;
+import com.labters.lottiealertdialoglibrary.DialogTypes;
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
 import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
+import com.sprobotics.model.loginresponse.LogInResponse;
+import com.sprobotics.model.mobileotp.PhoneOtpSentResponse;
+import com.sprobotics.network.util.GsonUtil;
+import com.sprobotics.network.util.ToastUtils;
+import com.sprobotics.preferences.SessionManager;
+import com.sprobotics.util.MethodClass;
+import com.sprobotics.util.NetworkCallActivity;
 import com.sprobotics.view.fragment.HomeFragment;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends NetworkCallActivity {
+
+    private String OTP = "";
+    private String mobile = "";
+
+    private Activity activity;
     private BottomNavigationView bottomNavigationView;
     private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
     private FragmentManager fragmentManager;
@@ -26,10 +52,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         setContentView(R.layout.activity_main);
         findViewById();
         setButtonCallBacks();
         setBottomSheet();
+        initLoginBottomSheet();
         setBottomNavigationView();
         setFragment(savedInstanceState);
     }
@@ -64,23 +92,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setBottomSheet() {
-        bottomSheetDialogForPhone = new BottomSheetDialog(this);
-        bottomSheetDialogForOtp = new BottomSheetDialog(this);
-        bottomSheetDialogForEmail = new BottomSheetDialog(this);
 
-        bottomSheetDialogForPhone.setContentView(R.layout.bottomsheet_countrycode_picker);
+        bottomSheetDialogForOtp = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForEmail = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
+
+
         bottomSheetDialogForOtp.setContentView(R.layout.bottomsheet_otp_picker);
         bottomSheetDialogForEmail.setContentView(R.layout.bottomsheet_email_picker);
 
-        MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
+
         MaterialButton gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
         MaterialButton gotoPhone = bottomSheetDialogForEmail.findViewById(R.id.gotoPhone);
 
-        if (gotoOtp != null)
-            gotoOtp.setOnClickListener(v -> {
-                bottomSheetDialogForOtp.show();
-                bottomSheetDialogForPhone.dismiss();
-            });
 
         if (gotoEmail != null)
             gotoEmail.setOnClickListener(v -> {
@@ -94,20 +117,22 @@ public class MainActivity extends AppCompatActivity {
                 bottomSheetDialogForPhone.show();
             });
 
-        /*Login Bottom sheet*/
-        EditText editTextCarrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
-        MaterialButton materialButtonLoginUsingPhone = bottomSheetDialogForPhone.findViewById(R.id.login_using_phone);
-        materialButtonLoginUsingPhone.setOnClickListener(v -> {
 
-        });
         /*OTP*/
         OtpView otpView = bottomSheetDialogForOtp.findViewById(R.id.otp_view);
         TextView textView = bottomSheetDialogForOtp.findViewById(R.id.otp_text);
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override
             public void onOtpCompleted(String otp) {
-                //Get OTP
-                Logger.d("OTP: " + otp);
+                if (OTP.equalsIgnoreCase(otp)) {
+                    bottomSheetDialogForOtp.dismiss();
+                    MethodClass.hideKeyboard(activity);
+                    MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
+                    loginWithEmailOrMobile();
+                } else
+                    MethodClass.showAlertDialog(activity, true, "Invalid OTP", "Invalid OTP", false);
+
+
             }
         });
         MaterialButton materialButtonContinueOtp = bottomSheetDialogForOtp.findViewById(R.id.otp_continue);
@@ -120,10 +145,91 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton materialButtonContinueEmail = bottomSheetDialogForEmail.findViewById(R.id.button_continue);
     }
 
+
+    private void initLoginBottomSheet() {
+        bottomSheetDialogForPhone = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForPhone.setContentView(R.layout.bottomsheet_countrycode_picker);
+
+        MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
+        EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
+
+
+        editText_carrierNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 10) {
+                    requestForMobileOTP(s.toString());
+                }
+
+
+            }
+        });
+
+
+    }
+
+
     private void setFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.home);
         }
+    }
+
+
+    // API calling
+
+    public void requestForMobileOTP(String mobile) {
+        this.mobile=mobile;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("mobile", mobile);
+        apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
+
+
+    }
+
+
+    public void loginWithEmailOrMobile() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
+        map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
+        map.put("mobile", mobile);
+        apiRequest.postRequest(MOBILE_LOGIN, map, MOBILE_LOGIN);
+
+
+    }
+
+    @Override
+    public void OnCallBackSuccess(String tag, String response) {
+        super.OnCallBackSuccess(tag, response);
+
+        if (tag.equalsIgnoreCase(MOBILE_OTP)) {
+            PhoneOtpSentResponse response1 = (PhoneOtpSentResponse) GsonUtil.toObject(response, PhoneOtpSentResponse.class);
+            ToastUtils.showLong(activity, response1.getData().getOtp());
+            OTP = response1.getData().getOtp();
+            bottomSheetDialogForPhone.dismiss();
+            bottomSheetDialogForOtp.show();
+
+
+        }
+        if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
+            LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
+
+            SessionManager.setValue(SessionManager.LOGIN_RESPONSE,GsonUtil.toJsonString(response1));
+
+
+
+        }
+
     }
 }

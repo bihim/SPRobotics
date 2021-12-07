@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="999-999-9999"
+            android:maxLength="10"
             android:background="@android:color/transparent"
             android:inputType="phone"
             android:singleLine="true" />
@@ -48,6 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Continue"
+        android:enabled="false"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
         android:backgroundTint="@color/main_color"
         app:icon="@drawable/ic_forward"
         app:iconGravity="textEnd"/>

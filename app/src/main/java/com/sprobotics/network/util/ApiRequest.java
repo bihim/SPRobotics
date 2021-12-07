@@ -4,6 +4,7 @@ package com.sprobotics.network.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -122,6 +123,33 @@ public class ApiRequest {
 
     }
 
+    public void postRequestJsonBody(String url, HashMap<String, String> param, String tag) {
+        if (NetWorkChecker.check(context)) {
+
+                loader();
+                if (progressDialog != null) {
+                    progressDialog.show();
+                }
+
+
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<String> callMethod = apiInterface.postRequestJson(url, param, tag);
+            callMethod.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+
+                    onCallBackSuccess(call, response);
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    onCallBackFailed(call, t);
+                }
+            });
+        }
+
+    }
+
 
     public void multipartData(String url, @NonNull HashMap<String, String> param, @NonNull PART part, String tag) {
 
@@ -191,18 +219,16 @@ public class ApiRequest {
 
         if (response.isSuccessful()) {
 
+
+
             try {
 
                 JSONObject object = new JSONObject(response.body());
-                if (object.has("success")) {
-                    if (!object.getBoolean("success"))
-                        errorAlert(object.getString("success"), object.getString("message"));
 
+                if (!object.getBoolean("response"))
+                        errorAlert(object.getString("response"), object.getString("message"));
                     else
                         listener.OnCallBackSuccess(call.request().header("tag"), response.body().toString());
-
-                } else
-                    listener.OnCallBackSuccess(call.request().header("tag"), response.body().toString());
 
 
             } catch (Exception e) {
@@ -211,6 +237,11 @@ public class ApiRequest {
                 e.printStackTrace();
             }
         } else errorAlert("OPPS", "Something went wrong");
+
+        Log.d("onCallBackSuccess","URL-> "+call.request().url());
+        Log.d("onCallBackSuccess","Response-> "+response.body().toString());
+
+
 
     }
 

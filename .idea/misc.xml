@@ -3,19 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-
+        <entry key="../../../../../.gradle/caches/transforms-3/5ca5a07a5d8716b8b14fc649179307ff/transformed/jetified-ccp-2.5.4/res/layout/layout_code_picker.xml" value="0.33541666666666664" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/activity_welcome_one.xml" value="0.22" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/bottomsheet_otp_picker.xml" value="0.33" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/fragment_home.xml" value="0.33" />
-
-        <entry key="../../../../../.gradle/caches/transforms-3/5ca5a07a5d8716b8b14fc649179307ff/transformed/jetified-ccp-2.5.4/res/layout/layout_code_picker.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_welcome_one.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_welcome_two.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bottomsheet_countrycode_picker.xml" value="0.1956521739130435" />
-        <entry key="app/src/main/res/layout/bottomsheet_email_picker.xml" value="0.1956521739130435" />
+        <entry key="app/src/main/res/layout/bottomsheet_email_picker.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bottomsheet_otp_picker.xml" value="0.1956521739130435" />
+        <entry key="app/src/main/res/layout/custom_progress_dialog.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/recyclerview_course.xml" value="0.33" />
-
       </map>
     </option>
   </component>

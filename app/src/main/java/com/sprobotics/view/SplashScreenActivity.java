@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.sprobotics.R;
+import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.view.welcome.WelcomeOneActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -15,6 +16,19 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        new Handler().postDelayed(() -> startActivity(new Intent(this, WelcomeOneActivity.class)), 2000);
+
+
+        new Handler().postDelayed(() -> {
+
+            if (SessionManager.getValue(SessionManager.CHILD_NAME).isEmpty())
+                startActivity(
+                        new Intent(this, WelcomeOneActivity.class));
+            else
+                startActivity(
+                        new Intent(this, MainActivity.class));
+
+            finish();
+
+        }, 2000);
     }
 }
