@@ -6,7 +6,9 @@ import java.util.List;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -21,8 +23,14 @@ public interface ApiInterface {
     @GET()
     Call<String> getRequest(@Url String url,@Header("tag") String tag);
 
+    @FormUrlEncoded
     @POST()
     Call<String> postRequest(@Url String url, @FieldMap HashMap<String, String> params,@Header("tag") String tag);
+
+    @Headers({"Content-Type: application/json"})
+    @POST()
+    Call<String> postRequestJson(@Url String url, @Body HashMap<String, String> params, @Header("tag") String tag);
+
 
     @Multipart
     @POST()

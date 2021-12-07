@@ -1,6 +1,7 @@
 package com.sprobotics.network.util;
 
 import com.google.gson.Gson;
+import com.sprobotics.model.loginresponse.LogInResponse;
 
 public class GsonUtil {
 
@@ -9,7 +10,7 @@ public class GsonUtil {
         return object;
     }
 
-    public static String toJsonString(Class classType) {
+    public static String toJsonString(Object classType) {
         String data = new Gson().toJson(classType);
         return data;
     }

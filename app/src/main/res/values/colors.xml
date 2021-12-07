@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#E66363</color>
     <color name="fragment_home_card_color">#3498db</color>
+    <color name="color_blue">#3498db</color>
     <color name="fragment_home_card_text_color">#565656</color>
     <color name="enroll_color">#8e44ad</color>
     <color name="buy_color">#27ae60</color>

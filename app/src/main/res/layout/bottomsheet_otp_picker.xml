@@ -53,8 +53,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Continue"
+        android:enabled="false"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
+        android:backgroundTint="@color/main_color"
         app:icon="@drawable/ic_forward"
-        app:iconGravity="textEnd" />
+        app:iconGravity="textEnd"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/gotoEmail"
