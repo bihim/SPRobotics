@@ -50,7 +50,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#017584"
+                        android:background="@color/color1"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -105,7 +105,7 @@
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:background="@drawable/background_circle"
-                    android:backgroundTint="@color/fragment_home_card_color"
+                    android:backgroundTint="@color/color1light"
                     android:gravity="center">
 
                     <TextView
@@ -133,7 +133,7 @@
                     android:id="@+id/course_details_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/fragment_home_card_color"
+                    android:background="@color/color1light"
                     android:paddingHorizontal="@dimen/_30sdp"
                     android:paddingVertical="@dimen/_10sdp"
                     android:text="INR 11,000"
@@ -190,7 +190,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/enroll_color"
+                        android:background="@color/color3"
                         android:gravity="center"
                         android:paddingHorizontal="@dimen/_15sdp"
                         android:paddingVertical="@dimen/_10sdp"

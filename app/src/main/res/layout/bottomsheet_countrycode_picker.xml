@@ -52,7 +52,7 @@
         android:enabled="false"
         android:textColor="@color/white"
         app:iconTint="@color/white"
-        android:backgroundTint="@color/main_color"
+        android:backgroundTint="@color/color3"
         app:icon="@drawable/ic_forward"
         app:iconGravity="textEnd"/>
     <TextView

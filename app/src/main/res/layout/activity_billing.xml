@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.BillingActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:gravity="start|center">
+
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    android:background="?selectableItemBackground"
+                    app:tint="@color/black"
+                    android:padding="@dimen/_10sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Billing Summery"
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                app:strokeColor="@color/color1"
+                app:strokeWidth="@dimen/_1sdp"
+                app:cardCornerRadius="@dimen/_20sdp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/_15sdp">
+
+                    <TextView
+                        android:id="@+id/billing_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="S Ghosh Dostidar"
+                        android:textSize="@dimen/_13ssp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/billing_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+91-123456789"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/billing_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123 Mahatma Gandhi Road\nKolkata 700010\nWest Bengal"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="@dimen/_10sdp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/billing_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="   Edit"
+                            android:background="?selectableItemBackground"
+                            android:textColor="@color/color3"
+                            android:drawableTint="@color/color3"
+                            android:drawableStart="@drawable/ic_edit"
+                            android:textSize="@dimen/_15ssp"
+                            android:gravity="center"
+                            android:layout_marginEnd="@dimen/_10sdp"/>
+
+                        <TextView
+                            android:id="@+id/billing_delete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="   Delete"
+                            android:background="?selectableItemBackground"
+                            android:textColor="@color/color3"
+                            android:drawableTint="@color/color3"
+                            android:drawableStart="@drawable/ic_delete"
+                            android:textSize="@dimen/_15ssp"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                app:strokeColor="@color/color1"
+                app:strokeWidth="@dimen/_1sdp"
+                app:cardCornerRadius="@dimen/_20sdp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/_15sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Information"
+                        android:textSize="@dimen/_13ssp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Value of products"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/billing_value_of_products"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="$1450"
+                            android:gravity="end"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Discount(-)"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/billing_discount"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="$652"
+                            android:gravity="end"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/color3"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated GST(+)"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/billing_estimated_gst"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="$71"
+                            android:gravity="end"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Shipping"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/billing_shipping"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Free"
+                            android:gravity="end"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/color1"
+                        android:layout_marginTop="@dimen/_5sdp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Total"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/billing_total"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="$869"
+                            android:gravity="end"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/black"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/billing_pay_now"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_weight="1"
+                android:clickable="true"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/buy_color"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_15sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text="Pay Now"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16ssp" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
