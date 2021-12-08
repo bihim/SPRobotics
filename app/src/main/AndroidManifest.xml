@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SPRobotics">
         <activity
+            android:name=".view.activity.CartActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.BillingActivity"
             android:exported="false" />
         <activity

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp"
+    app:strokeWidth="@dimen/_1sdp"
+    app:strokeColor="@color/color1"
+    app:cardCornerRadius="@dimen/_10sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/cart_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_90sdp"
+                    android:src="@drawable/demo_course"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/ribbon"
+                    android:backgroundTint="@color/fragment_home_card_color"
+                    android:gravity="center|start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/cart_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10\+ years"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_6ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scratch Programming Online Course"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:text="Rs.1100"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/background_circle"
+                        android:backgroundTint="@color/color1"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_plus"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginHorizontal="@dimen/_10sdp"/>
+
+                    <ImageButton
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/background_circle"
+                        android:backgroundTint="@color/color1"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_minus"
+                        app:tint="@color/white" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end|center"
+                    >
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_delete"
+                        android:tint="@color/color3"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/_10sdp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

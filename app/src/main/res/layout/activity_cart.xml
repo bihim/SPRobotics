@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.CartActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:gravity="start|center">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cart Summery"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:strokeColor="@color/color1"
+            app:strokeWidth="@dimen/_1sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delivery Pincode"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/cart_delivery_pincode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7000502"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/cart_pincode_edit"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="?selectableItemBackground"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_edit" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Cart Items"
+            android:textColor="@color/color1"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/recyclerview_cart"/>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:strokeColor="@color/color1"
+            app:strokeWidth="@dimen/_1sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_15sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Information"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Value of products"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        android:id="@+id/cart_value_of_products"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="$1450"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Discount(-)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        android:id="@+id/cart_discount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="$652"
+                        android:textColor="@color/color3"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Estimated GST(+)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        android:id="@+id/cart_estimated_gst"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="$71"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Shipping"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        android:id="@+id/cart_shipping"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="Free"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@color/color1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        android:id="@+id/cart_total"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="$869"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/course_details_enquire_now"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:clickable="true"
+                app:cardElevation="0dp"
+                app:cornerRadius="@dimen/_6sdp">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color3"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_15sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text="Add More Courses"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/course_details_buy_now"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:clickable="true"
+                app:cardElevation="0dp"
+                app:cornerRadius="@dimen/_6sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/buy_color"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_15sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text="Place Order"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

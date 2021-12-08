@@ -144,7 +144,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_5sdp"
                     app:cardElevation="@dimen/_10ssp">
 
                     <TextView
@@ -163,7 +162,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:cardCornerRadius="@dimen/_5sdp"
-                    app:cardElevation="@dimen/_10ssp"
                     app:strokeColor="@color/fragment_home_card_text_color"
                     app:strokeWidth="@dimen/_1sdp">
 
@@ -182,7 +180,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:cardCornerRadius="@dimen/_5sdp"
-                    app:cardElevation="@dimen/_10ssp"
                     app:strokeColor="@color/fragment_home_card_text_color"
                     app:strokeWidth="@dimen/_1sdp">
 

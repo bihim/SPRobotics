@@ -3,6 +3,7 @@ package com.sprobotics.view.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -11,6 +12,7 @@ import com.sprobotics.R;
 public class BillingActivity extends AppCompatActivity {
     private TextView billingName, billingNumber, billingAddress, billingEdit, billingDelete, billingValueOfProduct, billingDiscount, billingGst, billingShipping, billingTotal;
     private MaterialCardView materialCardViewPayNow;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class BillingActivity extends AppCompatActivity {
         materialCardViewPayNow.setOnClickListener(v->{
 
         });
+        imageButton.setOnClickListener(v->{
+            onBackPressed();
+        });
     }
 
     private void findViewById(){
@@ -46,5 +51,11 @@ public class BillingActivity extends AppCompatActivity {
         billingShipping = findViewById(R.id.billing_shipping);
         billingTotal = findViewById(R.id.billing_total);
         materialCardViewPayNow = findViewById(R.id.billing_pay_now);
+        imageButton = findViewById(R.id.back_button);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
