@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:text="Continue"
         android:textColor="@color/white"
+        android:backgroundTint="@color/colors4"
         app:icon="@drawable/ic_forward"
         app:iconGravity="textEnd" />
 

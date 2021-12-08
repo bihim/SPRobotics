@@ -1,5 +1,6 @@
 package com.sprobotics.view.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.devbrackets.android.exomedia.listener.OnBufferUpdateListener;
+import com.devbrackets.android.exomedia.listener.OnPreparedListener;
+import com.devbrackets.android.exomedia.ui.widget.VideoView;
+import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 
 public class HomeFragment extends Fragment {
@@ -29,10 +34,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewCourse;
     private RecyclerView recyclerViewCoursePopular;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        String url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+
         findViewById(view);
         setButtonCallbacks();
         return view;

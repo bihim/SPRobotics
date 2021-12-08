@@ -144,12 +144,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    app:cardElevation="@dimen/_10ssp">
+                    app:cardElevation="@dimen/_5ssp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/color1"
+                        android:background="@color/colors1"
                         android:paddingHorizontal="@dimen/_20sdp"
                         android:paddingVertical="@dimen/_10sdp"
                         android:text="JUNIOR"
@@ -162,6 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_5ssp"
                     app:strokeColor="@color/fragment_home_card_text_color"
                     app:strokeWidth="@dimen/_1sdp">
 
@@ -171,6 +172,7 @@
                         android:paddingHorizontal="@dimen/_20sdp"
                         android:paddingVertical="@dimen/_10sdp"
                         android:text="SENIOR"
+
                         android:textColor="@color/fragment_home_card_text_color"
                         android:textStyle="bold" />
                 </com.google.android.material.card.MaterialCardView>
@@ -180,6 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_5ssp"
                     app:strokeColor="@color/fragment_home_card_text_color"
                     app:strokeWidth="@dimen/_1sdp">
 
@@ -207,6 +210,43 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/banner_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_15sdp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_130sdp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/imageSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="@dimen/_15sdp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="@dimen/_3sdp"
+                        app:sliderIndicatorRadius="@dimen/_2sdp"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="@color/colors2"
+                        app:sliderScrollTimeInSec="1"
+                        app:sliderStartAutoCycle="true" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,7 +260,7 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:text="Popular Courses"
-                    android:textColor="@color/color1"
+                    android:textColor="@color/colors2"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />
 
