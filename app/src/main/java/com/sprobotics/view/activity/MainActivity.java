@@ -91,7 +91,9 @@ public class MainActivity extends NetworkCallActivity {
                     bottomSheetDialogForPhone.show();
                     return true;
                 case R.id.page_4:
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                    if (SessionManager.isLoggedIn())
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                    else bottomSheetDialogForPhone.show();
                     //bottomDialog.show();
                     return true;
                 default:
