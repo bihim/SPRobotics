@@ -131,8 +131,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="?selectableItemBackground"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp">
 
         <TextView
             android:layout_width="0dp"
@@ -141,7 +140,9 @@
             android:text="Profile"
             android:drawablePadding="@dimen/_8sdp"
             android:gravity="center|start"
-            android:drawableStart="@drawable/ic_person_outlined"/>
+            android:drawableStart="@drawable/ic_person_outlined"
+            app:drawableTint="@color/black"
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -151,6 +152,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:tint="@color/black"
                 android:src="@drawable/ic_round_arrow_forward_ios_24"/>
         </LinearLayout>
 
@@ -161,8 +163,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="?selectableItemBackground"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp">
 
         <TextView
             android:layout_width="0dp"
@@ -171,6 +172,8 @@
             android:text="Order History"
             android:drawablePadding="@dimen/_8sdp"
             android:gravity="center|start"
+            app:drawableTint="@color/black"
+            android:textColor="@color/black"
             android:drawableStart="@drawable/ic_order"/>
 
         <LinearLayout
@@ -192,8 +195,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="?selectableItemBackground"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp">
 
         <TextView
             android:layout_width="0dp"
@@ -202,6 +204,8 @@
             android:text="Enquire Now"
             android:drawablePadding="@dimen/_8sdp"
             android:gravity="center|start"
+            app:drawableTint="@color/black"
+            android:textColor="@color/black"
             android:drawableStart="@drawable/ic_enquary"/>
 
         <LinearLayout
@@ -223,8 +227,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="?selectableItemBackground"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp">
 
         <TextView
             android:layout_width="0dp"
@@ -233,6 +236,8 @@
             android:text="Manage Address"
             android:drawablePadding="@dimen/_8sdp"
             android:gravity="center|start"
+            app:drawableTint="@color/black"
+            android:textColor="@color/black"
             android:drawableStart="@drawable/ic_address"/>
 
         <LinearLayout
@@ -253,9 +258,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="?selectableItemBackground"
-        android:layout_marginBottom="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp">
 
         <TextView
             android:layout_width="0dp"
@@ -264,6 +268,8 @@
             android:text="About"
             android:drawablePadding="@dimen/_8sdp"
             android:gravity="center|start"
+            app:drawableTint="@color/black"
+            android:textColor="@color/black"
             android:drawableStart="@drawable/ic_info"/>
 
         <LinearLayout
@@ -283,8 +289,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp">
+        android:padding="@dimen/_10sdp">
 
         <TextView
             android:layout_width="0dp"
@@ -293,7 +298,9 @@
             android:text="Logout"
             android:drawablePadding="@dimen/_8sdp"
             android:gravity="center|start"
-            android:drawableStart="@drawable/ic_logout"/>
+            android:drawableStart="@drawable/ic_logout"
+            app:drawableTint="@color/black"
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="0dp"
