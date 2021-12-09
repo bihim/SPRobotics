@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_delete"
-                        android:tint="@color/color3"
+                        app:tint="@color/colors4"
                         android:background="?selectableItemBackground"
                         android:padding="@dimen/_10sdp"/>
                 </LinearLayout>

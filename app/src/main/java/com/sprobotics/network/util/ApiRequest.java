@@ -1,7 +1,6 @@
 package com.sprobotics.network.util;
 
 
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
@@ -99,10 +98,10 @@ public class ApiRequest {
     public void postRequest(String url, HashMap<String, String> param, String tag) {
         if (NetWorkChecker.check(context)) {
 
-                loader();
-                if (progressDialog != null) {
-                    progressDialog.show();
-                }
+            loader();
+            if (progressDialog != null) {
+                progressDialog.show();
+            }
 
 
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -126,10 +125,10 @@ public class ApiRequest {
     public void postRequestJsonBody(String url, HashMap<String, String> param, String tag) {
         if (NetWorkChecker.check(context)) {
 
-                loader();
-                if (progressDialog != null) {
-                    progressDialog.show();
-                }
+            loader();
+            if (progressDialog != null) {
+                progressDialog.show();
+            }
 
 
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -220,16 +219,18 @@ public class ApiRequest {
         if (response.isSuccessful()) {
 
 
-
             try {
 
                 JSONObject object = new JSONObject(response.body());
 
-                if (!object.getBoolean("response"))
+
+                if (object.has("response")) {
+
+                    if (!object.getBoolean("response"))
                         errorAlert(object.getString("response"), object.getString("message"));
                     else
-                        listener.OnCallBackSuccess(call.request().header("tag"), response.body().toString());
-
+                        listener.OnCallBackSuccess(call.request().header("tag"), response.body());
+                } else listener.OnCallBackSuccess(call.request().header("tag"), response.body());
 
             } catch (Exception e) {
                 listener.OnCallBackError(call.request().header("tag"), e.getMessage(), -1);
@@ -238,9 +239,8 @@ public class ApiRequest {
             }
         } else errorAlert("OPPS", "Something went wrong");
 
-        Log.d("onCallBackSuccess","URL-> "+call.request().url());
-        Log.d("onCallBackSuccess","Response-> "+response.body().toString());
-
+        Log.d("onCallBackSuccess", "URL-> " + call.request().url());
+        Log.d("onCallBackSuccess", "Response-> " + response.body().toString());
 
 
     }

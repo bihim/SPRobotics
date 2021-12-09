@@ -4,8 +4,6 @@ import static com.sprobotics.network.util.Constant.GET_AGE_GROUP;
 import static com.sprobotics.network.util.Constant.MOBILE_LOGIN;
 import static com.sprobotics.network.util.Constant.MOBILE_OTP;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
@@ -13,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,12 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.labters.lottiealertdialoglibrary.ClickListener;
-import com.labters.lottiealertdialoglibrary.DialogTypes;
-import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
-import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.model.loginresponse.LogInResponse;
 import com.sprobotics.model.mobileotp.PhoneOtpSentResponse;
@@ -42,7 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends NetworkCallActivity {
 
@@ -60,7 +52,6 @@ public class MainActivity extends NetworkCallActivity {
         super.onCreate(savedInstanceState);
         activity = this;
 
-        getAgeGroupId();
 
         setContentView(R.layout.activity_main);
         findViewById();
@@ -91,9 +82,11 @@ public class MainActivity extends NetworkCallActivity {
                 case R.id.page_3:
                     return true;
                 case R.id.page_4:
-                    bottomSheetDialogForPhone.show();
-                    //bottomDialog.show();
-                    return true;
+                    if (!SessionManager.isLoggedIn())
+                        bottomSheetDialogForPhone.show();
+                    else  //show profile screen
+                        //bottomDialog.show();
+                        return true;
                 default:
                     return false;
             }
@@ -162,7 +155,6 @@ public class MainActivity extends NetworkCallActivity {
         MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
         EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
 
-
         editText_carrierNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -208,11 +200,6 @@ public class MainActivity extends NetworkCallActivity {
     }
 
 
-    public void getAgeGroupId() {
-        apiRequest.callGetRequest(GET_AGE_GROUP, GET_AGE_GROUP);
-    }
-
-
     public void loginWithEmailOrMobile() {
         HashMap<String, String> map = new HashMap<>();
         map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
@@ -238,27 +225,12 @@ public class MainActivity extends NetworkCallActivity {
         }
         if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
             LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
-
             SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
+            SessionManager.setLoggedIn(true);
 
 
         }
-        if (tag.equalsIgnoreCase(GET_AGE_GROUP)) {
 
-            try {
-                JSONObject object = new JSONObject(response.toString());
-
-                Constant.JUNIOR_AGE_ID = object.getString("Junior");
-                Constant.SENIOR_AGE_ID = object.getString("Senior");
-                Constant.SUPER_SENIOR_AGE_ID = object.getString("Super Senior");
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-        }
 
     }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="0dp"
+    android:layout_margin="@dimen/_5sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="0dp">
+            <com.devbrackets.android.exomedia.ui.widget.VideoView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                app:useDefaultControls="true"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_10sdp">
+            <TextView
+                android:id="@+id/video_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="'Covid Shurksha'- The Corona virus protection App"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"/>
+
+            <TextView
+                android:id="@+id/video_creator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Projected By: Rajesh Chaudhary"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginTop="@dimen/_5sdp"/>
+
+            <TextView
+                android:id="@+id/video_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project Lab: Chopda"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginTop="@dimen/_5sdp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

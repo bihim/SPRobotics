@@ -1,9 +1,10 @@
 package com.sprobotics.model.courseresponse;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class DataItem{
+public class DataItem implements Serializable {
 
 	@SerializedName("short_description")
 	private Object shortDescription;

@@ -6,6 +6,7 @@ public class Constant {
     public static final String MOBILE_OTP=BASE_URL+"mobile-otp";
     public static final String MOBILE_LOGIN=BASE_URL+"login-mobile";
     public static final String GET_AGE_GROUP=BASE_URL+"age-category";
+    public static final String PRODUCT_LIST=BASE_URL+"product";
 
 
 

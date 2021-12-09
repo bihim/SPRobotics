@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_20sdp"
-    app:strokeWidth="@dimen/_1sdp"
-    app:strokeColor="@color/color1"
-    app:cardElevation="0dp"
+    app:cardElevation="@dimen/_5sdp"
     android:layout_margin="@dimen/_10sdp">
 
     <LinearLayout
@@ -20,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Codey Robot Inventor Kit"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_2sdp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
 
             android:gravity="center"
             android:textStyle="bold"
@@ -48,7 +46,7 @@
                 android:background="@drawable/ribbon"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center|start"
-                android:backgroundTint="@color/fragment_home_card_color"
+                android:backgroundTint="@color/colors2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <TextView

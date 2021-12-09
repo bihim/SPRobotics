@@ -26,14 +26,15 @@ public class SessionManager {
     }
 
 
-    public static void isLoggedIn(boolean is) {
+    public static void setLoggedIn(boolean is) {
         editor.putBoolean("isLoggedIn", is);
         editor.commit();
     }
-
-    public static boolean getToken() {
+    public static boolean isLoggedIn() {
         return preferences.getBoolean("isLoggedIn", false);
     }
+
+
 
     public static void setValue(String key, String value) {
         editor.putString(key, value);

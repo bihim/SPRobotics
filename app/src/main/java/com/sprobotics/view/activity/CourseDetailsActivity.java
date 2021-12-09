@@ -9,11 +9,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.tabs.TabLayout;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CourseDetailsPageAdapter;
+import com.sprobotics.model.courseresponse.DataItem;
+import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.view.fragment.CourseDetailsFragment;
 import com.sprobotics.view.fragment.CourseLearnFragment;
 import com.sprobotics.view.fragment.HomeFragment;
@@ -22,38 +25,76 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private FrameLayout frameLayout;
     private ImageButton imageButtonBack;
+    private TextView course_details_title, course_details_age, course_details_money;
     private MaterialCardView materialCardViewEnquire, materialCardViewBuy;
+
+    private DataItem courseDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
+
+        courseDetails = (DataItem) getIntent().getSerializableExtra("MyClass");
+
         findViewById();
         setButtonCallBacks();
         setTabLayout(savedInstanceState);
     }
 
-    private void setButtonCallBacks(){
-        imageButtonBack.setOnClickListener(v->{
+    private void setButtonCallBacks() {
+        imageButtonBack.setOnClickListener(v -> {
             onBackPressed();
         });
-        materialCardViewEnquire.setOnClickListener(v->{
+        materialCardViewEnquire.setOnClickListener(v -> {
 
         });
-        materialCardViewBuy.setOnClickListener(v->{
+        materialCardViewBuy.setOnClickListener(v -> {
 
         });
     }
 
-    private void findViewById(){
+    private void findViewById() {
         tabLayout = findViewById(R.id.simpleTabLayout);
         frameLayout = findViewById(R.id.simpleFrameLayout);
         imageButtonBack = findViewById(R.id.back_button);
         materialCardViewEnquire = findViewById(R.id.course_details_enquire_now);
         materialCardViewBuy = findViewById(R.id.course_details_buy_now);
+
+
+        course_details_title = findViewById(R.id.course_details_title);
+        course_details_age = findViewById(R.id.course_details_age);
+        course_details_money = findViewById(R.id.course_details_money);
+        setData();
+        onClick();
     }
 
-    private void setTabLayout(Bundle savedInstanceState){
+    private void onClick() {
+        materialCardViewBuy.setOnClickListener(v -> {
+
+            if (!SessionManager.isLoggedIn()) {
+                // appear bottom sheet for login.
+            } else {
+                // go to cart page
+
+            }
+
+        });
+
+
+    }
+
+    private void setData() {
+
+        course_details_title.setText(courseDetails.getName());
+
+        course_details_age.setText(courseDetails.getAgeCategory().get(0));
+        course_details_money.setText(courseDetails.getPrice().get(0));
+
+
+    }
+
+    private void setTabLayout(Bundle savedInstanceState) {
         TabLayout.Tab firstTab = tabLayout.newTab();
         firstTab.setText("Course Details");
         tabLayout.addTab(firstTab);
@@ -61,7 +102,6 @@ public class CourseDetailsActivity extends AppCompatActivity {
         TabLayout.Tab secondTab = tabLayout.newTab();
         secondTab.setText("What will you learn");
         tabLayout.addTab(secondTab);
-
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
