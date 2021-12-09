@@ -1,44 +1,66 @@
 package com.sprobotics.view.activity;
 
+import static com.sprobotics.network.util.Constant.MOBILE_LOGIN;
+import static com.sprobotics.network.util.Constant.MOBILE_OTP;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
+import com.mukesh.OnOtpCompletionListener;
+import com.mukesh.OtpView;
+import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CourseDetailsPageAdapter;
 import com.sprobotics.model.courseresponse.DataItem;
 import com.sprobotics.preferences.SessionManager;
+import com.sprobotics.util.MethodClass;
+import com.sprobotics.util.NetworkCallActivity;
 import com.sprobotics.view.fragment.CourseDetailsFragment;
 import com.sprobotics.view.fragment.CourseLearnFragment;
 import com.sprobotics.view.fragment.HomeFragment;
 
-public class CourseDetailsActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+public class CourseDetailsActivity extends NetworkCallActivity {
     private TabLayout tabLayout;
     private FrameLayout frameLayout;
     private ImageButton imageButtonBack;
     private TextView course_details_title, course_details_age, course_details_money;
     private MaterialCardView materialCardViewEnquire, materialCardViewBuy;
-
+    private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
     private DataItem courseDetails;
+    private String OTP = "";
+    private String mobile = "";
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
-
+        activity = this;
         courseDetails = (DataItem) getIntent().getSerializableExtra("MyClass");
 
         findViewById();
         setButtonCallBacks();
+        setBottomSheet();
+        initLoginBottomSheet();
         setTabLayout(savedInstanceState);
     }
 
@@ -49,9 +71,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
         materialCardViewEnquire.setOnClickListener(v -> {
 
         });
-        materialCardViewBuy.setOnClickListener(v -> {
+        /*materialCardViewBuy.setOnClickListener(v -> {
 
-        });
+        });*/
     }
 
     private void findViewById() {
@@ -73,10 +95,10 @@ public class CourseDetailsActivity extends AppCompatActivity {
         materialCardViewBuy.setOnClickListener(v -> {
 
             if (!SessionManager.isLoggedIn()) {
-                // appear bottom sheet for login.
+                bottomSheetDialogForPhone.show();
             } else {
                 // go to cart page
-
+                Logger.d("I am here");
             }
 
         });
@@ -146,5 +168,110 @@ public class CourseDetailsActivity extends AppCompatActivity {
         super.onResume();
         tabLayout.getTabAt(0).select();
         tabLayout.getTabAt(1).select();
+    }
+
+    private void setBottomSheet() {
+
+        bottomSheetDialogForOtp = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForEmail = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
+
+
+        bottomSheetDialogForOtp.setContentView(R.layout.bottomsheet_otp_picker);
+        bottomSheetDialogForEmail.setContentView(R.layout.bottomsheet_email_picker);
+
+
+        MaterialButton gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
+        MaterialButton gotoPhone = bottomSheetDialogForEmail.findViewById(R.id.gotoPhone);
+
+
+        if (gotoEmail != null)
+            gotoEmail.setOnClickListener(v -> {
+                bottomSheetDialogForOtp.dismiss();
+                bottomSheetDialogForEmail.show();
+            });
+
+        if (gotoPhone != null)
+            gotoPhone.setOnClickListener(v -> {
+                bottomSheetDialogForEmail.dismiss();
+                bottomSheetDialogForPhone.show();
+            });
+
+
+        /*OTP*/
+        OtpView otpView = bottomSheetDialogForOtp.findViewById(R.id.otp_view);
+        TextView textView = bottomSheetDialogForOtp.findViewById(R.id.otp_text);
+        otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
+            @Override
+            public void onOtpCompleted(String otp) {
+                if (OTP.equalsIgnoreCase(otp)) {
+                    bottomSheetDialogForOtp.dismiss();
+                    MethodClass.hideKeyboard(activity);
+                    MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
+                    loginWithEmailOrMobile();
+                } else
+                    MethodClass.showAlertDialog(activity, true, "Invalid OTP", "Invalid OTP", false);
+
+
+            }
+        });
+        MaterialButton materialButtonContinueOtp = bottomSheetDialogForOtp.findViewById(R.id.otp_continue);
+        materialButtonContinueOtp.setOnClickListener(v -> {
+
+        });
+        /*Email*/
+        TextInputEditText textInputEditTextEmail = bottomSheetDialogForEmail.findViewById(R.id.bottom_email);
+        TextInputEditText textInputEditTextPassword = bottomSheetDialogForEmail.findViewById(R.id.bottom_password);
+        MaterialButton materialButtonContinueEmail = bottomSheetDialogForEmail.findViewById(R.id.button_continue);
+    }
+
+
+    private void initLoginBottomSheet() {
+        bottomSheetDialogForPhone = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForPhone.setContentView(R.layout.bottomsheet_countrycode_picker);
+
+        MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
+        EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
+
+        editText_carrierNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 10) {
+                    requestForMobileOTP(s.toString());
+                }
+
+
+            }
+        });
+
+
+    }
+
+    public void loginWithEmailOrMobile() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
+        map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
+        map.put("mobile", mobile);
+        apiRequest.postRequest(MOBILE_LOGIN, map, MOBILE_LOGIN);
+
+
+    }
+
+    public void requestForMobileOTP(String mobile) {
+        this.mobile = mobile;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("mobile", mobile);
+        apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
+
+
     }
 }

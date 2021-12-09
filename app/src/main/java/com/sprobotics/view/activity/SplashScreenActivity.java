@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.view.activity.welcome.WelcomeOneActivity;
@@ -17,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-
+        Logger.addLogAdapter(new AndroidLogAdapter());
         new Handler().postDelayed(() -> {
 
             if (SessionManager.getValue(SessionManager.CHILD_NAME).isEmpty())
