@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#8D8D8D</color>
     <color name="main_color">#fa595f</color>
     <color name="fragment_home_card_color">#3498db</color>
     <color name="color_blue">#3498db</color>
@@ -26,4 +27,10 @@
     <color name="colors4">#fa595f</color>
     <color name="colors5">#17759b</color>
     <color name="colors6">#0fbc62</color>
+    <color name="colors7">#fc9b2a</color>
+    <color name="colors8">#f8af46</color>
+    <color name="colors9">#ebeff2</color>
+    <color name="colors10">#fee9cc</color>
+    <color name="colors11">#f8af46</color>
+    <color name="colors12">#fff6ed</color>
 </resources>

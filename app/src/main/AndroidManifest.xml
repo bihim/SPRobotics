@@ -13,8 +13,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.SPRobotics">
+        android:theme="@style/Theme.SPRobotics"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".view.activity.PaymentSuccessfulActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.ChildEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.ProfileEditActivity"
+            android:exported="false" />
         <activity
             android:name=".view.activity.CartActivity"
             android:exported="false" />

@@ -10,12 +10,16 @@
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_cart.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.3515625" />
+        <entry key="app/src/main/res/drawable/ic_id.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_notification.xml" value="0.3515625" />
+        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/linearlayout_circle.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_billing.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/layout/activity_child_edit.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_course_details.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_profile_edit.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.21105072463768115" />
         <entry key="app/src/main/res/layout/activity_welcome_one.xml" value="0.21105072463768115" />
         <entry key="app/src/main/res/layout/activity_welcome_two.xml" value="0.21105072463768115" />
@@ -27,8 +31,11 @@
         <entry key="app/src/main/res/layout/fragment_course_details.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/fragment_course_learn.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/recyclerview_cart.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/recyclerview_course.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/recyclerview_order_history.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/layout/recyclerview_order_history_list.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/recyclerview_video_carousel.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.33541666666666664" />
       </map>

@@ -74,68 +74,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="Rs.1100"
+                android:text="Delivered"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="@dimen/_16ssp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_5sdp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <ImageButton
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:background="@drawable/background_circle"
-                        android:backgroundTint="@color/color1"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_plus"
-                        app:tint="@color/white" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_marginHorizontal="@dimen/_10sdp"/>
-
-                    <ImageButton
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:background="@drawable/background_circle"
-                        android:backgroundTint="@color/color1"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_minus"
-                        app:tint="@color/white" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end|center"
-                    >
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_delete"
-                        app:tint="@color/colors4"
-                        android:background="?selectableItemBackground"
-                        android:padding="@dimen/_10sdp"/>
-                </LinearLayout>
-
-            </LinearLayout>
 
         </LinearLayout>
 

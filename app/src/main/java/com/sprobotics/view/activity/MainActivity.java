@@ -5,7 +5,10 @@ import static com.sprobotics.network.util.Constant.MOBILE_OTP;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,7 +37,9 @@ import com.sprobotics.network.util.ToastUtils;
 import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.util.MethodClass;
 import com.sprobotics.util.NetworkCallActivity;
+import com.sprobotics.view.fragment.CourseDetailsFragment;
 import com.sprobotics.view.fragment.HomeFragment;
+import com.sprobotics.view.fragment.ProfileFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,19 +81,22 @@ public class MainActivity extends NetworkCallActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.page_1:
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                     return true;
                 case R.id.page_2:
                     startActivity(new Intent(this, CourseDetailsActivity.class));
                     return true;
                 case R.id.page_3:
+                    bottomSheetDialogForPhone.show();
                     return true;
                 case R.id.page_4:
-                    bottomSheetDialogForPhone.show();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                     //bottomDialog.show();
                     return true;
                 default:
                     return false;
             }
+
         });
     }
 

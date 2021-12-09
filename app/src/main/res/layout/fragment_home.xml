@@ -328,7 +328,7 @@
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginEnd="@dimen/_90sdp"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="@dimen/_10sdp"/>
 
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="wrap_content"
@@ -345,7 +345,7 @@
                 <ImageView
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_120sdp"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_60sdp"
                     android:src="@drawable/icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
