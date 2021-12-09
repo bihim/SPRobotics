@@ -11,7 +11,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
-        app:lottie_fileName="success_payment.json"
+        app:lottie_fileName="error_payment.json"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         android:layout_marginTop="@dimen/_30sdp"/>
@@ -19,17 +19,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Payment Successful"
+        android:text="Payment Failed"
         android:textSize="@dimen/_15ssp"
         android:textStyle="bold"
-        android:textColor="@color/colors6"/>
+        android:textColor="@color/colors4"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your order has been placed successfully"
+        android:text="Your order was cancelled due to payment failure"
         android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_12ssp"
+        android:layout_marginBottom="@dimen/_30sdp"
         android:textColor="@color/black"/>
 
     <com.google.android.material.card.MaterialCardView
@@ -58,24 +59,8 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/_16ssp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textColor="@color/colors6"/>
+                android:textColor="@color/colors4"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Amount Paid"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 11,500"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16ssp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:textColor="@color/colors1"/>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -92,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:backgroundTint="@color/colors3"
+        android:backgroundTint="@color/colors4"
         android:paddingHorizontal="@dimen/_30sdp"
         android:paddingVertical="@dimen/_11sdp"
         android:text="Rate Us"/>

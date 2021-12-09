@@ -16,7 +16,10 @@
         android:theme="@style/Theme.SPRobotics"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.activity.PaymentSuccessfulActivity"
+            android:name=".view.activity.ErrorPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.SuccessPaymentActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.ChildEditActivity"

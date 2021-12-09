@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.sprobotics.R;
 
-public class PaymentSuccessfulActivity extends AppCompatActivity {
+public class SuccessPaymentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
