@@ -1,5 +1,6 @@
 package com.sprobotics.view.activity;
 
+import static com.sprobotics.network.util.Constant.GET_AGE_GROUP;
 import static com.sprobotics.network.util.Constant.MOBILE_LOGIN;
 import static com.sprobotics.network.util.Constant.MOBILE_OTP;
 
@@ -29,12 +30,16 @@ import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.model.loginresponse.LogInResponse;
 import com.sprobotics.model.mobileotp.PhoneOtpSentResponse;
+import com.sprobotics.network.util.Constant;
 import com.sprobotics.network.util.GsonUtil;
 import com.sprobotics.network.util.ToastUtils;
 import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.util.MethodClass;
 import com.sprobotics.util.NetworkCallActivity;
 import com.sprobotics.view.fragment.HomeFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +59,9 @@ public class MainActivity extends NetworkCallActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+
+        getAgeGroupId();
+
         setContentView(R.layout.activity_main);
         findViewById();
         setButtonCallBacks();
@@ -191,12 +199,17 @@ public class MainActivity extends NetworkCallActivity {
     // API calling
 
     public void requestForMobileOTP(String mobile) {
-        this.mobile=mobile;
+        this.mobile = mobile;
         HashMap<String, String> map = new HashMap<>();
         map.put("mobile", mobile);
         apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
 
 
+    }
+
+
+    public void getAgeGroupId() {
+        apiRequest.callGetRequest(GET_AGE_GROUP, GET_AGE_GROUP);
     }
 
 
@@ -226,8 +239,23 @@ public class MainActivity extends NetworkCallActivity {
         if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
             LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
 
-            SessionManager.setValue(SessionManager.LOGIN_RESPONSE,GsonUtil.toJsonString(response1));
+            SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
 
+
+        }
+        if (tag.equalsIgnoreCase(GET_AGE_GROUP)) {
+
+            try {
+                JSONObject object = new JSONObject(response.toString());
+
+                Constant.JUNIOR_AGE_ID = object.getString("Junior");
+                Constant.SENIOR_AGE_ID = object.getString("Senior");
+                Constant.SUPER_SENIOR_AGE_ID = object.getString("Super Senior");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
 
         }

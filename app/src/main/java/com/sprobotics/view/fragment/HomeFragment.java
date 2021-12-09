@@ -1,5 +1,7 @@
 package com.sprobotics.view.fragment;
 
+import static com.sprobotics.network.util.Constant.MOBILE_OTP;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sprobotics.R;
+import com.sprobotics.util.NetworkCallFragment;
 
-public class HomeFragment extends Fragment {
+import java.util.HashMap;
+
+public class HomeFragment extends NetworkCallFragment {
 
     private TextView textViewName;
     private ImageButton imageButtonCart;
@@ -59,4 +64,14 @@ public class HomeFragment extends Fragment {
 
         });
     }
+
+  /*  public void getCourseList() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("mobile", mobile);
+        apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
+
+
+    }*/
+
+
 }
