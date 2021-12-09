@@ -1,10 +1,14 @@
 package com.sprobotics.util;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,6 +17,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -28,11 +35,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.labters.lottiealertdialoglibrary.ClickListener;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
@@ -42,11 +60,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TimeZone;
@@ -55,6 +76,8 @@ import java.util.regex.Pattern;
 
 
 public class MethodClass {
+
+    public static final int REQUEST_CHECK_SETTINGS = 0x1;
 
 
     public static void showAlertDialog(Activity activity, boolean isSuccess, String title, String description, boolean isCancelable) {
@@ -127,6 +150,131 @@ public class MethodClass {
     public static void hide_keyboard(Activity activity) {
         (activity).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
+
+
+    public static void getLocation(final Activity activity) {
+        try {
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    new AlertDialog.Builder(activity)
+                            .setTitle(activity.getResources().getString(R.string.location_permission))
+                            .setMessage(activity.getResources().getString(R.string.location_permission_message))
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //Prompt the user once explanation has been shown
+                                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                                }
+                            })
+                            .create()
+                            .show();
+
+                } else {
+                    // No explanation needed, we can request the permission.
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                }
+            } else {
+                /*gps = new GPSTracker(activity);
+                if (gps.canGetLocation()) {
+                    user_location = gps.getAddressLine(activity);
+
+                }
+                if (gps.getIsGPSTrackingEnabled()) {
+                    latitude1 = gps.latitude;
+                    longitude1 = gps.longitude;
+                    new Session(activity).setData(Constant.LATITUDE, "" + gps.latitude);
+                    new Session(activity).setData(Constant.LONGITUDE, "" + gps.longitude);
+                }*/
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean isGPSEnable(Activity activity) {
+        LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+        assert locationManager != null;
+        boolean GpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return GpsStatus;
+    }
+
+    public static String getAddress(double lat, double lng, Activity activity) {
+        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+        String address = "";
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            if (addresses.size() != 0) {
+                Address obj = addresses.get(0);
+                String add = obj.getAddressLine(0);
+                address = add;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        return address;
+    }
+
+    public static String getPincode(double lat, double lng, Activity activity) {
+        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+        String pin = "";
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            if (addresses.size() != 0) {
+                Address obj = addresses.get(0);
+                String add = obj.getPostalCode();
+                pin = add;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        return pin;
+    }
+
+    public static void displayLocationSettingsRequest(final Activity activity) {
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(activity)
+                .addApi(LocationServices.API).build();
+        googleApiClient.connect();
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+
+
+                        try {
+
+                            status.startResolutionForResult(activity, REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.i("TAG", "PendingIntent unable to execute request.");
+                        }
+                        break;
+
+                }
+            }
+        });
+    }
+
+
 
 
     public static JSONObject Json_rpc_format(HashMap<String, String> params) {

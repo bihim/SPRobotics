@@ -105,10 +105,12 @@
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
+            tools:itemCount="2"
             tools:listitem="@layout/recyclerview_cart"/>
 
         <com.google.android.material.card.MaterialCardView

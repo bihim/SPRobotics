@@ -3,23 +3,40 @@ package com.sprobotics.view.activity;
 import static com.sprobotics.network.util.Constant.GET_AGE_GROUP;
 import static com.sprobotics.network.util.Constant.MOBILE_LOGIN;
 import static com.sprobotics.network.util.Constant.MOBILE_OTP;
+import static com.sprobotics.util.MethodClass.getAddress;
+import static com.sprobotics.util.MethodClass.getPincode;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
@@ -62,6 +79,18 @@ public class MainActivity extends NetworkCallActivity {
 
 
         setContentView(R.layout.activity_main);
+
+        MethodClass.getLocation(activity);
+
+        if (MethodClass.isGPSEnable(activity)) {
+
+            gettingCurrentLocationByButtonClick();
+
+        } else {
+            MethodClass.displayLocationSettingsRequest(activity);
+        }
+
+
         findViewById();
         setButtonCallBacks();
         setBottomSheet();
@@ -69,6 +98,154 @@ public class MainActivity extends NetworkCallActivity {
         setBottomNavigationView();
         setFragment(savedInstanceState);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == MethodClass.REQUEST_CHECK_SETTINGS) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    gettingCurrentLocationByButtonClick();
+                    break;
+                case Activity.RESULT_CANCELED:
+                    Toast.makeText(activity, "You have to enable GPS", Toast.LENGTH_SHORT).show();
+                    MethodClass.displayLocationSettingsRequest(activity);
+                    break;
+                default:
+                    break;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        fragment.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 10) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //  Toast.makeText(activity, "Permission Granted", Toast.LENGTH_SHORT).show();
+
+            } else {
+                new androidx.appcompat.app.AlertDialog.Builder(activity)
+                        .setTitle(activity.getResources().getString(R.string.location_permission))
+                        .setMessage(activity.getResources().getString(R.string.location_permission_message))
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        10);
+                            }
+                        })
+                        .create()
+                        .show();
+
+            }
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+
+    private void gettingCurrentLocationByButtonClick() {
+
+
+        if ((ActivityCompat.checkSelfPermission((Activity) activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                || (ActivityCompat.checkSelfPermission((Activity) activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new AlertDialog.Builder(activity)
+                        .setTitle(getString(R.string.location_permission))
+                        .setMessage(getString(R.string.location_permission_message))
+                        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(activity,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        10);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(activity,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        10);
+            }
+        }
+
+        FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(activity, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+
+                if (location == null) {
+
+                    RequestLocation();
+
+                    //  ToastUtils.showLong(activity, "Unable to get Location", true);
+                    return;
+                }
+
+                if (location != null) {
+
+                    String pincode = getPincode(location.getLatitude(), location.getLongitude(), activity);
+                    String address = getAddress(location.getLatitude(), location.getLongitude(), activity);
+
+
+                    //  ToastUtils.showLong(activity,getPincode(location.getLatitude(),location.getLongitude(),activity),true);
+                    ToastUtils.showLong(activity, "Your current address is  " + address, true);
+                    Constant.PINCODE = pincode;
+                    Constant.ADDRESS = address;
+
+
+                }
+            }
+        });
+
+    }
+
+    private void RequestLocation() {
+
+        LocationRequest mLocationRequest = LocationRequest.create();
+
+
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        LocationCallback mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    ToastUtils.showLong(activity, "Unable to get your current location", true);
+
+
+                    return;
+                }
+                //  for (Location location : locationResult.getLocations()) {
+                if (locationResult != null) {
+
+                    gettingCurrentLocationByButtonClick();
+
+
+                    //  }
+                }
+            }
+        };
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        LocationServices.getFusedLocationProviderClient(activity).requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+    }
+
 
     private void findViewById() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);

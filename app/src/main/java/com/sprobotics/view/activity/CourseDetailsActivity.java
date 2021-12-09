@@ -1,5 +1,7 @@
 package com.sprobotics.view.activity;
 
+import static com.sprobotics.network.util.Constant.ADD_CART;
+import static com.sprobotics.network.util.Constant.GET_CART;
 import static com.sprobotics.network.util.Constant.MOBILE_LOGIN;
 import static com.sprobotics.network.util.Constant.MOBILE_OTP;
 
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
@@ -28,13 +31,19 @@ import com.mukesh.OtpView;
 import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CourseDetailsPageAdapter;
+import com.sprobotics.model.cartrespone.CartResponse;
 import com.sprobotics.model.courseresponse.DataItem;
+import com.sprobotics.model.loginresponse.LogInResponse;
+import com.sprobotics.network.util.GsonUtil;
 import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.util.MethodClass;
 import com.sprobotics.util.NetworkCallActivity;
 import com.sprobotics.view.fragment.CourseDetailsFragment;
 import com.sprobotics.view.fragment.CourseLearnFragment;
 import com.sprobotics.view.fragment.HomeFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -56,6 +65,7 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         setContentView(R.layout.activity_course_details);
         activity = this;
         courseDetails = (DataItem) getIntent().getSerializableExtra("MyClass");
+
 
         findViewById();
         setButtonCallBacks();
@@ -98,6 +108,7 @@ public class CourseDetailsActivity extends NetworkCallActivity {
                 bottomSheetDialogForPhone.show();
             } else {
                 // go to cart page
+                getCartData();
                 Logger.d("I am here");
             }
 
@@ -271,6 +282,94 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("mobile", mobile);
         apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
+
+
+    }
+
+    public void getCartData() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
+        apiRequest.postRequest(GET_CART, map, GET_CART);
+
+
+    }
+
+    @Override
+    public void OnCallBackSuccess(String tag, String response) {
+        super.OnCallBackSuccess(tag, response);
+
+        if (tag.equalsIgnoreCase(GET_CART)) {
+            CartResponse response1 = (CartResponse) GsonUtil.toObject(response, CartResponse.class);
+
+            if (response1.getData().size() == 0) {
+
+                HashMap<String, String> map = new HashMap<>();
+                map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
+                map.put("total_local_price", courseDetails.getPrice().get(0));
+                map.put("billing_address_id", "");
+                map.put("delivery_address_id", "");
+                map.put("cart_item_id", "");
+                map.put("cart_id", "");
+                map.put("product_id", "" + courseDetails.getProductId());
+                map.put("quantity", "1");
+                map.put("local_price", courseDetails.getPrice().get(0));
+                apiRequest.postRequest(ADD_CART, map, ADD_CART);
+
+
+            } else {
+
+                String courseId = "";
+
+                for (com.sprobotics.model.cartrespone.DataItem dataItem : response1.getData()) {
+
+                    if (dataItem.getProductId().equalsIgnoreCase("" + courseDetails.getProductId())) {
+                        courseId = dataItem.getItemId();
+                        break;
+                    }
+
+                }
+
+
+                int totalPrice = (int) (Double.parseDouble(response1.getData1().getProductTotalPrice()) + Double.parseDouble(courseDetails.getPrice().get(0)));
+
+                if (courseId.equals("")) {
+
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
+                    map.put("total_local_price", "" + totalPrice);
+                    map.put("billing_address_id", "");
+                    map.put("delivery_address_id", "");
+                    map.put("cart_item_id", "");
+                    map.put("cart_id", "");
+                    map.put("product_id", "" + courseDetails.getProductId());
+                    map.put("quantity", "1");
+                    map.put("local_price", courseDetails.getPrice().get(0));
+                    apiRequest.postRequest(ADD_CART, map, ADD_CART);
+
+                } else {
+
+                    Toast.makeText(CourseDetailsActivity.this, "You already have this course in your cart", Toast.LENGTH_SHORT).show();
+                    MethodClass.go_to_next_activity(CourseDetailsActivity.this, CartActivity.class);
+
+                }
+
+
+            }
+
+
+        }
+        if (tag.equalsIgnoreCase(ADD_CART)) {
+
+            try {
+                JSONObject object = new JSONObject(response);
+                Toast.makeText(CourseDetailsActivity.this, object.getString("data"), Toast.LENGTH_SHORT).show();
+                MethodClass.go_to_next_activity(CourseDetailsActivity.this, CartActivity.class);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
 
 
     }

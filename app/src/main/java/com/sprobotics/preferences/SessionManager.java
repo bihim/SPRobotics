@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.sprobotics.R;
+import com.sprobotics.model.loginresponse.LogInResponse;
+import com.sprobotics.network.util.GsonUtil;
 
 public class SessionManager {
 
@@ -30,10 +32,10 @@ public class SessionManager {
         editor.putBoolean("isLoggedIn", is);
         editor.commit();
     }
+
     public static boolean isLoggedIn() {
         return preferences.getBoolean("isLoggedIn", false);
     }
-
 
 
     public static void setValue(String key, String value) {
@@ -43,6 +45,12 @@ public class SessionManager {
 
     public static String getValue(String key) {
         return preferences.getString(key, "");
+    }
+
+
+    public static LogInResponse getLoginResponse() {
+        LogInResponse response1 = (LogInResponse) GsonUtil.toObject(preferences.getString(LOGIN_RESPONSE, ""), LogInResponse.class);
+        return response1;
     }
 
 

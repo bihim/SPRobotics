@@ -64,6 +64,7 @@
             android:layout_marginTop="@dimen/_10sdp">
 
             <TextView
+                android:id="@+id/course_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Scratch Programming Online Course"
@@ -71,6 +72,7 @@
                 android:textSize="@dimen/_11ssp" />
 
             <TextView
+                android:id="@+id/tvCoursePrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
@@ -102,6 +104,7 @@
                         app:tint="@color/white" />
 
                     <TextView
+                        android:id="@+id/tvQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
