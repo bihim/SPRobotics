@@ -85,7 +85,7 @@ public class MainActivity extends NetworkCallActivity {
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                     return true;
                 case R.id.page_2:
-                    startActivity(new Intent(this, CourseDetailsActivity.class));
+                    //startActivity(new Intent(this, CourseDetailsActivity.class));
                     return true;
                 case R.id.page_3:
                     bottomSheetDialogForPhone.show();
