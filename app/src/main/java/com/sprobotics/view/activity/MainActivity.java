@@ -1,5 +1,6 @@
 package com.sprobotics.view.activity;
 
+import static com.sprobotics.network.util.Constant.GET_AGE_GROUP;
 import static com.sprobotics.network.util.Constant.MOBILE_LOGIN;
 import static com.sprobotics.network.util.Constant.MOBILE_OTP;
 
@@ -15,7 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,15 +23,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.labters.lottiealertdialoglibrary.ClickListener;
-import com.labters.lottiealertdialoglibrary.DialogTypes;
-import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
-import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.model.loginresponse.LogInResponse;
 import com.sprobotics.model.mobileotp.PhoneOtpSentResponse;
+import com.sprobotics.network.util.Constant;
 import com.sprobotics.network.util.GsonUtil;
 import com.sprobotics.network.util.ToastUtils;
 import com.sprobotics.preferences.SessionManager;
@@ -41,8 +38,10 @@ import com.sprobotics.view.fragment.CourseDetailsFragment;
 import com.sprobotics.view.fragment.HomeFragment;
 import com.sprobotics.view.fragment.ProfileFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends NetworkCallActivity {
 
@@ -59,6 +58,8 @@ public class MainActivity extends NetworkCallActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+
+
         setContentView(R.layout.activity_main);
         findViewById();
         setButtonCallBacks();
@@ -162,7 +163,6 @@ public class MainActivity extends NetworkCallActivity {
         MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
         EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
 
-
         editText_carrierNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -199,7 +199,7 @@ public class MainActivity extends NetworkCallActivity {
     // API calling
 
     public void requestForMobileOTP(String mobile) {
-        this.mobile=mobile;
+        this.mobile = mobile;
         HashMap<String, String> map = new HashMap<>();
         map.put("mobile", mobile);
         apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
@@ -233,12 +233,12 @@ public class MainActivity extends NetworkCallActivity {
         }
         if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
             LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
-
-            SessionManager.setValue(SessionManager.LOGIN_RESPONSE,GsonUtil.toJsonString(response1));
-
+            SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
+            SessionManager.setLoggedIn(true);
 
 
         }
+
 
     }
 }
