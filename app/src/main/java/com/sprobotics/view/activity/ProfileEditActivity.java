@@ -2,6 +2,8 @@ package com.sprobotics.view.activity;
 
 import static com.sprobotics.network.zubaer.Global.API_PLACE_HOLDER;
 import static com.sprobotics.network.zubaer.Global.SHOW_ERROR_TOAST;
+import static com.sprobotics.network.zubaer.Global.SHOW_INFO_TOAST;
+import static com.sprobotics.network.zubaer.Global.SHOW_SUCCESS_TOAST;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +12,9 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -19,10 +24,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
+import com.sprobotics.model.AddressModel;
 import com.sprobotics.model.ProfileEditModel;
+import com.sprobotics.model.StateCityModel;
 import com.sprobotics.preferences.SessionManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -31,15 +39,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileEditActivity extends AppCompatActivity {
+    private final String userId = SessionManager.getLoginResponse().getData().getCustomerId();
     private TextInputEditText textInputEditTextName, textInputEditTextContactNo, textInputEditTextEmail,
             textInputEditTextStudentName, textInputEditTextStudentEmail, textInputEditTextStudentContactNo, textInputEditTextStudentDateOfBirth;
     private Calendar myCalendar = Calendar.getInstance();
     private RadioGroup radioGroupGender;
     private Activity activity;
     private MaterialButton materialButtonUpdateStudentAndProfile;
+    private MaterialButton materialButtonUpdateAddress;
     private ProgressBar progressBarStudentProfile;
+    private ProgressBar progressBarStudentAddress;
     private String gender = "Male";
     private String dob;
+    private ArrayList<StateCityModel.Datum> stateArrayList = new ArrayList<>();
+    private ArrayList<StateCityModel.Datum> cityArrayList = new ArrayList<>();
+    private ArrayList<String> stateArrayListString = new ArrayList<>();
+    private ArrayList<String> cityArrayListString = new ArrayList<>();
+    private AutoCompleteTextView autoCompleteTextViewState;
+    private AutoCompleteTextView autoCompleteTextViewCity;
+    private String stateId;
+    private String cityId;
+    private TextInputEditText textInputEditTextAddress, textInputEditTextPostalCode, textInputEditTextContactNoAddress;
 
 
     @Override
@@ -50,13 +70,182 @@ public class ProfileEditActivity extends AppCompatActivity {
         setButtonCallBacks();
     }
 
+    private void setAddress(String address, String postalCode, String contactNo) {
+        progressBarStudentAddress.setVisibility(View.VISIBLE);
+        Call<AddressModel> call = API_PLACE_HOLDER.setAddress(userId, address, cityId, stateId, postalCode, contactNo);
+        call.enqueue(new Callback<AddressModel>() {
+            @Override
+            public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
+                progressBarStudentAddress.setVisibility(View.GONE);
+                String json = new Gson().toJson(response.body());
+                Logger.json(json);
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        AddressModel addressModel = response.body();
+                        if (addressModel.getResponse()){
+                            textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
+                            textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
+                            textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
+                            autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0));
+                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0));
+                            stateId = addressModel.getData().get(0).getStateId().toString();
+                            cityId = addressModel.getData().get(0).getCityId().toString();
+                            getCity(cityId);
+                            SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
+                        }
+                        else{
+                            SHOW_ERROR_TOAST(activity, "Could not update");
+                        }
+                    } else {
+                        SHOW_ERROR_TOAST(activity, "Could not update");
+                    }
+                } else {
+                    SHOW_ERROR_TOAST(activity, "Could not update");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddressModel> call, Throwable t) {
+                SHOW_ERROR_TOAST(activity, "Server error");
+                progressBarStudentAddress.setVisibility(View.GONE);
+                Logger.e(t.getMessage());
+            }
+        });
+    }
+
+    private void getAddress() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.show();
+        Call<AddressModel> call = API_PLACE_HOLDER.getAddress(userId);
+        call.enqueue(new Callback<AddressModel>() {
+            @Override
+            public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
+                progressDialog.dismiss();
+                String json = new Gson().toJson(response.body());
+                Logger.json(json);
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        AddressModel addressModel = response.body();
+                        if (addressModel.getResponse()){
+                            textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
+                            textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
+                            textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
+                            autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0));
+                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0));
+                            stateId = addressModel.getData().get(0).getStateId().toString();
+                            cityId = addressModel.getData().get(0).getCityId().toString();
+                            getCity(cityId);
+                        }
+                        else{
+                            SHOW_INFO_TOAST(activity, "Please update your address");
+                        }
+                    } else {
+                        SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                    }
+                } else {
+                    SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddressModel> call, Throwable t) {
+                SHOW_ERROR_TOAST(activity, "Server error");
+                progressDialog.dismiss();
+                Logger.e(t.getMessage());
+            }
+        });
+    }
+
+
+    private void getCity(String stateId) {
+        cityArrayList.clear();
+        cityArrayListString.clear();
+        autoCompleteTextViewCity.setText("");
+        cityId = null;
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Cities");
+        progressDialog.show();
+        Call<StateCityModel> call = API_PLACE_HOLDER.getCity(stateId);
+        call.enqueue(new Callback<StateCityModel>() {
+            @Override
+            public void onResponse(Call<StateCityModel> call, Response<StateCityModel> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        StateCityModel stateCityModel = response.body();
+                        cityArrayList = new ArrayList<>(stateCityModel.getData());
+                        for (StateCityModel.Datum data : cityArrayList) {
+                            cityArrayListString.add(data.getName());
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ProfileEditActivity.this, android.R.layout.simple_list_item_1, cityArrayListString);
+                        autoCompleteTextViewCity.setAdapter(adapter);
+                        autoCompleteTextViewCity.setOnItemClickListener((adapterView, view, i, l) -> {
+                            Logger.d("Selected State: " + cityArrayList.get(i).getName());
+                            cityId = cityArrayList.get(i).getId().toString();
+                        });
+                    } else {
+                        SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                    }
+                } else {
+                    SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StateCityModel> call, Throwable t) {
+                SHOW_ERROR_TOAST(activity, "Server error");
+                progressDialog.dismiss();
+                Logger.e(t.getMessage());
+            }
+        });
+    }
+
+
+    private void getStates() {
+        stateArrayList.clear();
+        stateArrayListString.clear();
+        Call<StateCityModel> call = API_PLACE_HOLDER.getStates();
+        call.enqueue(new Callback<StateCityModel>() {
+            @Override
+            public void onResponse(Call<StateCityModel> call, Response<StateCityModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        StateCityModel stateCityModel = response.body();
+                        stateArrayList = new ArrayList<>(stateCityModel.getData());
+                        for (StateCityModel.Datum data : stateArrayList) {
+                            stateArrayListString.add(data.getName());
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ProfileEditActivity.this, android.R.layout.simple_list_item_1, stateArrayListString);
+                        autoCompleteTextViewState.setAdapter(adapter);
+                        autoCompleteTextViewState.setOnItemClickListener((adapterView, view, i, l) -> {
+                            Logger.d("Selected State: " + stateArrayList.get(i).getName());
+                            stateId = stateArrayList.get(i).getId().toString();
+                            getCity(stateId);
+                        });
+                    } else {
+                        SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                    }
+                } else {
+                    SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StateCityModel> call, Throwable t) {
+                SHOW_ERROR_TOAST(activity, "Server error");
+                Logger.e(t.getMessage());
+            }
+        });
+    }
+
     private void getAndSetProfileInfo(boolean isGetting, String name, String contactNo, String email, String studentName,
-                                      String studentEmail, String studentContactNo, String dob, String gender) {
-        String userId = SessionManager.getLoginResponse().getData().getCustomerId();
+                                      String studentEmail, String studentContactNo, String getDob, String gender) {
+        Logger.d("User Id: " + userId);
         if (!isGetting) {
             progressBarStudentProfile.setVisibility(View.VISIBLE);
             Logger.d("User Id: " + userId);
-            Call<ProfileEditModel> call = API_PLACE_HOLDER.setProfile(userId, name, email, contactNo, studentName, studentEmail, studentContactNo, dob, gender);
+            Call<ProfileEditModel> call = API_PLACE_HOLDER.setProfile(userId, name, email, contactNo, studentName, studentEmail, studentContactNo, getDob, gender);
             call.enqueue(new Callback<ProfileEditModel>() {
                 @Override
                 public void onResponse(Call<ProfileEditModel> call, Response<ProfileEditModel> response) {
@@ -83,6 +272,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                                 } else {
                                     radioGroupGender.check(R.id.profile_student_male);
                                 }
+                                SHOW_SUCCESS_TOAST(activity, "Updated Successfully");
 
                             } else {
                                 SHOW_ERROR_TOAST(activity, "Data Fetch Error");
@@ -126,6 +316,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                                 textInputEditTextStudentEmail.setText(profileEditModel.getData().get(0).getDetails().getStudentEmailId());
                                 textInputEditTextStudentContactNo.setText(profileEditModel.getData().get(0).getDetails().getStudentContactNo());
                                 textInputEditTextStudentDateOfBirth.setText(profileEditModel.getData().get(0).getDetails().getDob());
+                                dob = profileEditModel.getData().get(0).getDetails().getDob();
                                 if (profileEditModel.getData().get(0).getDetails().getGender() != null) {
                                     if (profileEditModel.getData().get(0).getDetails().getGender().equals("MALE")) {
                                         radioGroupGender.check(R.id.profile_student_male);
@@ -170,7 +361,14 @@ public class ProfileEditActivity extends AppCompatActivity {
         textInputEditTextStudentDateOfBirth = findViewById(R.id.profile_student_date_of_birth);
         radioGroupGender = findViewById(R.id.profile_student_gender);
         progressBarStudentProfile = findViewById(R.id.profile_progress_bar);
+        progressBarStudentAddress = findViewById(R.id.profile_progress_bar_address);
         materialButtonUpdateStudentAndProfile = findViewById(R.id.profile_and_student_update);
+        materialButtonUpdateAddress = findViewById(R.id.profile_address_update);
+        autoCompleteTextViewState = findViewById(R.id.profile_state);
+        autoCompleteTextViewCity = findViewById(R.id.profile_city);
+        textInputEditTextAddress = findViewById(R.id.profile_address);
+        textInputEditTextPostalCode = findViewById(R.id.profile_postalcode);
+        textInputEditTextContactNoAddress = findViewById(R.id.profile_contact_no_address);
     }
 
     private void setButtonCallBacks() {
@@ -206,7 +404,15 @@ public class ProfileEditActivity extends AppCompatActivity {
                         dob, gender
                 );
             }
+        });
 
+        materialButtonUpdateAddress.setOnClickListener(v->{
+            if (textInputEditTextContactNoAddress.getText().toString().length()<10){
+                SHOW_ERROR_TOAST(activity, "Invalid Number");
+            }
+            else{
+                setAddress(textInputEditTextAddress.getText().toString(), textInputEditTextPostalCode.getText().toString(), textInputEditTextContactNoAddress.getText().toString());
+            }
         });
     }
 
@@ -223,5 +429,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getAndSetProfileInfo(true, "", "", "", "", "", "", "", "");
+        getStates();
+        getAddress();
     }
 }

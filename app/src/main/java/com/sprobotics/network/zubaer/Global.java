@@ -12,7 +12,11 @@ public class Global {
     }
 
     public static void SHOW_SUCCESS_TOAST(Activity activity, String text){
-        Toasty.error(activity, text, Toasty.LENGTH_SHORT).show();
+        Toasty.success(activity, text, Toasty.LENGTH_SHORT).show();
+    }
+
+    public static void SHOW_INFO_TOAST(Activity activity, String text){
+        Toasty.info(activity, text, Toasty.LENGTH_SHORT).show();
     }
 
 }
