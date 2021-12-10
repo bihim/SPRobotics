@@ -303,7 +303,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 public void onResponse(Call<ProfileEditModel> call, Response<ProfileEditModel> response) {
                     String responseString = new Gson().toJson(response.body());
                     Logger.d(responseString);
-
                     progressDialog.dismiss();
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
@@ -341,7 +340,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ProfileEditModel> call, Throwable t) {
                     SHOW_ERROR_TOAST(activity, "Something went wrong");
-
                     progressDialog.dismiss();
                     Logger.e(t.getMessage());
                 }
