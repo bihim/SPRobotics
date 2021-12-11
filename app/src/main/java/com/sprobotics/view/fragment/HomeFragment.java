@@ -1,10 +1,9 @@
 package com.sprobotics.view.fragment;
 
+import static com.sprobotics.network.util.Constant.ADD_CART;
 import static com.sprobotics.network.util.Constant.GET_AGE_GROUP;
-import static com.sprobotics.network.util.Constant.MOBILE_OTP;
+import static com.sprobotics.network.util.Constant.GET_CART;
 import static com.sprobotics.network.util.Constant.PRODUCT_LIST;
-
-import android.net.Uri;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,26 +12,25 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.devbrackets.android.exomedia.listener.OnBufferUpdateListener;
-import com.devbrackets.android.exomedia.listener.OnPreparedListener;
-import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.google.android.material.card.MaterialCardView;
 import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CourseAdapter;
+import com.sprobotics.model.cartrespone.CartResponse;
 import com.sprobotics.model.courseresponse.CourseListResponse;
-import com.sprobotics.model.mobileotp.PhoneOtpSentResponse;
 import com.sprobotics.network.util.Constant;
 import com.sprobotics.network.util.GsonUtil;
-import com.sprobotics.network.util.ToastUtils;
 import com.sprobotics.preferences.SessionManager;
+import com.sprobotics.util.MethodClass;
 import com.sprobotics.util.NetworkCallFragment;
+import com.sprobotics.view.activity.CartActivity;
+import com.sprobotics.view.activity.CourseDetailsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +42,7 @@ public class HomeFragment extends NetworkCallFragment {
     private TextView textViewName;
     private ImageButton imageButtonCart;
     private LinearLayout cartCountView;
-    private TextView cartCount;
+    private TextView textview_cartCount;
 
     private ImageButton imageButtonNoti;
     private TextView NotiCount;
@@ -70,7 +68,7 @@ public class HomeFragment extends NetworkCallFragment {
         textViewName = view.findViewById(R.id.home_fragment_name);
         imageButtonCart = view.findViewById(R.id.cart_button);
         cartCountView = view.findViewById(R.id.cart_count_view);
-        cartCount = view.findViewById(R.id.cart_count);
+        textview_cartCount = view.findViewById(R.id.cart_count);
 
         imageButtonNoti = view.findViewById(R.id.notification_button);
         LinearLayout notiCountView = view.findViewById(R.id.noti_count_view);
@@ -88,6 +86,20 @@ public class HomeFragment extends NetworkCallFragment {
         textViewSuperSenior = view.findViewById(R.id.super_senior_course_text);
 
         getAgeGroupId();
+
+
+        if (SessionManager.isLoggedIn()){
+            getCartData();
+        }
+
+
+    }
+
+    public void getCartData() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
+        apiRequest.postRequest(GET_CART, map, GET_CART);
+
     }
 
     private void selectedTopButtonColor(MaterialCardView materialCardView, TextView textView) {
@@ -107,9 +119,7 @@ public class HomeFragment extends NetworkCallFragment {
     }
 
     private void setButtonCallbacks() {
-        imageButtonCart.setOnClickListener(v -> {
 
-        });
         imageButtonNoti.setOnClickListener(v -> {
 
         });
@@ -118,7 +128,7 @@ public class HomeFragment extends NetworkCallFragment {
         materialCardViewSuperSenior.setOnClickListener(v->{
             Logger.d(materialCardViewSuperSenior.getStrokeWidth());
             HashMap<String, String> map = new HashMap<>();
-            map.put("age_category_id", "253");
+            map.put("age_category_id", Constant.SUPER_SENIOR_AGE_ID);
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
             unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
@@ -127,7 +137,7 @@ public class HomeFragment extends NetworkCallFragment {
 
         materialCardViewJunior.setOnClickListener(v->{
             HashMap<String, String> map = new HashMap<>();
-            map.put("age_category_id", "251");
+            map.put("age_category_id",  Constant.JUNIOR_AGE_ID);
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             selectedTopButtonColor(materialCardViewJunior, textViewJunior);
             unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
@@ -136,7 +146,7 @@ public class HomeFragment extends NetworkCallFragment {
 
         materialCardViewSenior.setOnClickListener(v->{
             HashMap<String, String> map = new HashMap<>();
-            map.put("age_category_id", "252");
+            map.put("age_category_id", Constant.SENIOR_AGE_ID);
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
             selectedTopButtonColor(materialCardViewSenior, textViewSenior);
@@ -208,6 +218,20 @@ public class HomeFragment extends NetworkCallFragment {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+
+
+        }
+
+        if (tag.equalsIgnoreCase(GET_CART)) {
+            CartResponse response1 = (CartResponse) GsonUtil.toObject(response, CartResponse.class);
+
+            if (response1.getData().size()>0){
+                textview_cartCount.setText(""+response1.getData().size());
+                imageButtonCart.setOnClickListener(v -> {
+                    MethodClass.go_to_next_activity(getActivity(), CartActivity.class);
+                });
+
             }
 
 

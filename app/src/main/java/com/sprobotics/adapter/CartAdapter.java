@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.sprobotics.R;
 import com.sprobotics.model.cartrespone.DataItem;
+import com.sprobotics.view.activity.CartActivity;
 import com.sprobotics.view.activity.CourseDetailsActivity;
 
 import java.util.List;
@@ -27,6 +29,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
         this.list = list;
         this.context = context;
     }
+
+
+    public void addItem(List<DataItem> items) {
+        this.list = items;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -43,7 +52,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
         holder.tvQuantity.setText(item.getProductQuantity());
 
 
+        holder.imgDeleteItem.setOnClickListener(v -> {
 
+            ((CartActivity) context).updateQuantity();
+
+        });
+        holder.imgPlus.setOnClickListener(v -> {
+
+            ((CartActivity) context).updateQuantity();
+
+        });
+        holder.imgMinus.setOnClickListener(v -> {
+
+            ((CartActivity) context).updateQuantity();
+
+        });
 
 
     }
@@ -54,7 +77,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
     }
 
     public class CourseViewHolder extends RecyclerView.ViewHolder {
-        TextView tvQuantity, tvCoursePrice,course_name;
+        TextView tvQuantity, tvCoursePrice, course_name;
+        ImageButton imgDeleteItem, imgPlus, imgMinus;
 
 
         public CourseViewHolder(@NonNull View itemView) {
@@ -62,6 +86,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
             tvCoursePrice = itemView.findViewById(R.id.tvCoursePrice);
             course_name = itemView.findViewById(R.id.course_name);
+
+            imgDeleteItem = itemView.findViewById(R.id.imgDeleteItem);
+            imgPlus = itemView.findViewById(R.id.imgPlus);
+            imgMinus = itemView.findViewById(R.id.imgMinus);
         }
     }
 }

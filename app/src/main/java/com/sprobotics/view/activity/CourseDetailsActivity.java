@@ -291,7 +291,6 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
         apiRequest.postRequest(GET_CART, map, GET_CART);
 
-
     }
 
     @Override

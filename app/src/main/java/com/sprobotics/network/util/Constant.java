@@ -9,6 +9,7 @@ public class Constant {
     public static final String PRODUCT_LIST=BASE_URL+"product";
     public static final String GET_CART=BASE_URL+"get-cart";
     public static final String ADD_CART=BASE_URL+"cart";
+    public static final String APPLY_COUPON=BASE_URL+"coupon";
 
 
 
