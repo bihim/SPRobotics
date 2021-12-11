@@ -34,7 +34,9 @@ import com.sprobotics.adapter.CourseDetailsPageAdapter;
 import com.sprobotics.model.cartrespone.CartResponse;
 import com.sprobotics.model.courseresponse.DataItem;
 import com.sprobotics.model.loginresponse.LogInResponse;
+import com.sprobotics.model.mobileotp.PhoneOtpSentResponse;
 import com.sprobotics.network.util.GsonUtil;
+import com.sprobotics.network.util.ToastUtils;
 import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.util.MethodClass;
 import com.sprobotics.util.NetworkCallActivity;
@@ -259,8 +261,6 @@ public class CourseDetailsActivity extends NetworkCallActivity {
                 if (s.toString().length() == 10) {
                     requestForMobileOTP(s.toString());
                 }
-
-
             }
         });
 
@@ -282,8 +282,6 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("mobile", mobile);
         apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
-
-
     }
 
     public void getCartData() {
@@ -368,6 +366,19 @@ public class CourseDetailsActivity extends NetworkCallActivity {
             }
 
 
+        }
+
+        if (tag.equalsIgnoreCase(MOBILE_OTP)) {
+            PhoneOtpSentResponse response1 = (PhoneOtpSentResponse) GsonUtil.toObject(response, PhoneOtpSentResponse.class);
+            ToastUtils.showLong(activity, response1.getData().getOtp());
+            OTP = response1.getData().getOtp();
+            bottomSheetDialogForPhone.dismiss();
+            bottomSheetDialogForOtp.show();
+        }
+        if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
+            LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
+            SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
+            SessionManager.setLoggedIn(true);
         }
 
 

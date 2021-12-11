@@ -60,6 +60,7 @@ public class ProfileFragment extends Fragment {
         });
         logoutButton.setOnClickListener(v->{
             SessionManager.setValue(CHILD_NAME,"");
+            SessionManager.setLoggedIn(false);
             startActivity(new Intent(getActivity(), SplashScreenActivity.class));
             getActivity().finish();
         });

@@ -20,7 +20,12 @@
         <entry key="app/src/main/res/layout/demo.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/fragment_course_details.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/fragment_course_learn.xml" value="0.33541666666666664" />
+<<<<<<< Updated upstream
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33541666666666664" />
+=======
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+>>>>>>> Stashed changes
         <entry key="app/src/main/res/layout/recyclerview_cart.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/recyclerview_course.xml" value="0.33" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3484375" />
