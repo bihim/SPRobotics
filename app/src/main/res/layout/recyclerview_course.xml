@@ -4,7 +4,7 @@
     android:layout_width="@dimen/_130sdp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_10sdp"
-    app:cardCornerRadius="@dimen/_20sdp"
+    app:cardCornerRadius="@dimen/_15sdp"
     app:cardElevation="@dimen/_5sdp">
 
     <LinearLayout
@@ -72,8 +72,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="View Course"
+            android:textSize="@dimen/_9ssp"
             android:textColor="@color/black"
             app:icon="@drawable/ic_forward"
+            android:textAllCaps="false"
             app:iconGravity="textEnd"
             app:iconTint="@color/black" />
     </LinearLayout>

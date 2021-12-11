@@ -25,7 +25,6 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
     MaterialCardView cardAgeTen, cardAgeThirteen, cardAboveThirteen;
     TextView textViewAgeTen, textViewAgeThirteen, textViewAboveThirteen;
     private Activity activity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

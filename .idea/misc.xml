@@ -8,6 +8,7 @@
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/bottomsheet_otp_picker.xml" value="0.33" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.3494791666666667" />
+        <entry key="app/src/main/res/drawable/ic_forward.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_billing.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_course_details.xml" value="0.22" />
@@ -30,7 +31,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

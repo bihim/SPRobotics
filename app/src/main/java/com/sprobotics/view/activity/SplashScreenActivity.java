@@ -41,12 +41,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         }
         else if (isLocationPermissionGranted()) {
-
-
-
-
-
-
             /*if (session.isUserLoggedIn()) {
                 Constant.CURRENT_DISTRICT = session.getData(Session.KEY_CITY);
                 redirect(2000);
