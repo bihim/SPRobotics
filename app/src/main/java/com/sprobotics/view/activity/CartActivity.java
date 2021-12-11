@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,8 @@ public class CartActivity extends NetworkCallActivity {
     TextView tv_cart_value_of_products, tv_cart_discount, tv_cart_estimated_gst, tv_cart_shipping, tv_cart_total;
     TextView tv_label_gst;
 
+    ImageButton imageButton;
+
 
     private CartAdapter adapter;
 
@@ -77,6 +80,12 @@ public class CartActivity extends NetworkCallActivity {
         tv_cart_shipping = findViewById(R.id.tv_cart_shipping);
         tv_cart_total = findViewById(R.id.tv_cart_total);
         tv_label_gst = findViewById(R.id.tv_label_gst);
+
+        imageButton = findViewById(R.id.back_button);
+
+        imageButton.setOnClickListener(v->{
+            onBackPressed();
+        });
 
 
         recyclerViewCart.setAdapter(adapter);
@@ -258,5 +267,10 @@ public class CartActivity extends NetworkCallActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

@@ -23,13 +23,13 @@
                 android:background="?selectableItemBackground"
                 android:padding="@dimen/_10sdp"
                 android:src="@drawable/ic_back"
-                app:tint="@color/black" />
+                app:tint="@color/blackish" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cart Summery"
-                android:textColor="@color/black"
+                android:textColor="@color/blackish"
                 android:textSize="@dimen/_14ssp" />
 
         </LinearLayout>
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_10sdp"
-            app:cardElevation="@dimen/_10sdp">
+            app:cardElevation="@dimen/_4sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,14 +57,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Delivery Pincode"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/blackish" />
 
                     <TextView
                         android:id="@+id/cart_delivery_pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="7000502"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_10sdp"
-            app:cardElevation="@dimen/_10sdp">
+            app:cardElevation="@dimen/_4sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Apply Coupon"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/blackish" />
 
                     <EditText
                         android:id="@+id/edt_cart_coupon"
@@ -175,7 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_20sdp"
-            app:cardElevation="@dimen/_10sdp">
+            app:cardElevation="@dimen/_4sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Payment Information"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackish"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
@@ -202,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Value of products"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                     <TextView
@@ -212,7 +212,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         tools:text="$1450"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                 </LinearLayout>
@@ -228,7 +228,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Discount(-)"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                     <TextView
@@ -255,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Estimated IGST(18%+)"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                     <TextView
@@ -265,7 +265,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         tools:text="$71"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                 </LinearLayout>
@@ -283,7 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Shipping"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                     <TextView
@@ -293,7 +293,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="Free"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                 </LinearLayout>
@@ -315,7 +315,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Total"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                     <TextView
@@ -325,7 +325,7 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         tools:text="$869"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textSize="@dimen/_12ssp" />
 
                 </LinearLayout>

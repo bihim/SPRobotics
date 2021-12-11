@@ -7,14 +7,18 @@
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/activity_welcome_one.xml" value="0.22" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/bottomsheet_otp_picker.xml" value="0.33" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable/error_gradient_background.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_done.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_forward.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/linearlayout_circle_grey.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_billing.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/activity_child_edit.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_course_details.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_error_payment.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_payment_successful.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_profile_edit.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.16210739614994935" />
         <entry key="app/src/main/res/layout/activity_welcome_one.xml" value="0.33" />
@@ -30,6 +34,8 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/recyclerview_cart.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/recyclerview_course.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/recyclerview_order_history.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/layout/recyclerview_order_history_list.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3484375" />
       </map>
     </option>

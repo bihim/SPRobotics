@@ -25,7 +25,7 @@
                     android:id="@+id/cart_image"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_90sdp"
-                    android:src="@drawable/demo_course"
+                    android:src="@drawable/sprobotics_recyclerview"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Scratch Programming Online Course"
-                android:textColor="@color/black"
+                android:textColor="@color/blackish"
                 android:textSize="@dimen/_11ssp" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:text="Delivered"
-                android:textColor="@color/black"
+                android:textColor="@color/blackish"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold" />
 

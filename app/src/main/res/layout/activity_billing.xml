@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_back"
                     android:background="?selectableItemBackground"
-                    app:tint="@color/black"
+                    app:tint="@color/blackish"
                     android:padding="@dimen/_10sdp"/>
 
                 <TextView
@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="Billing Summery"
                     android:textSize="@dimen/_14ssp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/blackish"/>
 
             </LinearLayout>
 
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                app:cardElevation="@dimen/_10sdp"
+                app:cardElevation="@dimen/_4sdp"
                 app:cardCornerRadius="@dimen/_20sdp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:text="S Ghosh Dostidar"
                         android:textSize="@dimen/_13ssp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -66,7 +66,7 @@
                         android:text="+91-123456789"
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/blackish"/>
 
                     <TextView
                         android:id="@+id/billing_address"
@@ -75,7 +75,7 @@
                         android:text="123 Mahatma Gandhi Road\nKolkata 700010\nWest Bengal"
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:layout_marginBottom="@dimen/_10sdp"/>
 
                     <LinearLayout
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
-                app:cardElevation="@dimen/_10sdp"
+                app:cardElevation="@dimen/_4sdp"
                 app:cardCornerRadius="@dimen/_20sdp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:text="Payment Information"
                         android:textSize="@dimen/_13ssp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/blackish"
                         android:textStyle="bold"/>
 
                     <LinearLayout
@@ -145,7 +145,7 @@
                             android:layout_height="wrap_content"
                             android:text="Value of products"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                         <TextView
                             android:id="@+id/billing_value_of_products"
@@ -155,7 +155,7 @@
                             android:text="$1450"
                             android:gravity="end"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                     </LinearLayout>
 
@@ -171,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:text="Discount(-)"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                         <TextView
                             android:id="@+id/billing_discount"
@@ -197,7 +197,7 @@
                             android:layout_height="wrap_content"
                             android:text="Estimated GST(+)"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                         <TextView
                             android:id="@+id/billing_estimated_gst"
@@ -207,7 +207,7 @@
                             android:text="$71"
                             android:gravity="end"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                     </LinearLayout>
 
@@ -223,7 +223,7 @@
                             android:layout_height="wrap_content"
                             android:text="Shipping"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                         <TextView
                             android:id="@+id/billing_shipping"
@@ -233,7 +233,7 @@
                             android:text="Free"
                             android:gravity="end"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                     </LinearLayout>
 
@@ -255,7 +255,7 @@
                             android:layout_height="wrap_content"
                             android:text="Total"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                         <TextView
                             android:id="@+id/billing_total"
@@ -265,7 +265,7 @@
                             android:text="$869"
                             android:gravity="end"
                             android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/blackish"/>
 
                     </LinearLayout>
                 </LinearLayout>
