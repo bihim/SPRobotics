@@ -66,6 +66,7 @@ public class CartActivity extends NetworkCallActivity {
         adapter = new CartAdapter(new ArrayList<>(), CartActivity.this);
 
 
+
         cart_delivery_pincode = findViewById(R.id.cart_delivery_pincode);
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
         cart_apply = findViewById(R.id.cart_apply);
@@ -81,6 +82,9 @@ public class CartActivity extends NetworkCallActivity {
         recyclerViewCart.setAdapter(adapter);
         recyclerViewCart.setFocusable(false);
 
+        adapter = new CartAdapter(new ArrayList<>(), CartActivity.this);
+        recyclerViewCart.setAdapter(adapter);
+        recyclerViewCart.setFocusable(false);
 
         cart_delivery_pincode.setText(Constant.PINCODE);
 

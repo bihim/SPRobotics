@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.animation.content.Content;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.sprobotics.R;
 import com.sprobotics.model.courseresponse.DataItem;
@@ -48,6 +49,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             context.startActivity(intent);
 
         });
+
+        String url = "DemoUrl";
+
+        Glide.with(context.getApplicationContext()).load(url).placeholder(context.getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(holder.imageView);
 
 
 

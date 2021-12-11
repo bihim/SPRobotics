@@ -41,6 +41,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.hbb20.CountryCodePicker;
 import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
 import com.sprobotics.R;
@@ -266,7 +267,7 @@ public class MainActivity extends NetworkCallActivity {
                     //startActivity(new Intent(this, CourseDetailsActivity.class));
                     return true;
                 case R.id.page_3:
-                    bottomSheetDialogForPhone.show();
+                    //bottomSheetDialogForPhone.show();
                     return true;
                 case R.id.page_4:
                     if (SessionManager.isLoggedIn())
@@ -383,8 +384,6 @@ public class MainActivity extends NetworkCallActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("mobile", mobile);
         apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);
-
-
     }
 
 
@@ -394,8 +393,6 @@ public class MainActivity extends NetworkCallActivity {
         map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
         map.put("mobile", mobile);
         apiRequest.postRequest(MOBILE_LOGIN, map, MOBILE_LOGIN);
-
-
     }
 
     @Override

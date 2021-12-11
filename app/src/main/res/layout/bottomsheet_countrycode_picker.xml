@@ -33,6 +33,7 @@
             android:layout_height="wrap_content">
             <com.hbb20.CountryCodePicker
                 android:id="@+id/ccp"
+                app:ccp_clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:ccp_countryPreference="us,in"/>

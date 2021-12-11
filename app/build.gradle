@@ -71,4 +71,6 @@ dependencies {
     implementation 'com.devbrackets.android:exomedia:4.0.0'
     //Expandable Layout
     implementation "com.github.skydoves:expandablelayout:1.0.7"
+    //Another Expandable Layout
+    implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
 }

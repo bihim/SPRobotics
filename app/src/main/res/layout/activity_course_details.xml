@@ -27,9 +27,8 @@
                 <ImageView
                     android:id="@+id/course_details_image"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="center"
-                    android:src="@drawable/demo_course"
+                    android:layout_height="@dimen/_250sdp"
+                    android:src="@drawable/sprobotics_recyclerview"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -142,16 +141,27 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:drawableStart="@drawable/ic_car"
                 android:gravity="center"
-                android:text="   We ship worldwide, FREE shipping within data"
-                android:textColor="@color/black"
-                app:drawableTint="@color/black" />
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/delivery"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="We ship worldwide, FREE shipping within data"
+                    android:textColor="@color/black"
+                    app:drawableTint="@color/black" />
+            </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/simpleTabLayout"
@@ -159,20 +169,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/blackish"
+                android:textAlignment="textStart"
+                app:tabSelectedTextColor="@color/blackish"
                 app:tabIndicatorColor="@color/fragment_home_card_color" />
 
             <FrameLayout
                 android:id="@+id/simpleFrameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp" />
+                android:layout_marginBottom="@dimen/_20sdp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
@@ -180,7 +195,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:clickable="true"
                     app:cardElevation="0dp"
@@ -204,7 +218,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:clickable="true"
                     app:cardElevation="0dp"
@@ -234,6 +247,7 @@
         android:background="?selectableItemBackground"
         android:padding="@dimen/_10sdp"
         android:src="@drawable/ic_back"
+        android:tint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

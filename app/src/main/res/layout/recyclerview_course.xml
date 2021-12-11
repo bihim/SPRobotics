@@ -2,8 +2,9 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/_130sdp"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_10sdp"
+    android:layout_height="@dimen/_170sdp"
+    android:layout_marginVertical="@dimen/_15sdp"
+    android:layout_marginStart="@dimen/_20sdp"
     app:cardCornerRadius="@dimen/_15sdp"
     app:cardElevation="@dimen/_5sdp">
 
@@ -15,15 +16,15 @@
 
         <TextView
             android:id="@+id/course_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center"
-            android:text="Codey Robot Inventor Kit"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
+            android:text="Android Apps Online course Junior Courses"
+            android:textColor="@color/blackish"
+            android:textSize="@dimen/_8ssp"
             android:maxLines="2"
             android:ellipsize="end"
             android:textStyle="bold" />
@@ -35,9 +36,8 @@
             <ImageView
                 android:id="@+id/course_image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_70sdp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/demo_course"
+                android:layout_height="@dimen/_90sdp"
+                android:src="@drawable/sprobotics_recyclerview"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,11 +72,11 @@
             android:layout_gravity="center"
             android:text="View Course"
             android:textSize="@dimen/_8ssp"
-            android:textColor="@color/black"
+            android:textColor="@color/blackish"
             app:icon="@drawable/ic_forward"
             android:textAllCaps="false"
             app:iconGravity="textEnd"
-            app:iconTint="@color/black" />
+            app:iconTint="@color/blackish" />
     </LinearLayout>
 
 

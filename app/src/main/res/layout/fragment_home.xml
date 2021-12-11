@@ -20,10 +20,12 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp">
+                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp">
 
                 <LinearLayout
+                    android:id="@+id/guestName"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:orientation="vertical"
@@ -52,9 +54,11 @@
                 <LinearLayout
                     android:id="@+id/linearLayout_action_buttons"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guestName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -139,69 +143,91 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
                 android:orientation="horizontal">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/junior_course_button"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    app:cardElevation="@dimen/_5ssp">
-
-                    <TextView
-                        android:id="@+id/junior_course_text"
+                    android:layout_weight="1"
+                    android:gravity="start">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/junior_course_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/colors1"
-                        android:paddingHorizontal="@dimen/_20sdp"
-                        android:paddingVertical="@dimen/_10sdp"
-                        android:text="JUNIOR"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-                </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/senior_course_button"
-                    android:layout_width="wrap_content"
+                        app:cardElevation="@dimen/_5ssp">
+
+                        <TextView
+                            android:id="@+id/junior_course_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colors1"
+                            android:paddingHorizontal="@dimen/_20sdp"
+                            android:paddingVertical="@dimen/_10sdp"
+                            android:text="JUNIOR"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_5sdp"
-                    app:cardElevation="@dimen/_5ssp"
-                    app:strokeColor="@color/fragment_home_card_text_color"
-                    app:strokeWidth="@dimen/_1sdp">
-
-                    <TextView
-                        android:id="@+id/senior_course_text"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/senior_course_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/_20sdp"
-                        android:paddingVertical="@dimen/_10sdp"
-                        android:text="SENIOR"
-                        android:textColor="@color/fragment_home_card_text_color"
-                        android:textStyle="bold" />
-                </com.google.android.material.card.MaterialCardView>
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5ssp"
+                        app:strokeColor="@color/fragment_home_card_text_color"
+                        app:strokeWidth="@dimen/_1sdp">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/super_senior_course_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_5sdp"
-                    app:cardElevation="@dimen/_5ssp"
-                    app:strokeColor="@color/fragment_home_card_text_color"
-                    app:strokeWidth="@dimen/_1sdp">
+                        <TextView
+                            android:id="@+id/senior_course_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_20sdp"
+                            android:paddingVertical="@dimen/_10sdp"
+                            android:text="SENIOR"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/fragment_home_card_text_color"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/super_senior_course_text"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"
+                    android:gravity="end">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/super_senior_course_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/_20sdp"
-                        android:paddingVertical="@dimen/_10sdp"
-                        android:text="SUPER SENIOR"
-                        android:textColor="@color/fragment_home_card_text_color"
-                        android:textStyle="bold" />
-                </com.google.android.material.card.MaterialCardView>
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5ssp"
+                        app:strokeColor="@color/fragment_home_card_text_color"
+                        app:strokeWidth="@dimen/_1sdp">
+
+                        <TextView
+                            android:id="@+id/super_senior_course_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_20sdp"
+                            android:paddingVertical="@dimen/_10sdp"
+                            android:text="SUPER SENIOR"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/fragment_home_card_text_color"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+
 
             </LinearLayout>
 
@@ -264,7 +290,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:gravity="start"
@@ -297,6 +323,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="2"
@@ -307,7 +334,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_20sdp">
 
@@ -322,11 +349,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_4sdp"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
                         android:gravity="center"
                         android:text="Welcome to the World of Practical Learning"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp"
+                        android:textSize="@dimen/_14ssp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -335,7 +364,7 @@
                         android:gravity="start"
                         android:text="Learn Coding. Android app building &amp; Drones with us and rediscover the joy of learning!"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_9ssp"
                         android:layout_marginEnd="@dimen/_90sdp"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"/>
