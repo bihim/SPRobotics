@@ -54,17 +54,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
 
         holder.imgDeleteItem.setOnClickListener(v -> {
 
-            ((CartActivity) context).updateQuantity();
+            ((CartActivity) context).deleteItem(item.getItemId());
 
         });
         holder.imgPlus.setOnClickListener(v -> {
 
-            ((CartActivity) context).updateQuantity();
+            int updatedQty= Integer.valueOf(holder.tvQuantity.getText().toString())+1;
+            ((CartActivity) context).updateQuantity(item.getItemId(),""+updatedQty);
 
         });
         holder.imgMinus.setOnClickListener(v -> {
 
-            ((CartActivity) context).updateQuantity();
+            if (!holder.tvQuantity.getText().toString().equalsIgnoreCase("1")) {
+                int updatedQty = Integer.valueOf(holder.tvQuantity.getText().toString()) - 1;
+                ((CartActivity) context).updateQuantity(item.getItemId(), "" + updatedQty);
+            }
 
         });
 

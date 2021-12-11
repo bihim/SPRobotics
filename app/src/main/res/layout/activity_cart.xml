@@ -127,6 +127,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:focusableInTouchMode="true"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -210,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="$1450"
+                        tools:text="$1450"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
 
@@ -236,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="$652"
+                        android:text="0.00"
                         android:textColor="@color/color3"
                         android:textSize="@dimen/_12ssp" />
 
@@ -249,10 +250,11 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_label_gst"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Estimated GST(+)"
+                        android:text="Estimated IGST(18%+)"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
 
@@ -262,11 +264,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="$71"
+                        tools:text="$71"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
 
                 </LinearLayout>
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -320,7 +324,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="$869"
+                        tools:text="$869"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
 

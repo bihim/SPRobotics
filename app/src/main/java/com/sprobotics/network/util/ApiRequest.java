@@ -239,8 +239,8 @@ public class ApiRequest {
             }
         } else errorAlert("OPPS", "Something went wrong");
 
-        Log.d("onCallBackSuccess", "URL-> " + call.request().url());
-        Log.d("onCallBackSuccess", "Response-> " + response.body().toString());
+      /*  Log.d("onCallBackSuccess", "URL-> " + call.request().url());
+        Log.d("onCallBackSuccess", "Response-> " + response.body().toString());*/
 
 
     }
