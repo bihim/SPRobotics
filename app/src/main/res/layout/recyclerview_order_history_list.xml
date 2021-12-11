@@ -37,7 +37,6 @@
                     android:layout_height="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/ribbon"
-                    android:backgroundTint="@color/fragment_home_card_color"
                     android:gravity="center|start"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
