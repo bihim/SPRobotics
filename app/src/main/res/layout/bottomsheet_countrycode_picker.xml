@@ -27,11 +27,16 @@
         android:gravity="center_vertical"
         android:layout_marginTop="@dimen/_10sdp">
 
-        <com.hbb20.CountryCodePicker
-            android:id="@+id/ccp"
+        <com.google.android.material.card.MaterialCardView
+            android:enabled="false"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:ccp_countryPreference="us,in"/>
+            android:layout_height="wrap_content">
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccp_countryPreference="us,in"/>
+        </com.google.android.material.card.MaterialCardView>
 
         <EditText
             android:id="@+id/editText_carrierNumber"

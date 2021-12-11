@@ -2,6 +2,7 @@ package com.sprobotics.view.fragment;
 
 import static com.sprobotics.network.zubaer.Global.API_PLACE_HOLDER;
 import static com.sprobotics.network.zubaer.Global.SHOW_ERROR_TOAST;
+import static com.sprobotics.preferences.SessionManager.CHILD_NAME;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -23,6 +24,7 @@ import com.sprobotics.R;
 import com.sprobotics.model.ProfileEditModel;
 import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.view.activity.ProfileEditActivity;
+import com.sprobotics.view.activity.SplashScreenActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +32,7 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-    private LinearLayout profileButton;
+    private LinearLayout profileButton, logoutButton;
     private TextView textViewProfileName, textViewEmailAddress;
     private Activity activity;
     private final String userId = SessionManager.getLoginResponse().getData().getCustomerId();
@@ -49,11 +51,17 @@ public class ProfileFragment extends Fragment {
         profileButton = view.findViewById(R.id.profile_go);
         textViewProfileName = view.findViewById(R.id.profile_name);
         textViewEmailAddress = view.findViewById(R.id.profile_email);
+        logoutButton = view.findViewById(R.id.logout);
     }
 
     private void setButtonCallBacks() {
         profileButton.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), ProfileEditActivity.class));
+        });
+        logoutButton.setOnClickListener(v->{
+            SessionManager.setValue(CHILD_NAME,"");
+            startActivity(new Intent(getActivity(), SplashScreenActivity.class));
+            getActivity().finish();
         });
     }
 

@@ -48,7 +48,6 @@
                 android:layout_height="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/ribbon"
-                android:backgroundTint="@color/colors2"
                 android:gravity="center|start"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -72,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="View Course"
-            android:textSize="@dimen/_9ssp"
+            android:textSize="@dimen/_8ssp"
             android:textColor="@color/black"
             app:icon="@drawable/ic_forward"
             android:textAllCaps="false"

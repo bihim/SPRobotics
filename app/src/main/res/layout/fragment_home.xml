@@ -43,6 +43,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:text="Welcome to the world of practical learning"
                         android:textSize="@dimen/_10ssp" />
 
@@ -137,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
@@ -219,6 +221,7 @@
                 android:id="@+id/banner_slider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
@@ -229,6 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_130sdp"
                     android:gravity="center"
+
                     android:orientation="vertical">
 
                     <com.smarteist.autoimageslider.SliderView

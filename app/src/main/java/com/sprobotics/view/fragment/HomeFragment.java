@@ -78,7 +78,7 @@ public class HomeFragment extends NetworkCallFragment {
 
         recyclerViewCourse = view.findViewById(R.id.course_recyclerview);
         recyclerViewCoursePopular = view.findViewById(R.id.course_recyclerview_popular);
-        textViewName.setText("HI " + SessionManager.getValue(SessionManager.CHILD_NAME));
+        textViewName.setText("Hi, " + SessionManager.getValue(SessionManager.CHILD_NAME));
 
         materialCardViewJunior = view.findViewById(R.id.junior_course_button);
         materialCardViewSenior = view.findViewById(R.id.senior_course_button);
@@ -127,7 +127,7 @@ public class HomeFragment extends NetworkCallFragment {
 
         materialCardViewJunior.setOnClickListener(v->{
             HashMap<String, String> map = new HashMap<>();
-            map.put("age_category_id", "252");
+            map.put("age_category_id", "251");
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             selectedTopButtonColor(materialCardViewJunior, textViewJunior);
             unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
@@ -136,7 +136,7 @@ public class HomeFragment extends NetworkCallFragment {
 
         materialCardViewSenior.setOnClickListener(v->{
             HashMap<String, String> map = new HashMap<>();
-            map.put("age_category_id", "251");
+            map.put("age_category_id", "252");
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
             selectedTopButtonColor(materialCardViewSenior, textViewSenior);
@@ -154,17 +154,25 @@ public class HomeFragment extends NetworkCallFragment {
         switch (SessionManager.getValue(SessionManager.CHILD_AGE)) {
 
             case "10":
+                selectedTopButtonColor(materialCardViewJunior, textViewJunior);
+                unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
+                unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
                 map.put("age_category_id", Constant.JUNIOR_AGE_ID);
                 break;
 
             case "13":
+                unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
+                selectedTopButtonColor(materialCardViewSenior, textViewSenior);
+                unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
                 map.put("age_category_id", Constant.SENIOR_AGE_ID);
                 break;
 
             case "14":
+                unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
+                unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
+                selectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
                 map.put("age_category_id", Constant.SUPER_SENIOR_AGE_ID);
                 break;
-
 
         }
 

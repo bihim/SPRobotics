@@ -69,7 +69,6 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
         initial_bottom_menu(activity);
         view.setCardBackgroundColor(activity.getResources().getColor(R.color.color_blue));
         textView.setTextColor(activity.getResources().getColor(R.color.white));
-
     }
 
     public void initial_bottom_menu(Activity activity) {
@@ -99,7 +98,7 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
 
             case R.id.cardAgeThirteen:
                 SessionManager.setValue(SessionManager.CHILD_AGE, "13");
-                selected_bottom_layout(activity, cardAboveThirteen, textViewAgeThirteen);
+                selected_bottom_layout(activity, cardAgeThirteen, textViewAgeThirteen);
                 break;
 
             case R.id.cardAboveThirteen:
