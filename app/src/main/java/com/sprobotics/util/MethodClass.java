@@ -55,6 +55,7 @@ import com.labters.lottiealertdialoglibrary.ClickListener;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.sprobotics.R;
+import com.sprobotics.network.util.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -209,6 +210,7 @@ public class MethodClass {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             if (addresses.size() != 0) {
                 Address obj = addresses.get(0);
+                Constant.ADDRESS_DETAILS=obj;
                 String add = obj.getAddressLine(0);
                 address = add;
             }

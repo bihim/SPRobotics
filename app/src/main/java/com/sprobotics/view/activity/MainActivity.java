@@ -202,7 +202,7 @@ public class MainActivity extends NetworkCallActivity {
 
 
                     //  ToastUtils.showLong(activity,getPincode(location.getLatitude(),location.getLongitude(),activity),true);
-                    ToastUtils.showLong(activity, "Your current address is  " + address, true);
+                   // ToastUtils.showLong(activity, "Your current address is  " + address, true);
                     Constant.PINCODE = pincode;
                     Constant.ADDRESS = address;
 

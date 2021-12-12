@@ -10,6 +10,7 @@ import static com.sprobotics.network.util.Constant.UPDATE_CART_ITEM;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CartAdapter;
 import com.sprobotics.model.cartrespone.CartResponse;
@@ -37,15 +39,17 @@ import java.util.HashMap;
 public class CartActivity extends NetworkCallActivity {
 
 
-    TextView cart_delivery_pincode;
+    TextView cart_delivery_pincode, cart_delivery_address;
     RecyclerView recyclerViewCart;
 
 
     MaterialButton cart_apply;
+
+    MaterialCardView course_details_buy_now;
+
     EditText edt_cart_coupon;
 
-    TextView tv_cart_value_of_products, tv_cart_discount, tv_cart_estimated_gst, tv_cart_shipping, tv_cart_total;
-    TextView tv_label_gst;
+    TextView tv_cart_value_of_products, tv_cart_discount, tv_cart_estimated_gst, tv_cart_shipping, tv_cart_total, tv_label_gst;
 
 
     private CartAdapter adapter;
@@ -53,9 +57,10 @@ public class CartActivity extends NetworkCallActivity {
 
     public double totalPrice = 0;
     public String cartId;
+    public String coupon_id = "";
+    public String coupon_amount = "0";
 
     double igstCalculation;
-
 
 
     @Override
@@ -66,8 +71,8 @@ public class CartActivity extends NetworkCallActivity {
         adapter = new CartAdapter(new ArrayList<>(), CartActivity.this);
 
 
-
         cart_delivery_pincode = findViewById(R.id.cart_delivery_pincode);
+        cart_delivery_address = findViewById(R.id.cart_delivery_address);
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
         cart_apply = findViewById(R.id.cart_apply);
         edt_cart_coupon = findViewById(R.id.edt_cart_coupon);
@@ -77,6 +82,7 @@ public class CartActivity extends NetworkCallActivity {
         tv_cart_shipping = findViewById(R.id.tv_cart_shipping);
         tv_cart_total = findViewById(R.id.tv_cart_total);
         tv_label_gst = findViewById(R.id.tv_label_gst);
+        course_details_buy_now = findViewById(R.id.course_details_buy_now);
 
 
         recyclerViewCart.setAdapter(adapter);
@@ -87,6 +93,7 @@ public class CartActivity extends NetworkCallActivity {
         recyclerViewCart.setFocusable(false);
 
         cart_delivery_pincode.setText(Constant.PINCODE);
+        cart_delivery_address.setText(Constant.ADDRESS);
 
         onClick();
 
@@ -99,6 +106,28 @@ public class CartActivity extends NetworkCallActivity {
             if (edt_cart_coupon.getText().toString().length() > 0) {
                 applyCoupon(edt_cart_coupon.getText().toString());
             }
+
+        });
+        course_details_buy_now.setOnClickListener(v -> {
+
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent(CartActivity.this, BillingActivity.class);
+
+            bundle.putString("edt_cart_coupon", edt_cart_coupon.getText().toString());
+            bundle.putString("tv_cart_value_of_products", tv_cart_value_of_products.getText().toString());
+            bundle.putString("tv_cart_discount", tv_cart_discount.getText().toString());
+            bundle.putString("tv_cart_estimated_gst", tv_cart_estimated_gst.getText().toString());
+            bundle.putString("tv_cart_shipping", tv_cart_shipping.getText().toString());
+            bundle.putString("tv_cart_total", tv_cart_total.getText().toString());
+            bundle.putString("cart_delivery_pincode", cart_delivery_pincode.getText().toString());
+            bundle.putString("cart_delivery_address", cart_delivery_address.getText().toString());
+            bundle.putString("cart_id", cartId.toString());
+            bundle.putString("coupon_amount", coupon_amount.toString());
+            bundle.putString("coupon_id", coupon_id.toString());
+            intent.putExtra("get_bundle", bundle);
+
+            startActivity(intent);
+
 
         });
 
@@ -114,7 +143,7 @@ public class CartActivity extends NetworkCallActivity {
     }
 
 
-    public void updateQuantity(String cart_item_id,String quantity) {
+    public void updateQuantity(String cart_item_id, String quantity) {
         HashMap<String, String> map = new HashMap<>();
         map.put("cart_item_id", cart_item_id);
         map.put("qty", quantity);
@@ -149,7 +178,7 @@ public class CartActivity extends NetworkCallActivity {
 
     public void setTotalPrice() {
         double totalAmount = totalPrice + igstCalculation - (Double.valueOf(tv_cart_discount.getText().toString()));
-        String total =  String.format("%.2f", totalAmount);
+        String total = String.format("%.2f", totalAmount);
         tv_cart_total.setText(total);
     }
 
@@ -166,7 +195,7 @@ public class CartActivity extends NetworkCallActivity {
             totalPrice = Double.parseDouble(response1.getData1().getProductTotalPrice());
             adapter.addItem(response1.getData());
 
-            tv_cart_value_of_products.setText(String.format("%.2f",totalPrice));
+            tv_cart_value_of_products.setText(String.format("%.2f", totalPrice));
 
             igstCalculation = totalPrice * 18 / 100;
             tv_cart_estimated_gst.setText(igstCalculation + "");
@@ -184,6 +213,10 @@ public class CartActivity extends NetworkCallActivity {
             CouponResponse response1 = (CouponResponse) GsonUtil.toObject(response, CouponResponse.class);
 
             if (response1.isResponse()) {
+
+                coupon_id = "" + response1.getData().get(0).getCouponId();
+                coupon_amount = "" + response1.getData().get(0).getLocalValue();
+
                 getDiscountedPrice(response1.getData().get(0).getCode(), cartId);
             }
 

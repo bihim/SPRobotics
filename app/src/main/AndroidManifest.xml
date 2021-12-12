@@ -20,6 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SPRobotics"
         android:usesCleartextTraffic="true">
+
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_OuMQ2SQXd10GX7" />
+
+
+
         <activity
             android:name=".view.activity.ErrorPaymentActivity"
             android:exported="false" />
@@ -59,6 +67,12 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="false" />
+
+
+
+
+
     </application>
+
 
 </manifest>

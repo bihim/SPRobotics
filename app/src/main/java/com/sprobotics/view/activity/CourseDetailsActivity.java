@@ -123,8 +123,21 @@ public class CourseDetailsActivity extends NetworkCallActivity {
 
         course_details_title.setText(courseDetails.getName());
 
-        course_details_age.setText(courseDetails.getAgeCategory().get(0));
-        course_details_money.setText(courseDetails.getPrice().get(0));
+        // course_details_age.setText(courseDetails.getAgeCategory().get(0));
+        course_details_money.setText("Rs. "+courseDetails.getPrice().get(0));
+
+
+        switch (courseDetails.getAgeCategory().get(0)) {
+            case "Junior":
+                course_details_age.setText("10");
+                break;
+            case "Senior":
+                course_details_age.setText("13");
+                break;
+
+            default:
+                course_details_age.setText("13+");
+        }
 
 
     }

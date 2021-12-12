@@ -239,6 +239,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="2"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/recyclerview_course">
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -323,10 +324,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="2"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/recyclerview_course">
             </androidx.recyclerview.widget.RecyclerView>
 

@@ -203,6 +203,7 @@ public class HomeFragment extends NetworkCallFragment {
         if (tag.equalsIgnoreCase(PRODUCT_LIST)) {
             CourseListResponse response1 = (CourseListResponse) GsonUtil.toObject(response, CourseListResponse.class);
             recyclerViewCourse.setAdapter(new CourseAdapter(response1.getData(), requireContext()));
+            recyclerViewCoursePopular.setAdapter(new CourseAdapter(response1.getPopular(), requireContext()));
         }
         if (tag.equalsIgnoreCase(GET_AGE_GROUP)) {
 
@@ -222,7 +223,6 @@ public class HomeFragment extends NetworkCallFragment {
 
 
         }
-
         if (tag.equalsIgnoreCase(GET_CART)) {
             CartResponse response1 = (CartResponse) GsonUtil.toObject(response, CartResponse.class);
 
