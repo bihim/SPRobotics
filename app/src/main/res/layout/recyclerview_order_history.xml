@@ -27,14 +27,14 @@
                     android:layout_height="wrap_content"
                     android:text="Order- "
                     android:textSize="@dimen/_11ssp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/blackish"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12344534564545/ 22 Aug. 2021"
                     android:textSize="@dimen/_10ssp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackish"
                     android:textStyle="bold"/>
             </LinearLayout>
 

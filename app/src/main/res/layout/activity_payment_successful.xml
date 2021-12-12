@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center|top"
     android:orientation="vertical"
+    android:background="@drawable/succesful_gradient_background"
     tools:context=".view.activity.SuccessPaymentActivity">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -22,7 +23,7 @@
         android:text="Payment Successful"
         android:textSize="@dimen/_15ssp"
         android:textStyle="bold"
-        android:textColor="@color/colors6"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,43 +31,45 @@
         android:text="Your order has been placed successfully"
         android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_12ssp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
-    <com.google.android.material.card.MaterialCardView
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/white"
+        android:layout_marginHorizontal="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_30sdp"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_17sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_15sdp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_margin="@dimen/_10sdp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Order ID"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/black"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="@dimen/_10sdp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order ID"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SPL12345"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16ssp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:textColor="@color/colors6"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SPL12345"
+            android:textStyle="bold"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Amount Paid"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount Paid"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white"/>
+
 
             <TextView
                 android:id="@+id/tvPaidAmount"
@@ -78,8 +81,16 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/colors1"/>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/white"
+        android:layout_marginHorizontal="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_30sdp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,15 +98,16 @@
         android:text="How was your experience?"
         android:layout_marginTop="@dimen/_20sdp"
         android:textSize="@dimen/_12ssp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:backgroundTint="@color/colors3"
+        android:backgroundTint="@color/white"
         android:paddingHorizontal="@dimen/_30sdp"
         android:paddingVertical="@dimen/_11sdp"
+        android:textColor="@android:color/holo_green_dark"
         android:text="Rate Us"/>
 
 

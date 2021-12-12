@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_10sdp"
-    app:cardElevation="@dimen/_10sdp"
-    app:cardCornerRadius="@dimen/_10sdp">
+    app:cardElevation="@dimen/_4sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +24,7 @@
                     android:id="@+id/cart_image"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_90sdp"
-                    android:src="@drawable/demo_course"
+                    android:src="@drawable/sprobotics_recyclerview"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +36,6 @@
                     android:layout_height="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/ribbon"
-                    android:backgroundTint="@color/fragment_home_card_color"
                     android:gravity="center|start"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
