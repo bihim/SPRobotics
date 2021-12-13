@@ -63,7 +63,7 @@
                         android:id="@+id/billing_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="+91-123456789"
+                        tools:text="+91-123456789"
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/blackish"/>
@@ -307,10 +307,18 @@
                             android:textSize="@dimen/_12ssp" />
 
                         <TextView
-                            android:id="@+id/tv_cart_value_of_products"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="₹ "
+                            android:textColor="@color/blackish"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_cart_value_of_products"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:gravity="end"
                             tools:text="$1450"
                             android:textColor="@color/black"
@@ -333,10 +341,18 @@
                             android:textSize="@dimen/_12ssp" />
 
                         <TextView
-                            android:id="@+id/tv_cart_discount"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="₹ "
+                            android:textColor="@color/blackish"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_cart_discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="0.00"
                             android:textColor="@color/color3"
@@ -360,10 +376,18 @@
                             android:textSize="@dimen/_12ssp" />
 
                         <TextView
-                            android:id="@+id/tv_cart_estimated_gst"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="₹ "
+                            android:textColor="@color/blackish"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_cart_estimated_gst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:gravity="end"
                             tools:text="$71"
                             android:textColor="@color/black"
@@ -420,10 +444,18 @@
                             android:textSize="@dimen/_12ssp" />
 
                         <TextView
-                            android:id="@+id/tv_cart_total"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="₹ "
+                            android:textColor="@color/blackish"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_cart_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:gravity="end"
                             tools:text="$869"
                             android:textColor="@color/black"

@@ -80,6 +80,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/cart_count_view"
                             android:layout_width="@dimen/_10sdp"
                             android:layout_height="@dimen/_10sdp"

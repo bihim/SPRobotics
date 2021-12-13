@@ -199,18 +199,20 @@ public class CartActivity extends NetworkCallActivity {
         if (tag.equalsIgnoreCase(GET_CART)) {
             CartResponse response1 = (CartResponse) GsonUtil.toObject(response, CartResponse.class);
 
-            cartId = response1.getData1().getCartId();
+            if (response1.getData().size()>0) {
+                cartId = response1.getData1().getCartId();
 
-            totalPrice = Double.parseDouble(response1.getData1().getProductTotalPrice());
-            adapter.addItem(response1.getData());
+                totalPrice = Double.parseDouble(response1.getData1().getProductTotalPrice());
+                adapter.addItem(response1.getData());
 
-            tv_cart_value_of_products.setText(String.format("%.2f", totalPrice));
+                tv_cart_value_of_products.setText(String.format("%.2f", totalPrice));
 
-            igstCalculation = totalPrice * 18 / 100;
-            tv_cart_estimated_gst.setText(igstCalculation + "");
+                igstCalculation = totalPrice * 18 / 100;
+                tv_cart_estimated_gst.setText(igstCalculation + "");
 
 
-            setTotalPrice();
+                setTotalPrice();
+            }else onBackPressed();
 
 
             //  tv_cart_value_of_products.setText(totalPrice+"");

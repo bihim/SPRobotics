@@ -15,9 +15,9 @@
         android:textStyle="bold" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textview_otp_sent_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="We sent it to +99123456789"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp" />
 
@@ -35,18 +35,33 @@
             android:enabled="true"
             android:inputType="number"
             android:textColorHint="@color/black"
-            app:OtpItemCount="4"
+            app:OtpItemCount="6"
             app:OtpLineColor="#707070"
             app:OtpViewType="line" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/otp_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/_10sdp"
-        android:text="Didnt receive OTP? Resend in 24 sec" />
+        android:text="Didnt receive OTP?" />
+
+        <TextView
+            android:layout_marginStart="@dimen/_5sdp"
+            android:id="@+id/textview_resend_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:textColor="@color/colors4"
+            android:text="Resend" />
+
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/otp_continue"

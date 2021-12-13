@@ -88,11 +88,17 @@ public class HomeFragment extends NetworkCallFragment {
         getAgeGroupId();
 
 
-        if (SessionManager.isLoggedIn()){
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        if (SessionManager.isLoggedIn()) {
             getCartData();
         }
-
-
+        super.onResume();
     }
 
     public void getCartData() {
@@ -125,7 +131,7 @@ public class HomeFragment extends NetworkCallFragment {
         });
 
 
-        materialCardViewSuperSenior.setOnClickListener(v->{
+        materialCardViewSuperSenior.setOnClickListener(v -> {
             Logger.d(materialCardViewSuperSenior.getStrokeWidth());
             HashMap<String, String> map = new HashMap<>();
             map.put("age_category_id", Constant.SUPER_SENIOR_AGE_ID);
@@ -135,16 +141,16 @@ public class HomeFragment extends NetworkCallFragment {
             selectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
         });
 
-        materialCardViewJunior.setOnClickListener(v->{
+        materialCardViewJunior.setOnClickListener(v -> {
             HashMap<String, String> map = new HashMap<>();
-            map.put("age_category_id",  Constant.JUNIOR_AGE_ID);
+            map.put("age_category_id", Constant.JUNIOR_AGE_ID);
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             selectedTopButtonColor(materialCardViewJunior, textViewJunior);
             unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
             unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
         });
 
-        materialCardViewSenior.setOnClickListener(v->{
+        materialCardViewSenior.setOnClickListener(v -> {
             HashMap<String, String> map = new HashMap<>();
             map.put("age_category_id", Constant.SENIOR_AGE_ID);
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
@@ -226,13 +232,14 @@ public class HomeFragment extends NetworkCallFragment {
         if (tag.equalsIgnoreCase(GET_CART)) {
             CartResponse response1 = (CartResponse) GsonUtil.toObject(response, CartResponse.class);
 
-            if (response1.getData().size()>0){
-                textview_cartCount.setText(""+response1.getData().size());
+            if (response1.getData().size() > 0) {
+                cartCountView.setVisibility(View.VISIBLE);
+                textview_cartCount.setText("" + response1.getData().size());
                 imageButtonCart.setOnClickListener(v -> {
                     MethodClass.go_to_next_activity(getActivity(), CartActivity.class);
                 });
 
-            }
+            } else cartCountView.setVisibility(View.GONE);
 
 
         }

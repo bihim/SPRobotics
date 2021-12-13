@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "385538498733",
+    "project_id": "sp-robotics",
+    "storage_bucket": "sp-robotics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385538498733:android:dbd32f2ee98fc644072624",
+        "android_client_info": {
+          "package_name": "com.sprobotics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385538498733-ig8573u8tb5h0f24qfgafctd4p7oe8mo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sprobotics",
+            "certificate_hash": "c080a117869f8acafc106772f35129e0cd3cb1d6"
+          }
+        },
+        {
+          "client_id": "385538498733-0un03rn6d5f6kgshcfm07d37ssumsrs4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDRS-v1mdrO0RcyNI0LCtf6Q_ymMbGbOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385538498733-0un03rn6d5f6kgshcfm07d37ssumsrs4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

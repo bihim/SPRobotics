@@ -9,5 +9,7 @@
     <string name="location_permission">Location Permission</string>
     <string name="location_permission_message">You have to enable location permission.\n\nGo to app settings > Permissions > Enable Location</string>
     <string name="ok">OK</string>
+    <string name="btn_ok">OK</string>
+    <string name="otp_sent">OTP sent</string>
 
 </resources>

@@ -95,6 +95,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
 
     private void setData() {
         billingName.setText(SessionManager.getValue(SessionManager.CHILD_NAME));
+        billingNumber.setText(SessionManager.getLoginResponse().getData().getCustomerContactNo());
         billingAddress.setText(Constant.ADDRESS);
 
 
