@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.AboutUsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="start|center">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/blackish" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Us"
+            android:textColor="@color/blackish"
+            android:textSize="@dimen/_14ssp" />
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:gravity="center"
+                            android:text="75+\nDedicated Centres\nin India" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/white"
+                            android:gravity="top|center"
+                            android:text="35+\nAwards\nand\nRecognitions" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:gravity="center"
+                            android:text="3+\nCountries\nPresence" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/white"
+                            android:gravity="center"
+                            android:text="1Lac+\nLives \nTouched" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="Who We Are"
+                
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:text="A team of motivated and cohesive individuals driven by a desire to transform the way Engineering and STEM Education is accessed and consumed globally. Commencing in the year 2012 with a modest training centre, the company has grown to have over 75 centres/Maker Labs and at dominant online force. Our success is driven by not only by motivated AI and Robotics Engineers but also by eclectic set of young students who are ever curious to learn Robotics and Coding."
+                android:justificationMode="inter_word"
+                
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                
+                android:src="@drawable/about_us_what"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:layout_margin="@dimen/_10sdp"
+                android:text="India's #1 AI Led LEARNING PLATFORM - 'SPARKY'"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:text="To cater to an ever increasing Indian and Global demand for Coding and Robotics Education, SP Robotic Works has pioneered an Artificial Intelligence led Learning Platform - 'SPARKY'. SPARKY handles a whole suite of Courses and Modules spanning from simple ones such as Scratch Programming, Electronics and Android to more complex ones such as Robotics, Drones, Computer Vision, Machine Learning and Virtual and Augmented Reality. SPARKY understands what programs are suitable to you. It also adjusts the pace of delivery of the modules and testing so as to improve learning outcomes. SPARKY also suggests the next appropriate course/modules based on Learners' specific capabilities. Lastly SPARKY connects Learners with extended Community of like minded people to discuss and share Learnings and Learning Outcomes.SPARKY is an Artificial Intelligence Platform that understands a wide variety of Learners"
+                android:justificationMode="inter_word"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:text="Key Team Members"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/key_team_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/recyclerview_team_members"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:text="Board Members"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/board_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/recyclerview_team_members"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

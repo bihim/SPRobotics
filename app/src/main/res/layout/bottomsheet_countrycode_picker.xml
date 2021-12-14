@@ -67,6 +67,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         app:iconGravity="textEnd"/>
     <TextView
+        android:id="@+id/privacyPolicy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/terms_condition"/>
@@ -76,7 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="or Login using phone no"
+        android:textAllCaps="false"
+        android:text="or Login using Email ID"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/_10sdp"/>

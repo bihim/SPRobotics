@@ -33,6 +33,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginVertical="@dimen/_5sdp"
         android:hint="Enter Password"
         app:passwordToggleEnabled="true">
@@ -49,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Continue"
+        android:layout_marginTop="@dimen/_14sdp"
         android:textColor="@color/white"
         android:backgroundTint="@color/colors4"
         app:icon="@drawable/ic_forward"
@@ -57,6 +59,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/terms_condition" />
 
     <com.google.android.material.button.MaterialButton

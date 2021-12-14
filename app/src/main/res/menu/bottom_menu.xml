@@ -8,13 +8,13 @@
         android:id="@+id/page_2"
         android:enabled="true"
         android:icon="@drawable/ic_courses"
-        android:title="My Courses"/>
+        android:title="My Orders"/>
 
     <item
         android:id="@+id/page_3"
         android:enabled="true"
         android:icon="@drawable/ic_offers"
-        android:title="Offers"/>
+        android:title="Enquiries"/>
 
     <item
         android:id="@+id/page_4"

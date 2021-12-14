@@ -24,14 +24,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp">
 
         <com.mukesh.OtpView
             android:id="@+id/otp_view"
             android:focusableInTouchMode="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="0"
+            app:OtpItemSpacing="@dimen/_14sdp"
             android:enabled="true"
             android:inputType="number"
             android:textColorHint="@color/black"
@@ -67,7 +69,8 @@
         android:id="@+id/otp_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continue"
+        android:text="Submit"
+        android:textAllCaps="false"
         android:enabled="false"
         android:textColor="@color/white"
         app:iconTint="@color/white"
@@ -82,7 +85,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_10sdp"
-        android:text="Proceed with email"
+        android:textAllCaps="false"
+        android:text="Proceed with Email ID"
         android:textColor="@color/black" />
 
 </LinearLayout>

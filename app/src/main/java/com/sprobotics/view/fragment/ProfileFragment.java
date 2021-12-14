@@ -36,6 +36,8 @@ import com.sprobotics.model.AddressModel;
 import com.sprobotics.model.ProfileEditModel;
 import com.sprobotics.model.StateCityModel;
 import com.sprobotics.preferences.SessionManager;
+import com.sprobotics.view.activity.AboutUsActivity;
+import com.sprobotics.view.activity.ParsingHtmlActivity;
 import com.sprobotics.view.activity.ProfileEditActivity;
 import com.sprobotics.view.activity.SplashScreenActivity;
 
@@ -81,6 +83,10 @@ public class ProfileFragment extends Fragment {
     private ExpandableLayout expandableLayoutProfile;
     private ExpandableLayout expandableLayoutAddress;
     private ImageView imageViewProfile, imageViewAddress;
+    private MaterialButton aboutSp, termsAndCondition, privacyPolicy, disclaimer, shippingAndDelivery, returnPolicy;
+    private LinearLayout about_us;
+    private ExpandableLayout expandableLayoutAboutus;
+    private ImageView imageViewAbout;
 
 
     @Nullable
@@ -121,9 +127,45 @@ public class ProfileFragment extends Fragment {
         expandableLayoutAddress = view.findViewById(R.id.address_expand);
         imageViewProfile = view.findViewById(R.id.profileImageView);
         imageViewAddress = view.findViewById(R.id.addressImageView);
+        aboutSp = view.findViewById(R.id.aboutSp);
+        termsAndCondition = view.findViewById(R.id.termsAndCondition);
+        privacyPolicy = view.findViewById(R.id.privacyPolicy);
+        disclaimer = view.findViewById(R.id.disclaimer);
+        shippingAndDelivery = view.findViewById(R.id.shippingAndDelivery);
+        returnPolicy = view.findViewById(R.id.returnPolicy);
+        expandableLayoutAboutus = view.findViewById(R.id.about_expand);
+        about_us = view.findViewById(R.id.about_us);
+        imageViewAbout = view.findViewById(R.id.about_icon);
+        otherButtonsOfAboutUs(termsAndCondition, "terms");
+        otherButtonsOfAboutUs(privacyPolicy, "privacy");
+        otherButtonsOfAboutUs(disclaimer, "disclaimer");
+        otherButtonsOfAboutUs(shippingAndDelivery, "shipping");
+        otherButtonsOfAboutUs(returnPolicy, "returnPolicy");
+    }
+
+    private void otherButtonsOfAboutUs(MaterialButton materialButton, String tag){
+        materialButton.setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), ParsingHtmlActivity.class).putExtra("source", tag));
+        });
     }
 
     private void setButtonCallBacks() {
+        about_us.setOnClickListener(v->{
+            if (expandableLayoutAboutus.isExpanded()){
+                expandableLayoutAboutus.collapse();
+                imageViewAbout.setImageResource(R.drawable.ic_round_arrow_forward_ios_24);
+            }
+            else{
+                expandableLayoutAboutus.expand();
+                imageViewAbout.setImageResource(R.drawable.ic_down);
+            }
+        });
+
+        aboutSp.setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), AboutUsActivity.class));
+        });
+
+
 
         profileButton.setOnClickListener(v -> {
             //startActivity(new Intent(getContext(), ProfileEditActivity.class));

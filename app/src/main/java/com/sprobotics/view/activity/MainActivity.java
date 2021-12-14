@@ -21,11 +21,15 @@ import android.content.pm.PackageManager;
 
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -63,6 +67,7 @@ import com.sprobotics.network.util.ToastUtils;
 import com.sprobotics.preferences.SessionManager;
 import com.sprobotics.util.MethodClass;
 import com.sprobotics.util.NetworkCallActivity;
+import com.sprobotics.view.fragment.FragmentEnquaries;
 import com.sprobotics.view.fragment.HomeFragment;
 import com.sprobotics.view.fragment.ProfileFragment;
 
@@ -80,6 +85,7 @@ public class MainActivity extends NetworkCallActivity {
     private BottomNavigationView bottomNavigationView;
     private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
     private FragmentManager fragmentManager;
+    private String str_links;
 
     ProgressDialog progressDialog;
 
@@ -272,6 +278,7 @@ public class MainActivity extends NetworkCallActivity {
     private void findViewById() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fragmentManager = getSupportFragmentManager();
+        str_links = "";//Privacy Policy
     }
 
     private void setButtonCallBacks() {
@@ -285,10 +292,12 @@ public class MainActivity extends NetworkCallActivity {
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                     return true;
                 case R.id.page_2:
-                    //startActivity(new Intent(this, CourseDetailsActivity.class));
+                    /*startActivity(new Intent(this, AboutUsActivity.class));*/
+                    //startActivity(new Intent(this, ParsingHtmlActivity.class).putExtra("source", "terms"));
                     return true;
                 case R.id.page_3:
                     //bottomSheetDialogForPhone.show();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
                     return true;
                 case R.id.page_4:
                     if (SessionManager.isLoggedIn())
@@ -364,6 +373,32 @@ public class MainActivity extends NetworkCallActivity {
         MaterialButton materialButtonContinueEmail = bottomSheetDialogForEmail.findViewById(R.id.button_continue);
     }
 
+    protected void setTextViewHTML(TextView textView,String html) {
+        CharSequence sequence = Html.fromHtml(html);
+        SpannableStringBuilder strBuilder = new SpannableStringBuilder(sequence);
+        URLSpan[] urls = strBuilder.getSpans(0, sequence.length(), URLSpan.class);
+        for (URLSpan span : urls) {
+            makeLinkClickable(strBuilder, span);
+        }
+        textView.setText(strBuilder);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    protected void makeLinkClickable(SpannableStringBuilder strBuilder, final URLSpan span) {
+        int start = strBuilder.getSpanStart(span);
+        int end = strBuilder.getSpanEnd(span);
+        int flags = strBuilder.getSpanFlags(span);
+        ClickableSpan clickable = new ClickableSpan() {
+            public void onClick(View view) {
+                // Do something with span.getURL() to handle the link click...
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(span.getURL()));
+                startActivity(i);
+            }
+        };
+        strBuilder.setSpan(clickable, start, end, flags);
+        strBuilder.removeSpan(span);
+    }
 
     private void initLoginBottomSheet() {
         bottomSheetDialogForPhone = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
@@ -371,7 +406,11 @@ public class MainActivity extends NetworkCallActivity {
 
         MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
         EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
-        
+
+
+
+        TextView text_view = bottomSheetDialogForPhone.findViewById(R.id.privacyPolicy);
+        setTextViewHTML(text_view, str_links);
 
         editText_carrierNumber.addTextChangedListener(new TextWatcher() {
             @Override

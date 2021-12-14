@@ -709,6 +709,7 @@
             </net.cachapa.expandablelayout.ExpandableLayout>
 
             <LinearLayout
+                android:id="@+id/about_us"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
@@ -733,14 +734,91 @@
                     android:gravity="end">
 
                     <ImageView
+                        android:id="@+id/about_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_round_arrow_forward_ios_24"
-                        app:tint="@color/black"
-                        android:visibility="gone"/>
+                        app:tint="@color/black"/>
                 </LinearLayout>
 
             </LinearLayout>
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/about_expand"
+                android:layout_width="match_parent"
+                app:el_duration="500"
+                app:el_expanded="true"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_15sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:id="@+id/aboutSp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:gravity="start|center"
+                        android:text="About SP Robotics"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:id="@+id/termsAndCondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:gravity="start|center"
+                        android:text="Terms and Conditions"/>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:id="@+id/privacyPolicy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:gravity="start|center"
+                        android:text="Privacy Policy"/>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:id="@+id/disclaimer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:gravity="start|center"
+                        android:text="Disclaimer"/>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:id="@+id/shippingAndDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:gravity="start|center"
+                        android:text="Shipping and Delivery Policy"/>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:id="@+id/returnPolicy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:gravity="start|center"
+                        android:text="Return Policy"/>
+                </LinearLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
 
             <LinearLayout
                 android:id="@+id/logout"
