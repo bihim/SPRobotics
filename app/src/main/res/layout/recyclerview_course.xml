@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_130sdp"
+    android:layout_width="@dimen/_150sdp"
     android:layout_height="@dimen/_170sdp"
     android:layout_marginVertical="@dimen/_15sdp"
     android:layout_marginStart="@dimen/_20sdp"
@@ -27,7 +27,8 @@
             android:textSize="@dimen/_8ssp"
             android:maxLines="2"
             android:ellipsize="end"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textFontWeight="800"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -44,21 +45,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:background="@drawable/ribbon"
                 android:gravity="center|start"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
                     android:id="@+id/course_year"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="10\+ years"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_6ssp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
                     android:textStyle="bold" />
             </LinearLayout>
 

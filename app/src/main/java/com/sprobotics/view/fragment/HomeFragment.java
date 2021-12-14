@@ -5,6 +5,7 @@ import static com.sprobotics.network.util.Constant.GET_AGE_GROUP;
 import static com.sprobotics.network.util.Constant.GET_CART;
 import static com.sprobotics.network.util.Constant.PRODUCT_LIST;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.orhanobut.logger.Logger;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CourseAdapter;
+import com.sprobotics.adapter.VideoCarouselAdapter;
 import com.sprobotics.model.cartrespone.CartResponse;
 import com.sprobotics.model.courseresponse.CourseListResponse;
 import com.sprobotics.network.util.Constant;
@@ -35,7 +40,9 @@ import com.sprobotics.view.activity.CourseDetailsActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HomeFragment extends NetworkCallFragment {
 
@@ -49,10 +56,12 @@ public class HomeFragment extends NetworkCallFragment {
 
     private RecyclerView recyclerViewCourse;
     private RecyclerView recyclerViewCoursePopular;
+    private SliderView sliderView;
 
     /*3 Top buttons*/
-    private MaterialCardView materialCardViewJunior, materialCardViewSenior, materialCardViewSuperSenior;
-    private TextView textViewJunior, textViewSenior, textViewSuperSenior;
+    private MaterialCardView materialCardViewJunior, materialCardViewSenior;
+    private TextView textViewJunior, textViewSenior;
+    private List<String> youtubeIds = new ArrayList<>();
 
 
     @Nullable
@@ -61,6 +70,7 @@ public class HomeFragment extends NetworkCallFragment {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         findViewById(view);
         setButtonCallbacks();
+        setSliderView();
         return view;
     }
 
@@ -75,22 +85,42 @@ public class HomeFragment extends NetworkCallFragment {
         NotiCount = view.findViewById(R.id.noti_count);
 
         recyclerViewCourse = view.findViewById(R.id.course_recyclerview);
+        sliderView = view.findViewById(R.id.imageSlider);
         recyclerViewCoursePopular = view.findViewById(R.id.course_recyclerview_popular);
         textViewName.setText("Hi, " + SessionManager.getValue(SessionManager.CHILD_NAME));
 
         materialCardViewJunior = view.findViewById(R.id.junior_course_button);
         materialCardViewSenior = view.findViewById(R.id.senior_course_button);
-        materialCardViewSuperSenior = view.findViewById(R.id.super_senior_course_button);
+        //materialCardViewSuperSenior = view.findViewById(R.id.super_senior_course_button);
         textViewJunior = view.findViewById(R.id.junior_course_text);
         textViewSenior = view.findViewById(R.id.senior_course_text);
-        textViewSuperSenior = view.findViewById(R.id.super_senior_course_text);
+        //textViewSuperSenior = view.findViewById(R.id.super_senior_course_text);
 
         getAgeGroupId();
+    }
 
+    private void setSliderView(){
+        youtubeIds.add("cAU-HT0OJH0"); //6
+        youtubeIds.add("tnNIKwmW7J8"); //4
+        youtubeIds.add("O_YR7_yHXiU"); //3
+        youtubeIds.add("u7H0_39uZw0"); //1
+        youtubeIds.add("3JujmVbkA2A"); //2
+        youtubeIds.add("ubjOu0hmtLs"); //5
 
-
-
-
+        VideoCarouselAdapter videoCarouselAdapter = new VideoCarouselAdapter(getActivity());
+        sliderView.setSliderAdapter(videoCarouselAdapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.setIndicatorSelectedColor(Color.WHITE);
+        sliderView.setIndicatorUnselectedColor(Color.GRAY);
+        /*videoCarouselAdapter.addItem("u7H0_39uZw0");
+        videoCarouselAdapter.addItem("3JujmVbkA2A");
+        videoCarouselAdapter.addItem("O_YR7_yHXiU");
+        videoCarouselAdapter.addItem("tnNIKwmW7J8");
+        videoCarouselAdapter.addItem("ubjOu0hmtLs");
+        videoCarouselAdapter.addItem("cAU-HT0OJH0");*/
+        videoCarouselAdapter.renewItems(youtubeIds);
     }
 
     @Override
@@ -131,7 +161,7 @@ public class HomeFragment extends NetworkCallFragment {
         });
 
 
-        materialCardViewSuperSenior.setOnClickListener(v -> {
+        /*materialCardViewSuperSenior.setOnClickListener(v -> {
             Logger.d(materialCardViewSuperSenior.getStrokeWidth());
             HashMap<String, String> map = new HashMap<>();
             map.put("age_category_id", Constant.SUPER_SENIOR_AGE_ID);
@@ -139,7 +169,7 @@ public class HomeFragment extends NetworkCallFragment {
             unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
             unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
             selectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
-        });
+        });*/
 
         materialCardViewJunior.setOnClickListener(v -> {
             HashMap<String, String> map = new HashMap<>();
@@ -147,7 +177,7 @@ public class HomeFragment extends NetworkCallFragment {
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             selectedTopButtonColor(materialCardViewJunior, textViewJunior);
             unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
-            unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
+            //unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
         });
 
         materialCardViewSenior.setOnClickListener(v -> {
@@ -156,7 +186,7 @@ public class HomeFragment extends NetworkCallFragment {
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
             unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
             selectedTopButtonColor(materialCardViewSenior, textViewSenior);
-            unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
+            //unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
         });
 
 
@@ -172,21 +202,21 @@ public class HomeFragment extends NetworkCallFragment {
             case "10":
                 selectedTopButtonColor(materialCardViewJunior, textViewJunior);
                 unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
-                unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
+                //unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
                 map.put("age_category_id", Constant.JUNIOR_AGE_ID);
                 break;
 
             case "13":
                 unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
                 selectedTopButtonColor(materialCardViewSenior, textViewSenior);
-                unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
+                //unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
                 map.put("age_category_id", Constant.SENIOR_AGE_ID);
                 break;
 
             case "14":
                 unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
                 unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
-                selectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
+                //selectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
                 map.put("age_category_id", Constant.SUPER_SENIOR_AGE_ID);
                 break;
 

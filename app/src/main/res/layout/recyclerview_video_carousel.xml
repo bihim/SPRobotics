@@ -17,9 +17,11 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="0dp">
-            <com.devbrackets.android.exomedia.ui.widget.VideoView
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/video_view"
                 android:layout_width="match_parent"
+                app:enableAutomaticInitialization="true"
+                app:autoPlay="false"
                 android:layout_height="@dimen/_200sdp"
                 app:useDefaultControls="true"/>
         </com.google.android.material.card.MaterialCardView>
@@ -28,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             android:layout_margin="@dimen/_10sdp">
             <TextView
                 android:id="@+id/video_title"

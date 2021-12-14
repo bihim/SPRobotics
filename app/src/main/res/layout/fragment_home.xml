@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:text="Welcome to the world of practical learning"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_9ssp" />
 
                 </LinearLayout>
 
@@ -118,6 +118,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/noti_count_view"
                             android:layout_width="@dimen/_10sdp"
                             android:layout_height="@dimen/_10sdp"
@@ -155,22 +156,23 @@
                     android:gravity="start">
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/junior_course_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        app:cardElevation="@dimen/_5ssp">
+                        android:layout_width="match_parent"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/junior_course_text"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/colors1"
                             android:paddingHorizontal="@dimen/_20sdp"
                             android:paddingVertical="@dimen/_10sdp"
-                            android:text="JUNIOR"
+                            android:text="JUNIOR (7+)"
+                            android:gravity="center"
                             android:textSize="@dimen/_10ssp"
                             android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textFontWeight="800"/>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
@@ -181,55 +183,25 @@
                     android:gravity="center">
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/senior_course_button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="@dimen/_5sdp"
-                        app:cardElevation="@dimen/_5ssp"
                         app:strokeColor="@color/fragment_home_card_text_color"
                         app:strokeWidth="@dimen/_1sdp">
 
                         <TextView
                             android:id="@+id/senior_course_text"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="@dimen/_20sdp"
                             android:paddingVertical="@dimen/_10sdp"
-                            android:text="SENIOR"
+                            android:text="SENIOR (10+)"
+                            android:gravity="center"
                             android:textSize="@dimen/_10ssp"
                             android:textColor="@color/fragment_home_card_text_color"
                             android:textStyle="bold" />
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.4"
-                    android:gravity="end">
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/super_senior_course_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_5sdp"
-                        app:cardElevation="@dimen/_5ssp"
-                        app:strokeColor="@color/fragment_home_card_text_color"
-                        app:strokeWidth="@dimen/_1sdp">
-
-                        <TextView
-                            android:id="@+id/super_senior_course_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_20sdp"
-                            android:paddingVertical="@dimen/_10sdp"
-                            android:text="SUPER SENIOR"
-                            android:textSize="@dimen/_10ssp"
-                            android:textColor="@color/fragment_home_card_text_color"
-                            android:textStyle="bold" />
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
-
-
-
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -245,11 +217,13 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/banner_slider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
@@ -258,9 +232,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_130sdp"
+                    android:layout_height="@dimen/_200sdp"
                     android:gravity="center"
-
                     android:orientation="vertical">
 
                     <com.smarteist.autoimageslider.SliderView
@@ -277,9 +250,7 @@
                         app:sliderIndicatorPadding="@dimen/_3sdp"
                         app:sliderIndicatorRadius="@dimen/_2sdp"
                         app:sliderIndicatorSelectedColor="#5A5A5A"
-                        app:sliderIndicatorUnselectedColor="@color/colors2"
-                        app:sliderScrollTimeInSec="1"
-                        app:sliderStartAutoCycle="true" />
+                        app:sliderIndicatorUnselectedColor="@color/colors2" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -296,7 +267,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Popular Courses"
+                    android:text="Other Courses"
                     android:textColor="@color/colors2"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />
@@ -312,10 +283,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="View All"
+                        android:visibility="gone"
                         android:textColor="@color/black"
                         android:textAllCaps="false"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         app:icon="@drawable/ic_forward"
                         app:iconGravity="textEnd"
+                        android:textSize="@dimen/_8ssp"
                         app:iconTint="@color/black" />
                 </LinearLayout>
             </LinearLayout>
@@ -324,9 +298,9 @@
                 android:id="@+id/course_recyclerview_popular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:visibility="visible"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="2"
                 android:nestedScrollingEnabled="false"

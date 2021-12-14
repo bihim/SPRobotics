@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:text="@string/course_details"
         android:justificationMode="inter_word"
+        android:fontFamily="@font/roboto_regular"
         android:textColor="@color/black"/>
 
 </LinearLayout>

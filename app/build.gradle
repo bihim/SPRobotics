@@ -70,10 +70,10 @@ dependencies {
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     //Video Player
     implementation 'com.devbrackets.android:exomedia:4.0.0'
-    //Expandable Layout
-    implementation "com.github.skydoves:expandablelayout:1.0.7"
     //Another Expandable Layout
     implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
+    //Youtube
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
     implementation 'com.razorpay:checkout:1.5.13'
 

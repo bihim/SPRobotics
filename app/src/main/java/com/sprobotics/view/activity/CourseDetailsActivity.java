@@ -14,10 +14,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.mukesh.OtpView;
 import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CourseDetailsPageAdapter;
+import com.sprobotics.model.CourseDetailsStaticModel;
 import com.sprobotics.model.cartrespone.CartResponse;
 import com.sprobotics.model.courseresponse.DataItem;
 import com.sprobotics.model.loginresponse.LogInResponse;
@@ -44,22 +47,37 @@ import com.sprobotics.view.fragment.CourseDetailsFragment;
 import com.sprobotics.view.fragment.CourseLearnFragment;
 import com.sprobotics.view.fragment.HomeFragment;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class CourseDetailsActivity extends NetworkCallActivity {
     private TabLayout tabLayout;
     private FrameLayout frameLayout;
     private ImageButton imageButtonBack;
     private TextView course_details_title, course_details_age, course_details_money;
-    private MaterialCardView materialCardViewEnquire, materialCardViewBuy;
+    private MaterialButton materialCardViewEnquire;
+    private MaterialButton materialCardViewBuy;
     private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
     private DataItem courseDetails;
     private String OTP = "";
     private String mobile = "";
     private Activity activity;
+    private TextView textViewCourseDetails;
+    private ImageView imageViewCourseDetails;
+
+
+    /*What will you learn*/
+    private MaterialButton firstItemButton, secondItemButton, thirdItemButton, fourthItemButton;
+    private ExpandableLayout firstItemLayout, secondItemLayout, thirdItemLayout, fourthItemLayout;
+    private TextView firstItemText, secondItemText, thirdItemText, fourthItemText;
+    //private ImageView firstItemIcon, secondItemIcon, thirdItemIcon, fourthItemIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +85,6 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         setContentView(R.layout.activity_course_details);
         activity = this;
         courseDetails = (DataItem) getIntent().getSerializableExtra("MyClass");
-
-
         findViewById();
         setButtonCallBacks();
         setBottomSheet();
@@ -86,6 +102,115 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         /*materialCardViewBuy.setOnClickListener(v -> {
 
         });*/
+
+        String scratch = getCourseDetails("Learn to Code an online Robot to Dance, solve Mazes and 25+ more fun projects. No Prior Coding Knowledge is required", "Lifetime Access with 1:1 Guidance", "Certification upon completion", "Upto 50+ Projects, no limitation..");
+        textViewCourseDetails.setText(Html.fromHtml(scratch));
+        setStaticCourseDetailsAndWhatWillYouLearn();
+    }
+
+    private void setStaticCourseDetailsAndWhatWillYouLearn() {
+        String scratch = getCourseDetails("Learn to Code an online Robot to Dance, solve Mazes and 25+ more fun projects. No Prior Coding Knowledge is required", "Lifetime Access with 1:1 Guidance", "Certification upon completion", "Upto 50+ Projects, no limitation..");
+        int scratchImage = R.drawable.scratch;
+        List<String> scratchListTitle = Arrays.asList("Robotic Calculator", "Voice Recognition App", "Vacuum Cleaner Robot", "Maze Solver");
+        List<String> scratchList = Arrays.asList("Navigate the Robot on a grid based on the Math operations using Coding!", "Code your Dancing Robot to create some cool Dance Moves!", "Program your Robot to move like a Vacuum cleaner in a room!", "Program the Robot to move through the maze from Start to Finish");
+
+        String android = getCourseDetails("Learn to Code & Build Android Apps like GPS based Apps, Gaming Apps, Sensor & Camera based Apps & 50+ Apps. No Prior coding knowledge needed. ", "Lifetime Access with 1:1 Guidance", "Certification upon completion", "Upto 100+ Projects, no limitation..");
+        int androidImage = R.drawable.android;
+        List<String> androidListTitle = Arrays.asList("Build Your Own Game", "Voice Recognition App", "GPS Locator App", "Pedometer App");
+        List<String> androidList = Arrays.asList("Let your child learn to build cool Android game apps like Football!", "Let your child interact with the computer using voice recognition", "Let them acquire the skills to build a Live Location tracker", "A simple application to track the step count while we walk");
+
+        String codey = getCourseDetails("Learn to Code (C-Language) with Codey Robot. Fire-fighting Robot, Robot Vacuum Cleaner & 100+ fun Projects. No Prior coding knowledge needed. ", " Programmable Robotic Maker Kit ", "Lifetime Access with 1:1 Guidance", "Certification upon completion", "Upto 50+ Projects, no limitation..");
+        int codeyImage = R.drawable.codey;
+        List<String> codeyListTitle = Arrays.asList("Cleaning Robot", "Drawing Robot", "Gardening Robot", "Automatic Parking");
+        List<String> codeyList = Arrays.asList("Let your child attach a mop to the Robot and code it to clean your house in a perfect algorithm", "Let your child give a pen to the Robot and code it to draw your name or a pattern of choice", "Let your child code the Robot to follow the road/line perfectly and water the garden alongside", "Let the Robot be coded to sense the walls of a garage and park itself neatly");
+
+        String electro = getCourseDetails("Learn & Experiment with sensors, motors, & more. Build Burglar Alarms, Automatic Lighting systems, Security systems & 50+ fun circuits. ", "Modular Electronic Maker Kit", "Lifetime Access with 1:1 Guidance", "Certification upon completion", "Upto 50+ Projects, no limitation..");
+        int electroImage = R.drawable.electro;
+        List<String> electroListTitle = Arrays.asList("Electro-Block", "Electro-Block", "Electro-Block", "Electro-Block");
+        List<String> electroList = Arrays.asList("The fundamentals to ensure a solid footing in the tech-world!", "Practical understanding of basic electronics, circuit building and circuit debugging techniques.", "Conceptual understanding of theories related to Voltage, LEDs, Switch mechanisms, Sensor controlled buzzers and more…", "With over 75 real-world related experiments to develop - a truly experiential induction into electronics!");
+
+        String drone = getCourseDetails("Be a part of the revolution of drones, which are becoming commonplace in delivery and agricultural sectors. Visualize and learn drone physics with Scratch, Block-based Visual Programming language. ", "Programmable Drone Kit", "Lifetime Access with 1:1 Guidance", "Certification upon completion", "Upto 50+ Projects, no limitation..");
+        int droneImage = R.drawable.drone;
+        List<String> droneListTitle = Arrays.asList("LOGICAL THINKING", "DEBUGGING", "PHYSICS", "CODING");
+        List<String> droneList = Arrays.asList("Enter the world of Drones with the extensively programmable Tello Drone.", "Conceptual understanding of Drone physics such as forces of flight, flight movement terms such as roll, pitch and yaw, components of a Drone etc. ", "Learn the basics of programming in a playful, interactive way using Scratch - the most popular block-based visual programming language ", "Learn about building logics to program your Drone to serve various applications such as Farming, Security, Transportation, etc. ");
+
+
+        List<CourseDetailsStaticModel> courseDetailsStaticModels = new ArrayList<>();
+        courseDetailsStaticModels.add(new CourseDetailsStaticModel(scratch, scratchImage, scratchList, scratchListTitle));
+        courseDetailsStaticModels.add(new CourseDetailsStaticModel(android, androidImage, androidList, androidListTitle));
+        courseDetailsStaticModels.add(new CourseDetailsStaticModel(codey, codeyImage, codeyList, codeyListTitle));
+        courseDetailsStaticModels.add(new CourseDetailsStaticModel(electro, electroImage, electroList, electroListTitle));
+        courseDetailsStaticModels.add(new CourseDetailsStaticModel(drone, droneImage, droneList, droneListTitle));
+
+        switch (courseDetails.getSlug()) {
+            case "scratch-programming-online-course":
+                setTextImageAndWhatWillYouLearn(courseDetailsStaticModels.get(0));
+                break;
+
+            case "android-kit":
+                setTextImageAndWhatWillYouLearn(courseDetailsStaticModels.get(1));
+                break;
+
+            case "codey-inventor-kit":
+                setTextImageAndWhatWillYouLearn(courseDetailsStaticModels.get(2));
+                break;
+
+            case "electro-blocks":
+                setTextImageAndWhatWillYouLearn(courseDetailsStaticModels.get(3));
+                break;
+
+            case "drone-kit":
+                setTextImageAndWhatWillYouLearn(courseDetailsStaticModels.get(4));
+                break;
+
+        }
+    }
+
+    private void setTextImageAndWhatWillYouLearn(CourseDetailsStaticModel courseDetailsStaticModels) {
+        imageViewCourseDetails.setImageResource(courseDetailsStaticModels.getCourseImageId());
+        textViewCourseDetails.setText(Html.fromHtml(courseDetailsStaticModels.getCourseDetails()));
+
+        firstItemButton.setText(courseDetailsStaticModels.getWhatWillMyChildLearnTitle().get(0));
+        secondItemButton.setText(courseDetailsStaticModels.getWhatWillMyChildLearnTitle().get(1));
+        thirdItemButton.setText(courseDetailsStaticModels.getWhatWillMyChildLearnTitle().get(2));
+        fourthItemButton.setText(courseDetailsStaticModels.getWhatWillMyChildLearnTitle().get(3));
+
+        firstItemText.setText(courseDetailsStaticModels.getWhatWillMyChildLearn().get(0));
+        secondItemText.setText(courseDetailsStaticModels.getWhatWillMyChildLearn().get(1));
+        thirdItemText.setText(courseDetailsStaticModels.getWhatWillMyChildLearn().get(2));
+        fourthItemText.setText(courseDetailsStaticModels.getWhatWillMyChildLearn().get(3));
+    }
+
+    private String getCourseDetails(String title, String... items) {
+        String demo = "<p>Learn to Code (C-Language) with Codey Robot. Fire-fighting Robot, Robot Vacuum Cleaner &amp; 100+ fun Projects. No Prior coding knowledge needed.</p>\n" +
+                "<div class=\"feature-title\">Includes:</div>\n" +
+                "<ul>\n" +
+                "    <li>\n" +
+                "        <div class=\"feature\">Programmable Robotic Maker Kit</div>\n" +
+                "    </li>\n" +
+                "    <li>\n" +
+                "        <div class=\"feature\">Lifetime Access with 1:1 Guidance</div>\n" +
+                "    </li>\n" +
+                "    <li>\n" +
+                "        <div class=\"feature\">Upto 100+ Projects, no limitation..</div>\n" +
+                "    </li>\n" +
+                "    <li>\n" +
+                "        <div class=\"feature\" id=\"isPasted\">Certification upon completion</div>\n" +
+                "    </li>\n" +
+                "</ul>";
+        String paraTitle = "<p>" + title + "</p>\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String itemList : items) {
+            stringBuilder.append("    <li>\n");
+            stringBuilder.append("        <div class=\"feature\">&nbsp;").append(itemList).append("</div>\n");
+            stringBuilder.append("    <li>\n");
+        }
+        String finalItem = stringBuilder.toString();
+        return paraTitle +
+                "<div class=\"feature-title\">Includes:</div>\n" +
+                "<ul>\n" +
+                finalItem +
+                "</ul>";
     }
 
     private void findViewById() {
@@ -94,16 +219,82 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         imageButtonBack = findViewById(R.id.back_button);
         materialCardViewEnquire = findViewById(R.id.course_details_enquire_now);
         materialCardViewBuy = findViewById(R.id.course_details_buy_now);
+        textViewCourseDetails = findViewById(R.id.course_details_text);
+        imageViewCourseDetails = findViewById(R.id.course_details_image);
 
 
         course_details_title = findViewById(R.id.course_details_title);
         course_details_age = findViewById(R.id.course_details_age);
         course_details_money = findViewById(R.id.course_details_money);
+
+        firstItemButton = findViewById(R.id.firstItemButton);
+        secondItemButton = findViewById(R.id.secondItemButton);
+        thirdItemButton = findViewById(R.id.thirdItemButton);
+        fourthItemButton = findViewById(R.id.fourthItemButton);
+
+        firstItemLayout = findViewById(R.id.firstItemLayout);
+        secondItemLayout = findViewById(R.id.secondItemLayout);
+        thirdItemLayout = findViewById(R.id.thirdItemLayout);
+        fourthItemLayout = findViewById(R.id.fourthItemLayout);
+
+        firstItemText = findViewById(R.id.firstItemText);
+        secondItemText = findViewById(R.id.secondItemText);
+        thirdItemText = findViewById(R.id.thirdItemText);
+        fourthItemText = findViewById(R.id.fourthItemText);
+
+        /*firstItemIcon = findViewById(R.id.firstItemIcon);
+        secondItemIcon = findViewById(R.id.secondItemIcon);
+        thirdItemIcon = findViewById(R.id.thirdItemIcon);
+        fourthItemIcon = findViewById(R.id.fourthItemIcon);*/
+
         setData();
         onClick();
     }
 
     private void onClick() {
+
+        firstItemButton.setOnClickListener(v -> {
+            if (firstItemLayout.isExpanded()) {
+                firstItemLayout.collapse();
+                firstItemButton.setIcon(getDrawable(R.drawable.ic_round_arrow_forward_ios_24));
+            } else {
+                firstItemButton.setIcon(getDrawable(R.drawable.ic_down));
+                firstItemLayout.expand();
+            }
+        });
+
+        secondItemButton.setOnClickListener(v -> {
+            if (secondItemLayout.isExpanded()) {
+                secondItemLayout.collapse();
+                secondItemButton.setIcon(getDrawable(R.drawable.ic_round_arrow_forward_ios_24));
+            } else {
+                secondItemButton.setIcon(getDrawable(R.drawable.ic_down));
+                secondItemLayout.expand();
+            }
+        });
+
+        thirdItemButton.setOnClickListener(v -> {
+            if (thirdItemLayout.isExpanded()) {
+                thirdItemLayout.collapse();
+                thirdItemButton.setIcon(getDrawable(R.drawable.ic_round_arrow_forward_ios_24));
+            } else {
+                thirdItemButton.setIcon(getDrawable(R.drawable.ic_down));
+                thirdItemLayout.expand();
+            }
+        });
+
+        fourthItemButton.setOnClickListener(v -> {
+            if (fourthItemLayout.isExpanded()) {
+                fourthItemLayout.collapse();
+                fourthItemButton.setIcon(getDrawable(R.drawable.ic_round_arrow_forward_ios_24));
+            } else {
+                fourthItemButton.setIcon(getDrawable(R.drawable.ic_down));
+
+                fourthItemLayout.expand();
+            }
+        });
+
+
         materialCardViewBuy.setOnClickListener(v -> {
 
             if (!SessionManager.isLoggedIn()) {
@@ -122,9 +313,8 @@ public class CourseDetailsActivity extends NetworkCallActivity {
     private void setData() {
 
         course_details_title.setText(courseDetails.getName());
-
         // course_details_age.setText(courseDetails.getAgeCategory().get(0));
-        course_details_money.setText("Rs. "+courseDetails.getPrice().get(0));
+        course_details_money.setText("Rs. " + courseDetails.getPrice().get(0));
 
 
         switch (courseDetails.getAgeCategory().get(0)) {

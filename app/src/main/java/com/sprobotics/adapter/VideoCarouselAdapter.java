@@ -8,10 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.devbrackets.android.exomedia.listener.OnBufferUpdateListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.orhanobut.logger.Logger;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.sprobotics.R;
 
@@ -51,29 +57,80 @@ public class VideoCarouselAdapter extends SliderViewAdapter<VideoCarouselAdapter
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
         //videoView.setVideoURI(Uri.parse(url));
-        viewHolder.videoView.setOnPreparedListener(() -> {
-            viewHolder.videoView.start();
+        viewHolder.videoView.addYouTubePlayerListener(new YouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                String videoId = mSliderItems.get(position);
+                youTubePlayer.loadVideo(videoId, 0);
+                if (position == 0){
+                    youTubePlayer.play();
+                }
+                else{
+                    youTubePlayer.pause();
+                }
+
+            }
+
+            @Override
+            public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState playerState) {
+
+            }
+
+            @Override
+            public void onPlaybackQualityChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackQuality playbackQuality) {
+
+            }
+
+            @Override
+            public void onPlaybackRateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackRate playbackRate) {
+
+            }
+
+            @Override
+            public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError playerError) {
+
+            }
+
+            @Override
+            public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoLoadedFraction(@NonNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull String s) {
+
+            }
+
+            @Override
+            public void onApiChange(@NonNull YouTubePlayer youTubePlayer) {
+
+            }
         });
-        viewHolder.videoView.setVideoURI(Uri.parse("url"));//url of video
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return mSliderItems.size();
     }
 
     class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
 
         View itemView;
-        VideoView videoView;
-        TextView textViewVideoTitle, textViewCreator, textViewCat;
+        YouTubePlayerView videoView;
 
         public SliderAdapterVH(View itemView) {
             super(itemView);
             videoView = itemView.findViewById(R.id.video_view);
-            textViewVideoTitle = itemView.findViewById(R.id.video_title);
-            textViewCreator = itemView.findViewById(R.id.video_creator);
-            textViewCat = itemView.findViewById(R.id.video_cat);
             this.itemView = itemView;
         }
     }

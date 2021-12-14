@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.animation.content.Content;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
+import com.orhanobut.logger.Logger;
 import com.sprobotics.R;
 import com.sprobotics.model.courseresponse.DataItem;
 import com.sprobotics.view.activity.CourseDetailsActivity;
@@ -51,11 +52,32 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         });
 
         String url = "DemoUrl";
+        Logger.d(item.getName());
 
-        Glide.with(context.getApplicationContext()).load(url).placeholder(context.getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(holder.imageView);
+        switch (item.getSlug()) {
+            case "scratch-programming-online-course":
+                holder.imageView.setImageResource(R.drawable.scratch);
+                break;
 
+            case "android-kit":
+                holder.imageView.setImageResource(R.drawable.android);
+                break;
 
+            case "codey-inventor-kit":
+                holder.imageView.setImageResource(R.drawable.codey);
+                break;
 
+            case "electro-blocks":
+                holder.imageView.setImageResource(R.drawable.electro);
+                break;
+
+            case "drone-kit":
+                holder.imageView.setImageResource(R.drawable.drone);
+                break;
+
+        }
+
+        //Glide.with(context.getApplicationContext()).load(url).placeholder(context.getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(holder.imageView);
     }
 
     @Override

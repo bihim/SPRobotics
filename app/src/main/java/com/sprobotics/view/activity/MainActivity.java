@@ -23,7 +23,9 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -369,6 +371,7 @@ public class MainActivity extends NetworkCallActivity {
 
         MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
         EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
+        
 
         editText_carrierNumber.addTextChangedListener(new TextWatcher() {
             @Override

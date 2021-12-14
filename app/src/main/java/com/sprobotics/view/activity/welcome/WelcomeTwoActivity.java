@@ -22,8 +22,8 @@ import java.util.Map;
 
 public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnClickListener {
 
-    MaterialCardView cardAgeTen, cardAgeThirteen, cardAboveThirteen;
-    TextView textViewAgeTen, textViewAgeThirteen, textViewAboveThirteen;
+    MaterialCardView cardAgeTen, cardAgeThirteen;
+    TextView textViewAgeTen, textViewAgeThirteen;
     private Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +37,16 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
 
         textViewAgeTen = findViewById(R.id.textViewAgeTen);
         textViewAgeThirteen = findViewById(R.id.textViewAgeThirteen);
-        textViewAboveThirteen = findViewById(R.id.textViewAboveThirteen);
+        //textViewAboveThirteen = findViewById(R.id.textViewAboveThirteen);
 
 
         cardAgeTen = findViewById(R.id.cardAgeTen);
         cardAgeThirteen = findViewById(R.id.cardAgeThirteen);
-        cardAboveThirteen = findViewById(R.id.cardAboveThirteen);
+        //cardAboveThirteen = findViewById(R.id.cardAboveThirteen);
 
         cardAgeTen.setOnClickListener(this);
         cardAgeThirteen.setOnClickListener(this);
-        cardAboveThirteen.setOnClickListener(this);
+        //cardAboveThirteen.setOnClickListener(this);
 
         SessionManager.setValue(SessionManager.CHILD_AGE, "10");
         selected_bottom_layout(activity, cardAgeTen, textViewAgeTen);
@@ -74,14 +74,13 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
     public void initial_bottom_menu(Activity activity) {
 
         cardAgeTen.setCardBackgroundColor(activity.getResources().getColor(R.color.transparent));
-        textViewAgeTen.setTextColor(activity.getResources().getColor(R.color.gray_text));
+        //textViewAgeTen.setTextColor(activity.getResources().getColor(R.color.gray_text));
 
         cardAgeThirteen.setCardBackgroundColor(activity.getResources().getColor(R.color.transparent));
-        textViewAgeThirteen.setTextColor(activity.getResources().getColor(R.color.gray_text));
+        //textViewAgeThirteen.setTextColor(activity.getResources().getColor(R.color.gray_text));
 
-        cardAboveThirteen.setCardBackgroundColor(activity.getResources().getColor(R.color.transparent));
-        textViewAboveThirteen.setTextColor(activity.getResources().getColor(R.color.gray_text));
-
+        /*cardAboveThirteen.setCardBackgroundColor(activity.getResources().getColor(R.color.transparent));
+        textViewAboveThirteen.setTextColor(activity.getResources().getColor(R.color.gray_text));*/
 
     }
 
@@ -101,10 +100,10 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
                 selected_bottom_layout(activity, cardAgeThirteen, textViewAgeThirteen);
                 break;
 
-            case R.id.cardAboveThirteen:
+            /*case R.id.cardAboveThirteen:
                 SessionManager.setValue(SessionManager.CHILD_AGE, "14");
                 selected_bottom_layout(activity, cardAboveThirteen, textViewAboveThirteen);
-                break;
+                break;*/
 
 
         }
