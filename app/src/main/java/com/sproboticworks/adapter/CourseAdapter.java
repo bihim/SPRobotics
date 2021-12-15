@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.orhanobut.logger.Logger;
 import com.sproboticworks.R;
 import com.sproboticworks.model.courseresponse.DataItem;
@@ -41,13 +42,16 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         DataItem item = list.get(position);
         holder.course_name.setText(item.getName());
 
-        holder.course_view.setOnClickListener(v->{
+        holder.course_view.setOnClickListener(v -> {
 
-            Intent intent = new Intent(context , CourseDetailsActivity.class);
+            Intent intent = new Intent(context, CourseDetailsActivity.class);
             intent.putExtra("MyClass", item);
             context.startActivity(intent);
 
         });
+        if (position == list.size() - 1) {
+            setMargins(holder.materialCardView, 30);
+        }
 
         String url = "DemoUrl";
         Logger.d(item.getName());
@@ -83,18 +87,34 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         return list.size();
     }
 
+    private void setMargins(View view, int end) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+
+            final float scale = context.getResources().getDisplayMetrics().density;
+            // convert the DP into pixel
+            int e = (int) (end * scale + 0.5f);
+
+            //p.setMargins(l, t, r, b);
+            p.setMarginEnd(e);
+            view.requestLayout();
+        }
+    }
+
     public class CourseViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewName, textViewYear,course_name;
+        TextView textViewYear, course_name;
         ImageView imageView;
         MaterialButton course_view;
+        MaterialCardView materialCardView;
 
         public CourseViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.course_name);
             textViewYear = itemView.findViewById(R.id.course_year);
             imageView = itemView.findViewById(R.id.course_image);
             course_view = itemView.findViewById(R.id.course_view);
             course_name = itemView.findViewById(R.id.course_name);
+            materialCardView = itemView.findViewById(R.id.course_main);
         }
     }
+
 }

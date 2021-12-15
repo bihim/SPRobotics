@@ -73,7 +73,7 @@
                             android:background="?selectableItemBackground"
                             android:padding="@dimen/_7sdp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_cart"
+                            android:src="@drawable/shopping_cart_new"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +111,7 @@
                             android:background="?selectableItemBackground"
                             android:padding="@dimen/_7sdp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_notification"
+                            android:src="@drawable/bell"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -214,10 +214,7 @@
                 tools:itemCount="2"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/recyclerview_course">
-
             </androidx.recyclerview.widget.RecyclerView>
-
-
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/banner_slider"
@@ -347,6 +344,7 @@
                         android:layout_marginTop="@dimen/_10sdp"/>
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/goto_about_us"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:elevation="0dp"

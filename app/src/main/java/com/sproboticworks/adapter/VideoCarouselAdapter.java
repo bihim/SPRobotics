@@ -1,5 +1,6 @@
 package com.sproboticworks.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.sproboticworks.R;
+import com.sproboticworks.view.fragment.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +22,17 @@ import java.util.List;
 public class VideoCarouselAdapter extends SliderViewAdapter<VideoCarouselAdapter.SliderAdapterVH> {
 
     private Context context;
+    private Activity activity;
     private List<String> mSliderItems = new ArrayList<>(); //Demo purpose. Implement your own model list
 
     public VideoCarouselAdapter(Context context) {
         this.context = context;
     }
+
+    public interface AddLifecycleCallbackListener {
+        void addLifeCycleCallBack(YouTubePlayerView youTubePlayerView);
+    }
+
 
     public void renewItems(List<String> sliderItems) { //apply your custom model
         this.mSliderItems = sliderItems;
@@ -39,6 +47,10 @@ public class VideoCarouselAdapter extends SliderViewAdapter<VideoCarouselAdapter
     public void addItem(String sliderItem) { //Apply your custom model class
         this.mSliderItems.add(sliderItem);
         notifyDataSetChanged();
+    }
+
+    public void deleteAll(){
+        this.mSliderItems.clear();
     }
 
     @Override
@@ -111,12 +123,15 @@ public class VideoCarouselAdapter extends SliderViewAdapter<VideoCarouselAdapter
         });
     }
 
+
+
     @Override
     public int getCount() {
         return mSliderItems.size();
     }
 
     class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
+
 
         View itemView;
         YouTubePlayerView videoView;
@@ -125,6 +140,7 @@ public class VideoCarouselAdapter extends SliderViewAdapter<VideoCarouselAdapter
             super(itemView);
             videoView = itemView.findViewById(R.id.video_view);
             this.itemView = itemView;
+            new HomeFragment().addLifeCycleCallBack(videoView);
         }
     }
 }
