@@ -746,7 +746,6 @@
                 android:id="@+id/about_expand"
                 android:layout_width="match_parent"
                 app:el_duration="500"
-                app:el_expanded="true"
                 android:layout_height="wrap_content">
 
                 <LinearLayout

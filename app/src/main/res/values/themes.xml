@@ -13,10 +13,16 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
-        <item name="android:fontFamily">@font/proxima_nova_regular</item>
-        <item name="fontFamily">@font/proxima_nova_regular</item>
+        <item name="android:fontFamily">@font/proxima_nova_regular_another</item>
+        <item name="fontFamily">@font/proxima_nova_regular_another</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="RobotoFontStyle" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
 
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>

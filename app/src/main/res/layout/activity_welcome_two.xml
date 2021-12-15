@@ -42,8 +42,10 @@
                android:id="@+id/textViewAgeTen"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
+               android:background="@color/fragment_home_card_color"
                android:text="7+ years"
-               android:textColor="@color/gray_text"
+               android:textColor="@color/white"
+               android:textSize="@dimen/_12ssp"
                android:padding="@dimen/_10sdp"/>
 
        </com.google.android.material.card.MaterialCardView>
@@ -62,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10+ years"
+                android:textSize="@dimen/_12ssp"
                 android:textColor="@color/gray_text"
                 android:padding="@dimen/_10sdp"/>
 
