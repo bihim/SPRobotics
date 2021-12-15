@@ -253,10 +253,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getProfileInfo();
+        /*getProfileInfo();
         getAndSetProfileInfo(true, "", "", "", "", "", "", "", "");
         getStates();
-        getAddress();
+        getAddress();*/
     }
 
     private void setAddress(String address, String postalCode, String contactNo) {

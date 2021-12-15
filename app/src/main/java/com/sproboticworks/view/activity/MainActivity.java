@@ -325,6 +325,12 @@ public class MainActivity extends NetworkCallActivity {
         MaterialButton gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
         MaterialButton gotoPhone = bottomSheetDialogForEmail.findViewById(R.id.gotoPhone);
 
+        MaterialButton gotoEmailAgain = bottomSheetDialogForPhone.findViewById(R.id.login_using_phone);
+
+        gotoEmailAgain.setOnClickListener(v->{
+            bottomSheetDialogForEmail.show();
+            bottomSheetDialogForPhone.dismiss();
+        });
 
         if (gotoEmail != null)
             gotoEmail.setOnClickListener(v -> {

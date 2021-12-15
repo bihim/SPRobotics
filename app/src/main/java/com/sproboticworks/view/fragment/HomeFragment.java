@@ -4,6 +4,7 @@ import static com.sproboticworks.network.util.Constant.GET_AGE_GROUP;
 import static com.sproboticworks.network.util.Constant.GET_CART;
 import static com.sproboticworks.network.util.Constant.PRODUCT_LIST;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.orhanobut.logger.Logger;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -31,6 +35,7 @@ import com.sproboticworks.network.util.GsonUtil;
 import com.sproboticworks.preferences.SessionManager;
 import com.sproboticworks.util.MethodClass;
 import com.sproboticworks.util.NetworkCallFragment;
+import com.sproboticworks.view.activity.AboutUsActivity;
 import com.sproboticworks.view.activity.CartActivity;
 
 import org.json.JSONException;
@@ -40,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class HomeFragment extends NetworkCallFragment {
+public class HomeFragment extends NetworkCallFragment implements VideoCarouselAdapter.AddLifecycleCallbackListener {
 
     private TextView textViewName;
     private ImageButton imageButtonCart;
@@ -57,6 +62,8 @@ public class HomeFragment extends NetworkCallFragment {
     /*3 Top buttons*/
     private MaterialCardView materialCardViewJunior, materialCardViewSenior;
     private TextView textViewJunior, textViewSenior;
+    private MaterialButton materialCardViewLearnMore;
+    private  VideoCarouselAdapter videoCarouselAdapter;
     private List<String> youtubeIds = new ArrayList<>();
 
 
@@ -90,6 +97,7 @@ public class HomeFragment extends NetworkCallFragment {
         //materialCardViewSuperSenior = view.findViewById(R.id.super_senior_course_button);
         textViewJunior = view.findViewById(R.id.junior_course_text);
         textViewSenior = view.findViewById(R.id.senior_course_text);
+        materialCardViewLearnMore = view.findViewById(R.id.goto_about_us);
         //textViewSuperSenior = view.findViewById(R.id.super_senior_course_text);
 
         getAgeGroupId();
@@ -102,8 +110,7 @@ public class HomeFragment extends NetworkCallFragment {
         youtubeIds.add("u7H0_39uZw0"); //1
         youtubeIds.add("3JujmVbkA2A"); //2
         youtubeIds.add("ubjOu0hmtLs"); //5
-
-        VideoCarouselAdapter videoCarouselAdapter = new VideoCarouselAdapter(getActivity());
+        videoCarouselAdapter = new VideoCarouselAdapter(getActivity());
         sliderView.setSliderAdapter(videoCarouselAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
@@ -154,6 +161,10 @@ public class HomeFragment extends NetworkCallFragment {
 
         imageButtonNoti.setOnClickListener(v -> {
 
+        });
+
+        materialCardViewLearnMore.setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), AboutUsActivity.class));
         });
 
 
@@ -269,5 +280,21 @@ public class HomeFragment extends NetworkCallFragment {
 
 
         }
+    }
+
+    @Override
+    public void addLifeCycleCallBack(YouTubePlayerView youTubePlayerView) {
+        getLifecycle().addObserver(youTubePlayerView);
+    }
+
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        /*videoCarouselAdapter.deleteAll();
+        videoCarouselAdapter.notifyDataSetChanged();*/
+
+        Logger.d("Detach Home Fragment");
     }
 }
