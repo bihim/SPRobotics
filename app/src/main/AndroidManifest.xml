@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sprobotics">
+    package="com.sproboticworks">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".util.Application"
+        android:name="com.sproboticworks.util.Application"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -20,43 +19,46 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SPRobotics"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name="com.sproboticworks.view.activity.ParsingHtmlActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.sproboticworks.view.activity.AboutUsActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_OuMQ2SQXd10GX7" />
 
-
-
         <activity
-            android:name=".view.activity.ErrorPaymentActivity"
+            android:name="com.sproboticworks.view.activity.ErrorPaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.SuccessPaymentActivity"
+            android:name="com.sproboticworks.view.activity.SuccessPaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.ChildEditActivity"
+            android:name="com.sproboticworks.view.activity.ChildEditActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.ProfileEditActivity"
+            android:name="com.sproboticworks.view.activity.ProfileEditActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.CartActivity"
+            android:name="com.sproboticworks.view.activity.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.BillingActivity"
+            android:name="com.sproboticworks.view.activity.BillingActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.CourseDetailsActivity"
+            android:name="com.sproboticworks.view.activity.CourseDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.welcome.WelcomeTwoActivity"
+            android:name="com.sproboticworks.view.activity.welcome.WelcomeTwoActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.welcome.WelcomeOneActivity"
+            android:name="com.sproboticworks.view.activity.welcome.WelcomeOneActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.SplashScreenActivity"
+            android:name="com.sproboticworks.view.activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,14 +67,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name="com.sproboticworks.view.activity.MainActivity"
             android:exported="false" />
-
-
-
-
-
     </application>
-
 
 </manifest>

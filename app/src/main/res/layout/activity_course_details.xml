@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EFEFEF"
     tools:context=".view.activity.CourseDetailsActivity">
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +23,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/course_details_image"
@@ -85,7 +87,143 @@
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_6sdp"
+                android:layout_gravity="center"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colors1"
+                    android:gravity="center|start"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:text="Age Group"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/course_details_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="7+"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
+
+                    <TextView
+                        android:id="@+id/course_details_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/course_details"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_6sdp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:src="@drawable/delivery" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="We ship worldwide, FREE shipping within data"
+                        android:textColor="@color/black"
+                        app:drawableTint="@color/black" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/course_details_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="sans-serif"
+                android:text="INR 11,000"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/course_details_buy_now"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:backgroundTint="@color/colors6"
+                android:paddingVertical="@dimen/_15sdp"
+                android:text="Buy Now"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/_10sdp"
+                app:elevation="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/course_details_enquire_now"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:backgroundTint="@color/colors1"
+                android:paddingVertical="@dimen/_15sdp"
+                android:text="Enquire Now"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/_10sdp"
+                app:elevation="0dp" />
+
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -118,9 +256,9 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
-            </LinearLayout>
+            </LinearLayout>-->
 
-            <com.google.android.material.card.MaterialCardView
+            <!--<com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -133,26 +271,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colors1"
+                    android:fontFamily="@font/roboto_regular"
                     android:paddingHorizontal="@dimen/_30sdp"
                     android:paddingVertical="@dimen/_10sdp"
                     android:text="INR 11,000"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_16ssp" />
-            </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>-->
 
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:src="@drawable/delivery"/>
+                    android:src="@drawable/delivery" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,7 +301,7 @@
                     android:text="We ship worldwide, FREE shipping within data"
                     android:textColor="@color/black"
                     app:drawableTint="@color/black" />
-            </LinearLayout>
+            </LinearLayout>-->
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/simpleTabLayout"
@@ -169,11 +309,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/blackish"
                 android:textAlignment="textStart"
+                android:visibility="gone"
+                app:tabIndicatorColor="@color/fragment_home_card_color"
                 app:tabSelectedTextColor="@color/blackish"
-                app:tabIndicatorColor="@color/fragment_home_card_color" />
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/blackish" />
 
             <FrameLayout
                 android:id="@+id/simpleFrameLayout"
@@ -181,13 +322,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_20sdp" />
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:visibility="gone" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginHorizontal="@dimen/_10sdp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
@@ -235,8 +377,190 @@
                         android:textSize="@dimen/_16ssp" />
                 </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:text="What will your kid learn?"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/firstItemButton"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:gravity="start|center"
+                    android:text="Drone"
+                    android:textColor="@color/black"
+                    app:icon="@drawable/ic_round_arrow_forward_ios_24"
+                    app:iconGravity="end"
+                    app:iconTint="@color/black" />
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/firstItemLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:src="@drawable/ic_course_details_done" />
+
+                        <TextView
+                            android:id="@+id/firstItemText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="Let your child attach a mop to the Robot and code it to clean your house in a perfect algorithm" />
+
+                    </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+                <!--2nd-->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/secondItemButton"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:gravity="start|center"
+                    android:text="Drone"
+                    android:textColor="@color/black"
+                    app:icon="@drawable/ic_round_arrow_forward_ios_24"
+                    app:iconGravity="end"
+                    app:iconTint="@color/black" />
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/secondItemLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:src="@drawable/ic_course_details_done" />
+
+                        <TextView
+                            android:id="@+id/secondItemText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="Let your child attach a mop to the Robot and code it to clean your house in a perfect algorithm" />
+
+                    </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+                <!--3rd-->
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/thirdItemButton"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:gravity="start|center"
+                    android:text="Drone"
+                    android:textColor="@color/black"
+                    app:icon="@drawable/ic_round_arrow_forward_ios_24"
+                    app:iconGravity="end"
+                    app:iconTint="@color/black" />
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/thirdItemLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:src="@drawable/ic_course_details_done" />
+
+                        <TextView
+                            android:id="@+id/thirdItemText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="Let your child attach a mop to the Robot and code it to clean your house in a perfect algorithm" />
+
+                    </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+                <!--4th-->
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/fourthItemButton"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:gravity="start|center"
+                    android:text="Drone"
+                    android:textColor="@color/black"
+                    app:icon="@drawable/ic_round_arrow_forward_ios_24"
+                    app:iconGravity="end"
+                    app:iconTint="@color/black" />
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/fourthItemLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_20sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:src="@drawable/ic_course_details_done" />
+
+                        <TextView
+                            android:id="@+id/fourthItemText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:text="Let your child attach a mop to the Robot and code it to clean your house in a perfect algorithm" />
+
+                    </LinearLayout>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

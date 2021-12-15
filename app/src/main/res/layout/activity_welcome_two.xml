@@ -42,8 +42,10 @@
                android:id="@+id/textViewAgeTen"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Upto 10"
-               android:textColor="@color/gray_text"
+               android:background="@color/fragment_home_card_color"
+               android:text="7+ years"
+               android:textColor="@color/white"
+               android:textSize="@dimen/_12ssp"
                android:padding="@dimen/_10sdp"/>
 
        </com.google.android.material.card.MaterialCardView>
@@ -61,26 +63,8 @@
                 android:id="@+id/textViewAgeThirteen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10 - 13"
-                android:textColor="@color/gray_text"
-                android:padding="@dimen/_10sdp"/>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardAboveThirteen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:strokeColor="#929292"
-            app:strokeWidth="@dimen/_1sdp"
-            app:cardCornerRadius="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
-
-            <TextView
-                android:id="@+id/textViewAboveThirteen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Above 13"
+                android:text="10+ years"
+                android:textSize="@dimen/_12ssp"
                 android:textColor="@color/gray_text"
                 android:padding="@dimen/_10sdp"/>
 

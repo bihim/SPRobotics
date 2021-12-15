@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up or Login"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:textStyle="bold"
         android:textSize="@dimen/_16ssp"
         android:textColor="@color/black"/>
@@ -19,12 +20,14 @@
         android:layout_height="wrap_content"
         android:text="We will send you a confirmation code"
         android:textSize="@dimen/_12ssp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp">
 
         <com.google.android.material.card.MaterialCardView
@@ -60,8 +63,11 @@
         app:iconTint="@color/white"
         android:backgroundTint="@color/colors4"
         app:icon="@drawable/ic_forward"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         app:iconGravity="textEnd"/>
     <TextView
+        android:id="@+id/privacyPolicy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/terms_condition"/>
@@ -71,7 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="or Login using phone no"
+        android:textAllCaps="false"
+        android:text="or Login using Email ID"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/_10sdp"/>

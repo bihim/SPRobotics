@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="@dimen/_430sdp"
+    android:layout_marginVertical="@dimen/_15sdp"
+    android:layout_marginHorizontal="@dimen/_15sdp"
+    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardElevation="@dimen/_5sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top|center">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/team_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:src="@drawable/ceo"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:background="#181E3E"
+                android:gravity="center|start"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/team_name"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:text="Aarthi Muralitharan"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/team_designation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:gravity="top"
+                    android:text="Cheif Community Officer\nCOO"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/team_description"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:lineHeight="@dimen/_16sdp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:justificationMode="inter_word"
+            android:text="She started the business career at 19, back-packing across the country, going hands-on, participating and winning in national and international competitions in Robotics, Engineering and STEM. This led to the creation of AI led Tech Platform for Online and Assisted Online Education in Robotics, Engineering and STEM. Taking the first letter of her name, and that of her husband's (Pranavan) and combining it with mutual passion Robotics, 'SP Robotic Works' was created. She was one of the youngest women to be awarded as 'Iconic Women' by the Women Economic Forum. From spearheading the development of curriculum and teamware to chartering the growth of the community, she is a driving force behind all of the company’s initiatives."
+            android:textColor="@color/blackish"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
