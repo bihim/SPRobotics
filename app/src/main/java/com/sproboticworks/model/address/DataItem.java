@@ -1,4 +1,4 @@
-package com.sprobotics.model.address;
+package com.sproboticworks.model.address;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;

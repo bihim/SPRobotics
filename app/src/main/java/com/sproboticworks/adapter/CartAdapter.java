@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sproboticworks.R;
 import com.sproboticworks.model.cartrespone.DataItem;
 import com.sproboticworks.view.activity.CartActivity;
@@ -47,6 +49,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
         holder.tvCoursePrice.setText(item.getProductLocalPrice());
         holder.tvQuantity.setText(item.getProductQuantity());
 
+        String url = item.getImage();
+        Glide.with(context.getApplicationContext()).load(url).placeholder(context.getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(holder.cart_image);
+
+
 
         holder.imgDeleteItem.setOnClickListener(v -> {
 
@@ -79,6 +85,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
     public class CourseViewHolder extends RecyclerView.ViewHolder {
         TextView tvQuantity, tvCoursePrice, course_name;
         ImageButton imgDeleteItem, imgPlus, imgMinus;
+        ImageView cart_image;
 
 
         public CourseViewHolder(@NonNull View itemView) {
@@ -90,6 +97,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
             imgDeleteItem = itemView.findViewById(R.id.imgDeleteItem);
             imgPlus = itemView.findViewById(R.id.imgPlus);
             imgMinus = itemView.findViewById(R.id.imgMinus);
+            cart_image = itemView.findViewById(R.id.cart_image);
         }
     }
 }

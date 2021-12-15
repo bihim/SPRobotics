@@ -1,42 +1,130 @@
 {
   "project_info": {
-    "project_number": "385538498733",
-    "project_id": "sp-robotics",
-    "storage_bucket": "sp-robotics.appspot.com"
+    "project_number": "927610722708",
+    "firebase_url": "https://kidobotikz-1d9f.firebaseio.com",
+    "project_id": "kidobotikz-1d9f",
+    "storage_bucket": "kidobotikz-1d9f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:385538498733:android:dbd32f2ee98fc644072624",
+        "mobilesdk_app_id": "1:927610722708:android:ba3aca1a8964eb17",
         "android_client_info": {
-          "package_name": "com.sprobotics"
+          "package_name": "com.kidobotikz.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "385538498733-ig8573u8tb5h0f24qfgafctd4p7oe8mo.apps.googleusercontent.com",
+          "client_id": "927610722708-bcig9c6rej1hp1o7eq93fi7pbi25i649.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.sprobotics",
-            "certificate_hash": "c080a117869f8acafc106772f35129e0cd3cb1d6"
+            "package_name": "com.kidobotikz.app",
+            "certificate_hash": "4587ddacbd8380fa7d4e9af971b36df61832c759"
           }
         },
         {
-          "client_id": "385538498733-0un03rn6d5f6kgshcfm07d37ssumsrs4.apps.googleusercontent.com",
+          "client_id": "927610722708-q9g2que0esc33u328p36us61e84f6ddr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCDRS-v1mdrO0RcyNI0LCtf6Q_ymMbGbOo"
+          "current_key": "AIzaSyCgMOGOMkgyecEK3rexDORgsedZzvhAk8g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "385538498733-0un03rn6d5f6kgshcfm07d37ssumsrs4.apps.googleusercontent.com",
+              "client_id": "927610722708-q9g2que0esc33u328p36us61e84f6ddr.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "927610722708-407jud3j7d47i8jmu3862giqobsv4ois.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kidobotikz.iapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927610722708:android:7f92349af2d428b4445781",
+        "android_client_info": {
+          "package_name": "com.sproboticworks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927610722708-uptul345r5la41ok4qfj6nj98jqu82qk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sproboticworks",
+            "certificate_hash": "c080a117869f8acafc106772f35129e0cd3cb1d6"
+          }
+        },
+        {
+          "client_id": "927610722708-q9g2que0esc33u328p36us61e84f6ddr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgMOGOMkgyecEK3rexDORgsedZzvhAk8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927610722708-q9g2que0esc33u328p36us61e84f6ddr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "927610722708-407jud3j7d47i8jmu3862giqobsv4ois.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kidobotikz.iapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927610722708:android:54cbb78adeb65576",
+        "android_client_info": {
+          "package_name": "com.sprw.agv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927610722708-q9g2que0esc33u328p36us61e84f6ddr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgMOGOMkgyecEK3rexDORgsedZzvhAk8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927610722708-q9g2que0esc33u328p36us61e84f6ddr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "927610722708-407jud3j7d47i8jmu3862giqobsv4ois.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kidobotikz.iapp"
+              }
             }
           ]
         }

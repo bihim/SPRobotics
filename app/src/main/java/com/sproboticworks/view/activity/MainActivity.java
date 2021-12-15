@@ -1,5 +1,7 @@
 package com.sproboticworks.view.activity;
 
+import static com.sproboticworks.network.util.Constant.EMAIL_LOGIN;
+import static com.sproboticworks.network.util.Constant.EMAIL_OTP;
 import static com.sproboticworks.network.util.Constant.MOBILE_LOGIN;
 import static com.sproboticworks.network.util.Constant.MOBILE_OTP;
 import static com.sproboticworks.util.MethodClass.getAddress;
@@ -78,8 +80,9 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends NetworkCallActivity {
 
+    private String loginType = "M";
     private String OTP = "";
-    private String mobile = "";
+    private String email = "";
 
     private Activity activity;
     private BottomNavigationView bottomNavigationView;
@@ -120,8 +123,8 @@ public class MainActivity extends NetworkCallActivity {
 
         findViewById();
         setButtonCallBacks();
-        setBottomSheet();
         initLoginBottomSheet();
+        setBottomSheet();
         setBottomNavigationView();
         setFragment(savedInstanceState);
         startFirebaseLogin();
@@ -327,7 +330,7 @@ public class MainActivity extends NetworkCallActivity {
 
         MaterialButton gotoEmailAgain = bottomSheetDialogForPhone.findViewById(R.id.login_using_phone);
 
-        gotoEmailAgain.setOnClickListener(v->{
+        gotoEmailAgain.setOnClickListener(v -> {
             bottomSheetDialogForEmail.show();
             bottomSheetDialogForPhone.dismiss();
         });
@@ -353,16 +356,19 @@ public class MainActivity extends NetworkCallActivity {
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override
             public void onOtpCompleted(String otp) {
-                OTP_Verification(otp);
+                if (loginType == "M")
+                    OTP_Verification(otp);
+                else {
+                    if (OTP.equalsIgnoreCase(otp)) {
+                       if (bottomSheetDialogForEmail.isShowing())bottomSheetDialogForEmail.dismiss();
+                        bottomSheetDialogForOtp.dismiss();
+                        MethodClass.hideKeyboard(activity);
+                        MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
+                        loginWithEmailOrMobile("E");
+                    } else
+                        MethodClass.showAlertDialog(activity, true, "Invalid OTP", "Invalid OTP", false);
+                }
 
-                /*if (OTP.equalsIgnoreCase(otp)) {
-                    bottomSheetDialogForOtp.dismiss();
-                    MethodClass.hideKeyboard(activity);
-                    MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
-                    loginWithEmailOrMobile();
-                } else
-                    MethodClass.showAlertDialog(activity, true, "Invalid OTP", "Invalid OTP", false);
-*/
 
             }
         });
@@ -371,15 +377,23 @@ public class MainActivity extends NetworkCallActivity {
 
         });
         textview_resend_otp.setOnClickListener(v -> {
-            sentOTPRequest(phone_number);
+            if (loginType == "M")
+                sentOTPRequest(phone_number);
         });
         /*Email*/
         TextInputEditText textInputEditTextEmail = bottomSheetDialogForEmail.findViewById(R.id.bottom_email);
         TextInputEditText textInputEditTextPassword = bottomSheetDialogForEmail.findViewById(R.id.bottom_password);
         MaterialButton materialButtonContinueEmail = bottomSheetDialogForEmail.findViewById(R.id.button_continue);
+
+        materialButtonContinueEmail.setOnClickListener(v -> {
+            if (textInputEditTextEmail.getText().toString().length() > 0) {
+                loginType = "E";
+                requestForEmailOtp(textInputEditTextEmail.getText().toString());
+            }
+        });
     }
 
-    protected void setTextViewHTML(TextView textView,String html) {
+    protected void setTextViewHTML(TextView textView, String html) {
         CharSequence sequence = Html.fromHtml(html);
         SpannableStringBuilder strBuilder = new SpannableStringBuilder(sequence);
         URLSpan[] urls = strBuilder.getSpans(0, sequence.length(), URLSpan.class);
@@ -414,7 +428,6 @@ public class MainActivity extends NetworkCallActivity {
         EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
 
 
-
         TextView text_view = bottomSheetDialogForPhone.findViewById(R.id.privacyPolicy);
         setTextViewHTML(text_view, str_links);
 
@@ -432,6 +445,7 @@ public class MainActivity extends NetworkCallActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 10) {
+                    loginType = "M";
                     sentOTPRequest(s.toString());
                 }
 
@@ -453,28 +467,30 @@ public class MainActivity extends NetworkCallActivity {
 
     // API calling
 
-    public void requestForMobileOTP(String mobile) {
-        /*this.mobile = mobile;
+    public void requestForEmailOtp(String email_id) {
+        this.email = email_id;
         HashMap<String, String> map = new HashMap<>();
-        map.put("mobile", mobile);
-        apiRequest.postRequest(MOBILE_OTP, map, MOBILE_OTP);*/
+        map.put("email", email_id);
+        apiRequest.postRequest(EMAIL_OTP, map, EMAIL_OTP);
 
     }
 
 
-    public void loginWithEmailOrMobile() {
+    public void loginWithEmailOrMobile(String type) {
         HashMap<String, String> map = new HashMap<>();
         map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
         map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
-        map.put("mobile", phone_number);
-        apiRequest.postRequest(MOBILE_LOGIN, map, MOBILE_LOGIN);
+        if (type.equalsIgnoreCase("M"))
+            map.put("mobile", phone_number);
+        else map.put("email", email);
+        apiRequest.postRequest(type.equalsIgnoreCase("M") ? MOBILE_LOGIN : EMAIL_LOGIN, map, MOBILE_LOGIN);
     }
 
     @Override
     public void OnCallBackSuccess(String tag, String response) {
         super.OnCallBackSuccess(tag, response);
 
-        if (tag.equalsIgnoreCase(MOBILE_OTP)) {
+        if (tag.equalsIgnoreCase(EMAIL_OTP)) {
             PhoneOtpSentResponse response1 = (PhoneOtpSentResponse) GsonUtil.toObject(response, PhoneOtpSentResponse.class);
             ToastUtils.showLong(activity, response1.getData().getOtp());
             OTP = response1.getData().getOtp();
@@ -525,7 +541,7 @@ public class MainActivity extends NetworkCallActivity {
                 if (bottomSheetDialogForOtp.isShowing())
                     bottomSheetDialogForOtp.dismiss();
 
-                loginWithEmailOrMobile();
+                loginWithEmailOrMobile("M");
             }
 
             @Override
@@ -570,9 +586,11 @@ public class MainActivity extends NetworkCallActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
-                            loginWithEmailOrMobile();
-                           if (bottomSheetDialogForOtp.isShowing())bottomSheetDialogForOtp.dismiss();
-                           if (bottomSheetDialogForPhone.isShowing())bottomSheetDialogForPhone.dismiss();
+                            loginWithEmailOrMobile("M");
+                            if (bottomSheetDialogForOtp.isShowing())
+                                bottomSheetDialogForOtp.dismiss();
+                            if (bottomSheetDialogForPhone.isShowing())
+                                bottomSheetDialogForPhone.dismiss();
 
 
                         } else {

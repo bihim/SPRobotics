@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
@@ -310,6 +311,9 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         course_details_title.setText(courseDetails.getName());
         // course_details_age.setText(courseDetails.getAgeCategory().get(0));
         course_details_money.setText("Rs. " + courseDetails.getPrice().get(0));
+
+        Glide.with(getApplicationContext()).load(courseDetails.getMobile_app_image()).placeholder(getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(imageViewCourseDetails);
+
 
 
         switch (courseDetails.getAgeCategory().get(0)) {

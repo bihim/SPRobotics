@@ -71,7 +71,7 @@
                         android:id="@+id/cart_delivery_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 

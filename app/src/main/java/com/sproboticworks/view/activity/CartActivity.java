@@ -1,20 +1,19 @@
 package com.sproboticworks.view.activity;
 
-<<<<<<< HEAD:app/src/main/java/com/sprobotics/view/activity/CartActivity.java
-import static com.sprobotics.network.util.Constant.ADD_CART;
-import static com.sprobotics.network.util.Constant.APPLY_COUPON;
-import static com.sprobotics.network.util.Constant.DELETE_ITEM_FROM_CART;
-import static com.sprobotics.network.util.Constant.DISCOUNT_COUPON;
-import static com.sprobotics.network.util.Constant.GET_CART;
-import static com.sprobotics.network.util.Constant.SET_GET_ADDRESS;
-import static com.sprobotics.network.util.Constant.UPDATE_CART_ITEM;
-=======
+
+import static com.sproboticworks.network.util.Constant.ADD_CART;
+import static com.sproboticworks.network.util.Constant.APPLY_COUPON;
+import static com.sproboticworks.network.util.Constant.DELETE_ITEM_FROM_CART;
+import static com.sproboticworks.network.util.Constant.DISCOUNT_COUPON;
+import static com.sproboticworks.network.util.Constant.GET_CART;
+import static com.sproboticworks.network.util.Constant.SET_GET_ADDRESS;
+import static com.sproboticworks.network.util.Constant.UPDATE_CART_ITEM;
+
 import static com.sproboticworks.network.util.Constant.APPLY_COUPON;
 import static com.sproboticworks.network.util.Constant.DELETE_ITEM_FROM_CART;
 import static com.sproboticworks.network.util.Constant.DISCOUNT_COUPON;
 import static com.sproboticworks.network.util.Constant.GET_CART;
 import static com.sproboticworks.network.util.Constant.UPDATE_CART_ITEM;
->>>>>>> 124ff37bd4f67e52d3c2ad443521fe7ecfbee989:app/src/main/java/com/sproboticworks/view/activity/CartActivity.java
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,21 +25,12 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-<<<<<<< HEAD:app/src/main/java/com/sprobotics/view/activity/CartActivity.java
-import com.sprobotics.R;
-import com.sprobotics.adapter.CartAdapter;
-import com.sprobotics.model.address.AddressResponse;
-import com.sprobotics.model.cartrespone.CartResponse;
-import com.sprobotics.model.couponresponse.CouponResponse;
-import com.sprobotics.network.util.Constant;
-import com.sprobotics.network.util.GsonUtil;
-import com.sprobotics.network.util.ToastUtils;
-import com.sprobotics.preferences.SessionManager;
-import com.sprobotics.util.MethodClass;
-import com.sprobotics.util.NetworkCallActivity;
-=======
+
+
+
 import com.sproboticworks.R;
 import com.sproboticworks.adapter.CartAdapter;
+import com.sproboticworks.model.address.AddressResponse;
 import com.sproboticworks.model.cartrespone.CartResponse;
 import com.sproboticworks.model.couponresponse.CouponResponse;
 import com.sproboticworks.network.util.Constant;
@@ -48,7 +38,6 @@ import com.sproboticworks.network.util.GsonUtil;
 import com.sproboticworks.network.util.ToastUtils;
 import com.sproboticworks.preferences.SessionManager;
 import com.sproboticworks.util.NetworkCallActivity;
->>>>>>> 124ff37bd4f67e52d3c2ad443521fe7ecfbee989:app/src/main/java/com/sproboticworks/view/activity/CartActivity.java
 
 import org.json.JSONException;
 import org.json.JSONObject;

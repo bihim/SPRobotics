@@ -1,7 +1,7 @@
 package com.sproboticworks.util;
 
 
-import static com.sprobotics.network.util.Constant.ADDRESS_DETAILS;
+import static com.sproboticworks.network.util.Constant.ADDRESS_DETAILS;
 
 import android.Manifest;
 import android.app.Activity;
@@ -207,6 +207,7 @@ public class MethodClass {
                 ADDRESS_DETAILS=obj;
                 String add = obj.getAddressLine(0);
                 Constant.LOCATION=obj.getLocality();
+                Constant.CITY=obj.getCountryName();
                 Constant.STATE=obj.getAdminArea();
                 address = add;
             }

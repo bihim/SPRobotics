@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class AddressResponse{
 
 	@SerializedName("data")
-	private List<com.sprobotics.model.address.DataItem> data;
+	private List<com.sproboticworks.model.address.DataItem> data;
 
 	@SerializedName("response")
 	private boolean response;
@@ -17,7 +17,7 @@ public class AddressResponse{
 	@SerializedName("error")
 	private String error;
 
-	public List<com.sprobotics.model.address.DataItem> getData(){
+	public List<com.sproboticworks.model.address.DataItem> getData(){
 		return data;
 	}
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.orhanobut.logger.Logger;
@@ -53,10 +54,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             setMargins(holder.materialCardView, 30);
         }
 
-        String url = "DemoUrl";
+        String url = item.getMobile_app_image();
         Logger.d(item.getName());
 
-        switch (item.getSlug()) {
+     /*   switch (item.getSlug()) {
             case "scratch-programming-online-course":
                 holder.imageView.setImageResource(R.drawable.scratch);
                 break;
@@ -77,9 +78,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                 holder.imageView.setImageResource(R.drawable.drone);
                 break;
 
-        }
+        }*/
 
-        //Glide.with(context.getApplicationContext()).load(url).placeholder(context.getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(holder.imageView);
+        Glide.with(context.getApplicationContext()).load(url).placeholder(context.getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(holder.imageView);
     }
 
     @Override

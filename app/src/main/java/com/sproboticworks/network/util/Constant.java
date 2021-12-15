@@ -6,7 +6,9 @@ public class Constant {
 
     public static final String BASE_URL="http://spr.vertitect.in/api/";
     public static final String MOBILE_OTP=BASE_URL+"mobile-otp";
+    public static final String EMAIL_OTP=BASE_URL+"email-otp";
     public static final String MOBILE_LOGIN=BASE_URL+"login-mobile";
+    public static final String EMAIL_LOGIN=BASE_URL+"login-email";
     public static final String GET_AGE_GROUP=BASE_URL+"age-category";
     public static final String PRODUCT_LIST=BASE_URL+"product";
     public static final String GET_CART=BASE_URL+"get-cart";

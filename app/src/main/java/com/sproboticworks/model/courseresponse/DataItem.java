@@ -12,6 +12,9 @@ public class DataItem implements Serializable {
 	@SerializedName("iamge")
 	private String iamge;
 
+	@SerializedName("mobile_app_image")
+	private String mobile_app_image;
+
 	@SerializedName("price")
 	private List<String> price;
 
@@ -29,6 +32,10 @@ public class DataItem implements Serializable {
 
 	@SerializedName("slug")
 	private String slug;
+
+	public String getMobile_app_image() {
+		return mobile_app_image;
+	}
 
 	public Object getShortDescription(){
 		return shortDescription;

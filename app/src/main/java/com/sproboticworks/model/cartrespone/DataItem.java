@@ -9,7 +9,7 @@ public class DataItem{
 	private String productLocalPrice;
 
 	@SerializedName("image")
-	private List<String> image;
+	private String image;
 
 	@SerializedName("item_id")
 	private String itemId;
@@ -27,7 +27,7 @@ public class DataItem{
 		return productLocalPrice;
 	}
 
-	public List<String> getImage(){
+	public String getImage(){
 		return image;
 	}
 
