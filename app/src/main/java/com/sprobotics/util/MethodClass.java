@@ -1,6 +1,8 @@
 package com.sprobotics.util;
 
 
+import static com.sprobotics.network.util.Constant.ADDRESS_DETAILS;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -210,8 +212,10 @@ public class MethodClass {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             if (addresses.size() != 0) {
                 Address obj = addresses.get(0);
-                Constant.ADDRESS_DETAILS=obj;
+                ADDRESS_DETAILS=obj;
                 String add = obj.getAddressLine(0);
+                Constant.LOCATION=obj.getLocality();
+                Constant.STATE=obj.getAdminArea();
                 address = add;
             }
         } catch (IOException e) {

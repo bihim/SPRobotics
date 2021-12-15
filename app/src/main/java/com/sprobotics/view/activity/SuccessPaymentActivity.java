@@ -30,21 +30,14 @@ public class SuccessPaymentActivity extends AppCompatActivity {
         tvPaidAmount.setText("Rs. "+bundle.getString("tv_cart_total"));
 
 
-        new Handler().postDelayed(() -> {
 
-            Intent intent = new Intent(SuccessPaymentActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }, 2000);
 
 
     }
 
     @Override
     public void onBackPressed() {
-        MethodClass.go_to_next_activity(this, MainActivity.class);
+        MethodClass.go_to_next_activity_clear_task(this, MainActivity.class);
 
         super.onBackPressed();
     }

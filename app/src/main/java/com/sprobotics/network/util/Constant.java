@@ -16,6 +16,7 @@ public class Constant {
     public static final String DELETE_ITEM_FROM_CART=BASE_URL+"delete-cart";
     public static final String UPDATE_CART_ITEM=BASE_URL+"cart-update";
     public static final String PLACE_ORDER=BASE_URL+"order-place";
+    public static final String SET_GET_ADDRESS=BASE_URL+"customer-address-save";
 
 
 
@@ -32,5 +33,12 @@ public class Constant {
     public static String ADDRESS="";
 
     public static Address ADDRESS_DETAILS;
+
+    public static String LOCATION="";
+    public static String STATE="";
+    public static String CITY="";
+    public static String STATE_ID="1";
+    public static String COUNTRY_ID="1";
+    //public static String PINCODE="";
 
 }

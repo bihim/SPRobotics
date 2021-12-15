@@ -5,6 +5,7 @@ import static com.sprobotics.network.util.Constant.APPLY_COUPON;
 import static com.sprobotics.network.util.Constant.DELETE_ITEM_FROM_CART;
 import static com.sprobotics.network.util.Constant.DISCOUNT_COUPON;
 import static com.sprobotics.network.util.Constant.GET_CART;
+import static com.sprobotics.network.util.Constant.SET_GET_ADDRESS;
 import static com.sprobotics.network.util.Constant.UPDATE_CART_ITEM;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.sprobotics.R;
 import com.sprobotics.adapter.CartAdapter;
+import com.sprobotics.model.address.AddressResponse;
 import com.sprobotics.model.cartrespone.CartResponse;
 import com.sprobotics.model.couponresponse.CouponResponse;
 import com.sprobotics.network.util.Constant;
@@ -89,7 +91,7 @@ public class CartActivity extends NetworkCallActivity {
 
         imageButton = findViewById(R.id.back_button);
 
-        imageButton.setOnClickListener(v->{
+        imageButton.setOnClickListener(v -> {
             onBackPressed();
         });
 
@@ -101,12 +103,11 @@ public class CartActivity extends NetworkCallActivity {
         recyclerViewCart.setAdapter(adapter);
         recyclerViewCart.setFocusable(false);
 
-        cart_delivery_pincode.setText(Constant.PINCODE);
-        cart_delivery_address.setText(Constant.ADDRESS);
 
         onClick();
 
         getCartData();
+        getAddress();
     }
 
     private void onClick() {
@@ -148,6 +149,18 @@ public class CartActivity extends NetworkCallActivity {
         map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
         apiRequest.postRequest(GET_CART, map, GET_CART);
 
+    }
+
+    public void getAddress() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
+        map.put("address", "");
+        map.put("city", "");
+        map.put("state", "");
+        map.put("postal_code", "");
+        map.put("contact_no", "");
+        map.put("landmark", "");
+        apiRequest.postRequest(SET_GET_ADDRESS, map, "Fetch_ADDRESS");
 
     }
 
@@ -199,7 +212,7 @@ public class CartActivity extends NetworkCallActivity {
         if (tag.equalsIgnoreCase(GET_CART)) {
             CartResponse response1 = (CartResponse) GsonUtil.toObject(response, CartResponse.class);
 
-            if (response1.getData().size()>0) {
+            if (response1.getData().size() > 0) {
                 cartId = response1.getData1().getCartId();
 
                 totalPrice = Double.parseDouble(response1.getData1().getProductTotalPrice());
@@ -212,14 +225,12 @@ public class CartActivity extends NetworkCallActivity {
 
 
                 setTotalPrice();
-            }else onBackPressed();
+            } else onBackPressed();
 
 
             //  tv_cart_value_of_products.setText(totalPrice+"");
 
         }
-
-
         if (tag.equalsIgnoreCase(APPLY_COUPON)) {
             CouponResponse response1 = (CouponResponse) GsonUtil.toObject(response, CouponResponse.class);
 
@@ -235,8 +246,53 @@ public class CartActivity extends NetworkCallActivity {
             //  tv_cart_value_of_products.setText(totalPrice+"");
 
         }
+        if (tag.equalsIgnoreCase("Fetch_ADDRESS")) {
+            AddressResponse response1 = (AddressResponse) GsonUtil.toObject(response, AddressResponse.class);
+
+            if (response1.isResponse()) {
+                // this is the okay.......
+                if (response1.getData().size() > 0) {
+
+                    Constant.ADDRESS=response1.getData().get(0).getAddress();
+                    Constant.STATE=response1.getData().get(0).getStateName().get(0);
+                    Constant.PINCODE=response1.getData().get(0).getPostalCode();
+                    Constant.CITY=response1.getData().get(0).getCityName().get(0);
 
 
+
+                    Constant.STATE_ID=response1.getData().get(0).getStateId();
+                    Constant.COUNTRY_ID=response1.getData().get(0).getCountryId();
+
+                    cart_delivery_pincode.setText(response1.getData().get(0).getPostalCode());
+                    cart_delivery_address.setText(
+                            Constant.ADDRESS+" "+
+                            Constant.STATE+" "+
+                            Constant.CITY+" "+
+                            Constant.PINCODE);
+                } else {
+
+                    cart_delivery_pincode.setText(Constant.PINCODE);
+                    cart_delivery_address.setText(Constant.ADDRESS);
+
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
+                    map.put("address",  Constant.ADDRESS);
+                    map.put("city", Constant.CITY);
+                    map.put("state",  Constant.STATE);
+                    map.put("postal_code", Constant.PINCODE);
+                    map.put("contact_no", SessionManager.getLoginResponse().getData().getCustomerContactNo());
+                    map.put("landmark", "");
+                    apiRequest.postRequest(SET_GET_ADDRESS, map, "SAVE_ADDRESS");
+
+                }
+
+
+            }
+
+
+            //  tv_cart_value_of_products.setText(totalPrice+"");
+
+        }
         if (tag.equalsIgnoreCase(DISCOUNT_COUPON)) {
 
             try {

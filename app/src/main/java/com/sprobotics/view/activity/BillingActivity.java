@@ -96,7 +96,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
     private void setData() {
         billingName.setText(SessionManager.getValue(SessionManager.CHILD_NAME));
         billingNumber.setText(SessionManager.getLoginResponse().getData().getCustomerContactNo());
-        billingAddress.setText(Constant.ADDRESS);
+      //  billingAddress.setText(Constant.ADDRESS);
 
 
         //    bundle.putString("edt_cart_coupon", edt_cart_coupon.getText().toString());
@@ -113,6 +113,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
         intent.putExtra("get_bundle", bundle);*/
 
 
+        billingAddress.setText(bundle.getString("cart_delivery_address"));
         tv_cart_value_of_products.setText(bundle.getString("tv_cart_value_of_products"));
         tv_cart_discount.setText(bundle.getString("tv_cart_discount"));
         tv_cart_estimated_gst.setText(bundle.getString("tv_cart_estimated_gst"));
@@ -135,10 +136,10 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
         map.put("total_tax", bundle.getString("tv_cart_estimated_gst"));
         map.put("customer_address", bundle.getString("cart_delivery_address"));
         map.put("customer_postal_code", bundle.getString("cart_delivery_pincode"));
-        map.put("customer_state_id", "1");
-        map.put("customer_city_id", "1");
-        map.put("customer_state", MethodClass.defaultWhenNull(Constant.ADDRESS_DETAILS.getAdminArea(),""));
-        map.put("customer_city",MethodClass.defaultWhenNull(Constant.ADDRESS_DETAILS.getLocality(),""));
+        map.put("customer_state_id", Constant.STATE_ID);
+        map.put("customer_city_id", Constant.COUNTRY_ID);
+        map.put("customer_state", Constant.STATE);
+        map.put("customer_city",Constant.CITY);
 
 
         apiRequest.postRequest(PLACE_ORDER, map, PLACE_ORDER);
