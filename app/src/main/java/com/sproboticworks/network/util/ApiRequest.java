@@ -232,11 +232,11 @@ public class ApiRequest {
                 } else listener.OnCallBackSuccess(call.request().header("tag"), response.body());
 
             } catch (Exception e) {
-                listener.OnCallBackError(call.request().header("tag"), e.getMessage(), -1);
-                errorAlert("OPPS", e.getMessage());
+                //listener.OnCallBackError(call.request().header("tag"), e.getMessage(), -1);
+                //errorAlert("OPPS", e.getMessage());
                 e.printStackTrace();
             }
-        } else errorAlert("OPPS", "Something went wrong");
+        } //else errorAlert("OPPS", "Something went wrong");
 
       /*  Log.d("onCallBackSuccess", "URL-> " + call.request().url());
         Log.d("onCallBackSuccess", "Response-> " + response.body().toString());*/

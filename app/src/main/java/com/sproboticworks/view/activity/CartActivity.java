@@ -1,18 +1,11 @@
 package com.sproboticworks.view.activity;
 
 
-import static com.sproboticworks.network.util.Constant.ADD_CART;
 import static com.sproboticworks.network.util.Constant.APPLY_COUPON;
 import static com.sproboticworks.network.util.Constant.DELETE_ITEM_FROM_CART;
 import static com.sproboticworks.network.util.Constant.DISCOUNT_COUPON;
 import static com.sproboticworks.network.util.Constant.GET_CART;
 import static com.sproboticworks.network.util.Constant.SET_GET_ADDRESS;
-import static com.sproboticworks.network.util.Constant.UPDATE_CART_ITEM;
-
-import static com.sproboticworks.network.util.Constant.APPLY_COUPON;
-import static com.sproboticworks.network.util.Constant.DELETE_ITEM_FROM_CART;
-import static com.sproboticworks.network.util.Constant.DISCOUNT_COUPON;
-import static com.sproboticworks.network.util.Constant.GET_CART;
 import static com.sproboticworks.network.util.Constant.UPDATE_CART_ITEM;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +20,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 
-
+import com.orhanobut.logger.Logger;
 import com.sproboticworks.R;
 import com.sproboticworks.adapter.CartAdapter;
 import com.sproboticworks.model.address.AddressResponse;
@@ -54,13 +47,14 @@ public class CartActivity extends NetworkCallActivity {
 
     MaterialButton cart_apply;
 
-    MaterialCardView course_details_buy_now;
+    MaterialCardView course_details_buy_now, course_details_enquire_now;
 
     EditText edt_cart_coupon;
 
     TextView tv_cart_value_of_products, tv_cart_discount, tv_cart_estimated_gst, tv_cart_shipping, tv_cart_total, tv_label_gst;
 
     ImageButton imageButton;
+    ImageButton cart_pincode_edit;
 
 
     private CartAdapter adapter;
@@ -94,13 +88,25 @@ public class CartActivity extends NetworkCallActivity {
         tv_cart_total = findViewById(R.id.tv_cart_total);
         tv_label_gst = findViewById(R.id.tv_label_gst);
         course_details_buy_now = findViewById(R.id.course_details_buy_now);
+        course_details_enquire_now = findViewById(R.id.course_details_enquire_now);
 
         imageButton = findViewById(R.id.back_button);
+        cart_pincode_edit = findViewById(R.id.cart_pincode_edit);
 
         imageButton.setOnClickListener(v -> {
             onBackPressed();
         });
+        course_details_enquire_now.setOnClickListener(v->{
+            this.startActivity(new Intent(this, MainActivity.class).putExtra("bottomTag", "page_1"));
+            this.overridePendingTransition(0, 0);
+            finish();
+        });
 
+        cart_pincode_edit.setOnClickListener(v->{
+            startActivity(new Intent(this, BillingAddressEditActivity.class));
+            finish();
+            //this.overridePendingTransition(0, 0);
+        });
 
         recyclerViewCart.setAdapter(adapter);
         recyclerViewCart.setFocusable(false);
@@ -158,6 +164,7 @@ public class CartActivity extends NetworkCallActivity {
     }
 
     public void getAddress() {
+        Logger.d("Customer Id in Cart: "+SessionManager.getLoginResponse().getData().getCustomerId());
         HashMap<String, String> map = new HashMap<>();
         map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
         map.put("address", "");
@@ -167,7 +174,6 @@ public class CartActivity extends NetworkCallActivity {
         map.put("contact_no", "");
         map.put("landmark", "");
         apiRequest.postRequest(SET_GET_ADDRESS, map, "Fetch_ADDRESS");
-
     }
 
 
@@ -289,7 +295,6 @@ public class CartActivity extends NetworkCallActivity {
                     map.put("contact_no", SessionManager.getLoginResponse().getData().getCustomerContactNo());
                     map.put("landmark", "");
                     apiRequest.postRequest(SET_GET_ADDRESS, map, "SAVE_ADDRESS");
-
                 }
 
 

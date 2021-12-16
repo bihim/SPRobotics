@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 
@@ -36,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileEditActivity extends AppCompatActivity {
+public class BillingAddressEditActivity extends AppCompatActivity {
     private final String userId = SessionManager.getLoginResponse().getData().getCustomerId();
     private TextInputEditText textInputEditTextName, textInputEditTextContactNo, textInputEditTextEmail,
             textInputEditTextStudentName, textInputEditTextStudentEmail, textInputEditTextStudentContactNo, textInputEditTextStudentDateOfBirth;
@@ -58,6 +60,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     private String stateId;
     private String cityId;
     private TextInputEditText textInputEditTextAddress, textInputEditTextPostalCode, textInputEditTextContactNoAddress;
+    private ImageButton imageButton;
 
 
     @Override
@@ -66,6 +69,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_edit);
         findViewById();
         setButtonCallBacks();
+        getStates();
+        getAddress();
     }
 
     private void setAddress(String address, String postalCode, String contactNo) {
@@ -84,11 +89,25 @@ public class ProfileEditActivity extends AppCompatActivity {
                             textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
                             textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
                             textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                            autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0));
-                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0));
-                            stateId = addressModel.getData().get(0).getStateId().toString();
-                            cityId = addressModel.getData().get(0).getCityId().toString();
-                            getCity(cityId);
+                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                            }
+                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                            }
+                            if (addressModel.getData().get(0).getStateId()!=null){
+                                stateId = addressModel.getData().get(0).getStateId().toString();
+                            }
+                            if (addressModel.getData().get(0).getCityId()!=null){
+                                cityId = addressModel.getData().get(0).getCityId().toString();
+                            }
+                            if (addressModel.getData().get(0).getStateId()!=null){
+                                stateId = addressModel.getData().get(0).getStateId().toString();
+                            }
+                            if (addressModel.getData().get(0).getCityId()!=null){
+                                cityId = addressModel.getData().get(0).getCityId().toString();
+                            }
+                            getCity(stateId);
                             SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
                         }
                         else{
@@ -129,11 +148,19 @@ public class ProfileEditActivity extends AppCompatActivity {
                             textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
                             textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
                             textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                            autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0));
-                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0));
-                            stateId = addressModel.getData().get(0).getStateId().toString();
-                            cityId = addressModel.getData().get(0).getCityId().toString();
-                            getCity(cityId);
+                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                            }
+                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                            }
+                            if (addressModel.getData().get(0).getStateId()!=null){
+                                stateId = addressModel.getData().get(0).getStateId().toString();
+                            }
+                            if (addressModel.getData().get(0).getCityId()!=null){
+                                cityId = addressModel.getData().get(0).getCityId().toString();
+                            }
+                            getCity(stateId);
                         }
                         else{
                             SHOW_INFO_TOAST(activity, "Please update your address");
@@ -159,7 +186,6 @@ public class ProfileEditActivity extends AppCompatActivity {
     private void getCity(String stateId) {
         cityArrayList.clear();
         cityArrayListString.clear();
-        autoCompleteTextViewCity.setText("");
         cityId = null;
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Cities");
@@ -176,7 +202,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         for (StateCityModel.Datum data : cityArrayList) {
                             cityArrayListString.add(data.getName());
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ProfileEditActivity.this, android.R.layout.simple_list_item_1, cityArrayListString);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(BillingAddressEditActivity.this, android.R.layout.simple_list_item_1, cityArrayListString);
                         autoCompleteTextViewCity.setAdapter(adapter);
                         autoCompleteTextViewCity.setOnItemClickListener((adapterView, view, i, l) -> {
                             Logger.d("Selected State: " + cityArrayList.get(i).getName());
@@ -214,7 +240,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         for (StateCityModel.Datum data : stateArrayList) {
                             stateArrayListString.add(data.getName());
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ProfileEditActivity.this, android.R.layout.simple_list_item_1, stateArrayListString);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(BillingAddressEditActivity.this, android.R.layout.simple_list_item_1, stateArrayListString);
                         autoCompleteTextViewState.setAdapter(adapter);
                         autoCompleteTextViewState.setOnItemClickListener((adapterView, view, i, l) -> {
                             Logger.d("Selected State: " + stateArrayList.get(i).getName());
@@ -365,9 +391,15 @@ public class ProfileEditActivity extends AppCompatActivity {
         textInputEditTextAddress = findViewById(R.id.profile_address);
         textInputEditTextPostalCode = findViewById(R.id.profile_postalcode);
         textInputEditTextContactNoAddress = findViewById(R.id.profile_contact_no_address);
+        imageButton = findViewById(R.id.back_button);
     }
 
     private void setButtonCallBacks() {
+
+        imageButton.setOnClickListener(v->{
+            onBackPressed();
+        });
+
         DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
             // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
@@ -424,8 +456,13 @@ public class ProfileEditActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getAndSetProfileInfo(true, "", "", "", "", "", "", "", "");
-        getStates();
-        getAddress();
+        //getAndSetProfileInfo(true, "", "", "", "", "", "", "", "");
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, CartActivity.class));
+        this.overridePendingTransition(0, 0);
+        finish();
     }
 }

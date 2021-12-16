@@ -94,6 +94,7 @@ public class MainActivity extends NetworkCallActivity {
 
     ////Firebase
     String phone_number, firebase_otp, otpFor = "";
+    String bottomTag = "page_1";
     FirebaseAuth auth;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
 
@@ -294,9 +295,11 @@ public class MainActivity extends NetworkCallActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.page_1:
+                    bottomTag = "page_1";
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                     return true;
                 case R.id.page_2:
+                    bottomTag = "page_2";
                     if (SessionManager.isLoggedIn()) {
 
                     }
@@ -306,13 +309,18 @@ public class MainActivity extends NetworkCallActivity {
                     }
                     return true;
                 case R.id.page_3:
-                    if (SessionManager.isLoggedIn())
-                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
+                    bottomTag = "page_3";
+                    if (SessionManager.isLoggedIn()){
+                        this.startActivity(new Intent(this, EnquiryActivity.class).putExtra("bottomTag", bottomTag));
+                        this.overridePendingTransition(0, 0);
+                        //fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
+                    }
                     else {
                         bottomSheetDialogForPhone.show();
                     }
                     return true;
                 case R.id.page_4:
+                    bottomTag = "page_4";
                     if (SessionManager.isLoggedIn())
                         fragmentManager.beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                     else bottomSheetDialogForPhone.show();
@@ -528,11 +536,7 @@ public class MainActivity extends NetworkCallActivity {
             SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
             SessionManager.setLoggedIn(true);
             ToastUtils.showLong(MainActivity.this, "Logged in successfully");
-
-
         }
-
-
     }
 
     public void sentOTPRequest(String phoneNumber) {
@@ -601,7 +605,6 @@ public class MainActivity extends NetworkCallActivity {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, otptext);
         signInWithPhoneAuthCredential(credential, otptext);
 
-
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential, final String otptext) {
@@ -616,7 +619,6 @@ public class MainActivity extends NetworkCallActivity {
                                 bottomSheetDialogForOtp.dismiss();
                             if (bottomSheetDialogForPhone.isShowing())
                                 bottomSheetDialogForPhone.dismiss();
-
 
                         } else {
 
@@ -655,4 +657,25 @@ public class MainActivity extends NetworkCallActivity {
         snackbar.show();
     }
 
+    @Override
+    protected void onResume() {
+        switch (bottomTag) {
+            case "page_1":
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                bottomNavigationView.setSelectedItemId(R.id.page_1);
+                break;
+            case "page_2":
+                bottomNavigationView.setSelectedItemId(R.id.page_2);
+                break;
+            case "page_3":
+                bottomNavigationView.setSelectedItemId(R.id.page_3);
+                break;
+            case "page_4":
+                if (SessionManager.isLoggedIn())
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                bottomNavigationView.setSelectedItemId(R.id.page_4);
+                break;
+        }
+        super.onResume();
+    }
 }

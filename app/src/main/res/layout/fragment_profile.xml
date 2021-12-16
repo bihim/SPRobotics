@@ -57,6 +57,7 @@
                         android:gravity="center">
 
                         <TextView
+                            android:id="@+id/phone_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_id"
@@ -98,6 +99,8 @@
                 app:cardElevation="0dp">
 
                 <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/verifyLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colors12"
@@ -111,6 +114,7 @@
                         app:cardElevation="0dp">
 
                         <ImageView
+                            android:id="@+id/emailPhoneLogo"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/colors10"
@@ -126,6 +130,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/verifyStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Verify your email"
@@ -136,7 +141,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Be a part of our trusted community by verifying vertitect@gmail.com"
+                            android:text="Be a part of our trusted community."
                             android:textSize="@dimen/_10ssp" />
 
                     </LinearLayout>
@@ -239,10 +244,12 @@
                         <com.hbb20.CountryCodePicker
                             android:id="@+id/ccp"
                             app:ccp_clickable="false"
+                            app:ccp_showArrow="false"
                             android:layout_gravity="center"
-                            android:layout_width="wrap_content"
+                            android:layout_marginStart="-10dp"
+                            android:layout_width="@dimen/_90sdp"
                             android:layout_height="wrap_content"
-                            app:ccp_countryPreference="us,in"/>
+                            app:ccp_countryPreference="in"/>
 
                         <EditText
                             android:id="@+id/profile_contact_no"
@@ -250,6 +257,8 @@
                             android:layout_height="match_parent"
                             android:hint="999-999-9999"
                             android:maxLength="10"
+                            android:textColor="@color/black"
+
                             android:inputType="phone"
                             android:singleLine="true" />
                         <EditText

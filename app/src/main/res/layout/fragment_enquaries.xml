@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,12 +27,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:hint="Select Course"
             app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
             app:boxCornerRadiusBottomStart="@dimen/_8sdp"
             app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-            app:boxCornerRadiusTopStart="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_10sdp">
+            app:boxCornerRadiusTopStart="@dimen/_8sdp">
 
             <AutoCompleteTextView
                 android:id="@+id/profile_state"
@@ -46,9 +46,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:hint="Select City"
             android:visibility="gone"
-            android:layout_marginBottom="@dimen/_10sdp"
             app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
             app:boxCornerRadiusBottomStart="@dimen/_8sdp"
             app:boxCornerRadiusTopEnd="@dimen/_8sdp"
@@ -62,76 +62,76 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-    <!--    <com.google.android.material.textfield.TextInputLayout
+        <!--    <com.google.android.material.textfield.TextInputLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@color/white"
-            android:hint="Enter Contact No"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-            app:boxCornerRadiusTopStart="@dimen/_8sdp"
-            app:hintTextColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/profile_contact_no_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="10"
-                android:inputType="numberDecimal"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/white"
+                android:hint="Enter Contact No"
+                android:textColorHint="@color/black"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:hintTextColor="@color/black">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@color/white"
-            android:hint="Enter Address"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-            app:boxCornerRadiusTopStart="@dimen/_8sdp"
-            app:hintTextColor="@color/black">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profile_contact_no_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/profile_address"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/white"
+                android:hint="Enter Address"
+                android:textColorHint="@color/black"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:hintTextColor="@color/black">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@color/white"
-            android:hint="Enter Postal Code"
-            android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-            app:boxCornerRadiusTopStart="@dimen/_8sdp"
-            app:hintTextColor="@color/black">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profile_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/profile_postalcode"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>-->
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/white"
+                android:hint="Enter Postal Code"
+                android:textColorHint="@color/black"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profile_postalcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -154,11 +154,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
-            android:inputType="text"
             android:gravity="top"
             android:hint="Enter your query"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black" />
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
         <ProgressBar
             android:id="@+id/profile_progress_bar_address"
@@ -182,7 +182,6 @@
 
 
     </LinearLayout>
-
 
 
 </LinearLayout>

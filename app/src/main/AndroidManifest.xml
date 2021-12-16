@@ -11,21 +11,24 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:hardwareAccelerated="true"
-        android:largeHeap="true"
-        android:name="com.sproboticworks.util.Application"
+        android:name=".util.Application"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/icon_app"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/icon_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.SPRobotics"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.sproboticworks.view.activity.ParsingHtmlActivity"
+            android:name=".view.activity.EnquiryActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.AboutUsActivity"
+            android:name=".view.activity.ParsingHtmlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.AboutUsActivity"
             android:exported="false" />
 
         <meta-data
@@ -33,35 +36,35 @@
             android:value="rzp_test_OuMQ2SQXd10GX7" />
 
         <activity
-            android:name="com.sproboticworks.view.activity.ErrorPaymentActivity"
+            android:name=".view.activity.ErrorPaymentActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.SuccessPaymentActivity"
+            android:name=".view.activity.SuccessPaymentActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.ChildEditActivity"
+            android:name=".view.activity.ChildEditActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.ProfileEditActivity"
+            android:name=".view.activity.BillingAddressEditActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.CartActivity"
+            android:name=".view.activity.CartActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.BillingActivity"
+            android:name=".view.activity.BillingActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.CourseDetailsActivity"
+            android:name=".view.activity.CourseDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.welcome.WelcomeTwoActivity"
+            android:name=".view.activity.welcome.WelcomeTwoActivity"
             android:exported="false" />
         <activity
-            android:name="com.sproboticworks.view.activity.welcome.WelcomeOneActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:name=".view.activity.welcome.WelcomeOneActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.sproboticworks.view.activity.SplashScreenActivity"
+            android:name=".view.activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,7 +73,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sproboticworks.view.activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="false" />
     </application>
 

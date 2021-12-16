@@ -1,5 +1,8 @@
 package com.sproboticworks.view.fragment;
 
+import static com.sproboticworks.network.util.Constant.EMAIL_LOGIN;
+import static com.sproboticworks.network.util.Constant.EMAIL_OTP;
+import static com.sproboticworks.network.util.Constant.MOBILE_LOGIN;
 import static com.sproboticworks.network.zubaer.Global.API_PLACE_HOLDER;
 import static com.sproboticworks.network.zubaer.Global.SHOW_ERROR_TOAST;
 import static com.sproboticworks.network.zubaer.Global.SHOW_INFO_TOAST;
@@ -10,6 +13,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,41 +26,68 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.gson.Gson;
+import com.mukesh.OnOtpCompletionListener;
+import com.mukesh.OtpView;
 import com.orhanobut.logger.Logger;
 import com.sproboticworks.R;
 import com.sproboticworks.model.AddressModel;
 import com.sproboticworks.model.ProfileEditModel;
 import com.sproboticworks.model.StateCityModel;
+import com.sproboticworks.model.loginresponse.LogInResponse;
+import com.sproboticworks.model.mobileotp.PhoneOtpSentResponse;
+import com.sproboticworks.network.util.GsonUtil;
+import com.sproboticworks.network.util.ToastUtils;
 import com.sproboticworks.preferences.SessionManager;
+import com.sproboticworks.util.MethodClass;
+import com.sproboticworks.util.NetworkCallFragment;
 import com.sproboticworks.view.activity.AboutUsActivity;
+import com.sproboticworks.view.activity.MainActivity;
 import com.sproboticworks.view.activity.ParsingHtmlActivity;
 import com.sproboticworks.view.activity.SplashScreenActivity;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends NetworkCallFragment {
 
+    private final String userId = SessionManager.getLoginResponse().getData().getCustomerId();
+    String phone_number, firebase_otp, otpFor = "";
     private LinearLayout profileButton, logoutButton, addressButton;
     private TextView textViewProfileName, textViewEmailAddress;
     private Activity activity;
-    private final String userId = SessionManager.getLoginResponse().getData().getCustomerId();
     private TextInputEditText textInputEditTextName, textInputEditTextEmail,
             textInputEditTextStudentName, textInputEditTextStudentEmail, textInputEditTextStudentContactNo, textInputEditTextStudentDateOfBirth;
     private Calendar myCalendar = Calendar.getInstance();
@@ -65,6 +96,8 @@ public class ProfileFragment extends Fragment {
     private MaterialButton materialButtonUpdateStudentAndProfile;
     private String gender = "Male";
     private String dob;
+    private String loginType = "M";
+    private FirebaseAuth auth;
 
     private ProgressBar progressBarStudentProfile;
     private ProgressBar progressBarStudentAddress;
@@ -86,6 +119,20 @@ public class ProfileFragment extends Fragment {
     private LinearLayout about_us;
     private ExpandableLayout expandableLayoutAboutus;
     private ImageView imageViewAbout;
+    private TextView phoneNumber, verifyStatus;
+    private ImageView emailOrPhone;
+    private LinearLayout linearLayout;
+    private boolean isEmailVerified, isPhoneVerified;
+    private EditText profile_verify;
+    private String OTP = "";
+    private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
+    private MaterialTextView textview_otp_sent_to;
+    private MaterialButton gotoEmail;
+    private String email = "";
+    private OtpView otpView;
+    private ProgressDialog progressDialog;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
+    private String verificationCode;
 
 
     @Nullable
@@ -95,6 +142,12 @@ public class ProfileFragment extends Fragment {
         findViewById(view);
         setButtonCallBacks();
         getProfileInfo();
+        //getProfileInfo();
+        getAndSetProfileInfo(true, "", "", "", "", "", "", "", "");
+        getStates();
+        getAddress();
+        setBottomSheet();
+        startFirebaseLogin();
         return view;
     }
 
@@ -135,6 +188,22 @@ public class ProfileFragment extends Fragment {
         expandableLayoutAboutus = view.findViewById(R.id.about_expand);
         about_us = view.findViewById(R.id.about_us);
         imageViewAbout = view.findViewById(R.id.about_icon);
+        phoneNumber = view.findViewById(R.id.phone_number);
+        verifyStatus = view.findViewById(R.id.verifyStatus);
+        emailOrPhone = view.findViewById(R.id.emailPhoneLogo);
+        linearLayout = view.findViewById(R.id.verifyLayout);
+        profile_verify = view.findViewById(R.id.profile_verify);
+        bottomSheetDialogForPhone = new BottomSheetDialog(activity, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForPhone.setContentView(R.layout.bottomsheet_countrycode_picker);
+        bottomSheetDialogForOtp = new BottomSheetDialog(activity, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForEmail = new BottomSheetDialog(activity, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForOtp.setContentView(R.layout.bottomsheet_otp_picker);
+        bottomSheetDialogForEmail.setContentView(R.layout.bottomsheet_email_picker);
+        textview_otp_sent_to = bottomSheetDialogForOtp.findViewById(R.id.textview_otp_sent_to);
+        gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
+        otpView = bottomSheetDialogForOtp.findViewById(R.id.otp_view);
+        progressDialog = new ProgressDialog(activity, ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("please wait...");
         otherButtonsOfAboutUs(termsAndCondition, "terms");
         otherButtonsOfAboutUs(privacyPolicy, "privacy");
         otherButtonsOfAboutUs(disclaimer, "disclaimer");
@@ -142,60 +211,56 @@ public class ProfileFragment extends Fragment {
         otherButtonsOfAboutUs(returnPolicy, "returnPolicy");
     }
 
-    private void otherButtonsOfAboutUs(MaterialButton materialButton, String tag){
-        materialButton.setOnClickListener(v->{
+    private void otherButtonsOfAboutUs(MaterialButton materialButton, String tag) {
+        materialButton.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), ParsingHtmlActivity.class).putExtra("source", tag));
         });
     }
 
     private void setButtonCallBacks() {
-        about_us.setOnClickListener(v->{
-            if (expandableLayoutAboutus.isExpanded()){
+        about_us.setOnClickListener(v -> {
+            if (expandableLayoutAboutus.isExpanded()) {
                 expandableLayoutAboutus.collapse();
                 imageViewAbout.setImageResource(R.drawable.ic_round_arrow_forward_ios_24);
-            }
-            else{
+            } else {
                 expandableLayoutAboutus.expand();
                 imageViewAbout.setImageResource(R.drawable.ic_down);
             }
         });
 
-        aboutSp.setOnClickListener(v->{
+        aboutSp.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), AboutUsActivity.class));
         });
 
 
-
         profileButton.setOnClickListener(v -> {
             //startActivity(new Intent(getContext(), ProfileEditActivity.class));
-            if (expandableLayoutProfile.isExpanded()){
+            if (expandableLayoutProfile.isExpanded()) {
                 expandableLayoutProfile.collapse();
                 imageViewProfile.setImageResource(R.drawable.ic_round_arrow_forward_ios_24);
-            }
-            else{
+            } else {
                 expandableLayoutProfile.expand();
                 imageViewProfile.setImageResource(R.drawable.ic_down);
             }
         });
 
-        addressButton.setOnClickListener(v->{
-            if (expandableLayoutAddress.isExpanded()){
+        addressButton.setOnClickListener(v -> {
+            if (expandableLayoutAddress.isExpanded()) {
                 expandableLayoutAddress.collapse();
                 imageViewAddress.setImageResource(R.drawable.ic_round_arrow_forward_ios_24);
-            }
-            else{
+            } else {
                 expandableLayoutAddress.expand();
                 imageViewAddress.setImageResource(R.drawable.ic_down);
             }
         });
 
-        logoutButton.setOnClickListener(v->{
-            SessionManager.setValue(CHILD_NAME,"");
+        logoutButton.setOnClickListener(v -> {
+            SessionManager.setValue(CHILD_NAME, "");
             SessionManager.setLoggedIn(false);
             startActivity(new Intent(getActivity(), SplashScreenActivity.class));
             getActivity().finish();
         });
-        
+
         DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
             // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
@@ -218,23 +283,40 @@ public class ProfileFragment extends Fragment {
         materialButtonUpdateStudentAndProfile.setOnClickListener(v -> {
             if (textInputEditTextContactNo.getText().toString().length() < 10 || textInputEditTextStudentContactNo.getText().toString().length() < 10) {
                 SHOW_ERROR_TOAST(activity, "Invalid Number");
+            } else if (textInputEditTextEmail.getText().toString().isEmpty()) {
+                SHOW_ERROR_TOAST(getActivity(), "Insert your email first");
             } else {
-                getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
+                if (!isEmailVerified) {
+                    loginType = "E";
+                    requestForEmailOtp(textInputEditTextEmail.getText().toString());
+                } else if (!isPhoneVerified) {
+                    loginType = "M";
+                    sentOTPRequest(textInputEditTextContactNo.getText().toString());
+                } else {
+                    getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
+                            textInputEditTextContactNo.getText().toString(),
+                            textInputEditTextEmail.getText().toString(),
+                            textInputEditTextStudentName.getText().toString(),
+                            textInputEditTextStudentEmail.getText().toString(),
+                            textInputEditTextStudentContactNo.getText().toString(),
+                            dob, gender
+                    );
+                }
+                /*getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
                         textInputEditTextContactNo.getText().toString(),
                         textInputEditTextEmail.getText().toString(),
                         textInputEditTextStudentName.getText().toString(),
                         textInputEditTextStudentEmail.getText().toString(),
                         textInputEditTextStudentContactNo.getText().toString(),
                         dob, gender
-                );
+                );*/
             }
         });
 
-        materialButtonUpdateAddress.setOnClickListener(v->{
-            if (textInputEditTextContactNoAddress.getText().toString().length()<10){
+        materialButtonUpdateAddress.setOnClickListener(v -> {
+            if (textInputEditTextContactNoAddress.getText().toString().length() < 10) {
                 SHOW_ERROR_TOAST(activity, "Invalid Number");
-            }
-            else{
+            } else {
                 setAddress(textInputEditTextAddress.getText().toString(), textInputEditTextPostalCode.getText().toString(), textInputEditTextContactNoAddress.getText().toString());
             }
         });
@@ -248,7 +330,7 @@ public class ProfileFragment extends Fragment {
         textInputEditTextStudentDateOfBirth.setText(sdf.format(myCalendar.getTime()));
         dob = sdfNeeded.format(myCalendar.getTime());
     }
-    
+
 
     @Override
     public void onResume() {
@@ -271,18 +353,29 @@ public class ProfileFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         AddressModel addressModel = response.body();
-                        if (addressModel.getResponse()){
+                        if (addressModel.getResponse()) {
                             textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
                             textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
                             textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                            autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0));
-                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0));
-                            stateId = addressModel.getData().get(0).getStateId().toString();
-                            cityId = addressModel.getData().get(0).getCityId().toString();
-                            getCity(cityId);
+                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                            }
+                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                            }
+                            /*autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);*/
+                            if (addressModel.getData().get(0).getStateId()!=null){
+                                stateId = addressModel.getData().get(0).getStateId().toString();
+                            }
+                            if (addressModel.getData().get(0).getCityId()!=null){
+                                cityId = addressModel.getData().get(0).getCityId().toString();
+                            }
+                            /*stateId = addressModel.getData().get(0).getStateId().toString();
+                            cityId = addressModel.getData().get(0).getCityId().toString();*/
+                            getCity(stateId);
                             SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
-                        }
-                        else{
+                        } else {
                             SHOW_ERROR_TOAST(activity, "Could not update");
                         }
                     } else {
@@ -316,17 +409,28 @@ public class ProfileFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         AddressModel addressModel = response.body();
-                        if (addressModel.getResponse()){
-                            textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
-                            textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
-                            textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                            autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0));
-                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0));
-                            stateId = addressModel.getData().get(0).getStateId().toString();
-                            cityId = addressModel.getData().get(0).getCityId().toString();
-                            getCity(cityId);
-                        }
-                        else{
+                        if (!addressModel.getData().isEmpty()) {
+                            if (addressModel.getResponse()) {
+                                textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
+                                textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
+                                textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                    autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                                }
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                    autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                                }
+                                if (addressModel.getData().get(0).getStateId()!=null){
+                                    stateId = addressModel.getData().get(0).getStateId().toString();
+                                }
+                                if (addressModel.getData().get(0).getCityId()!=null){
+                                    cityId = addressModel.getData().get(0).getCityId().toString();
+                                }
+                                getCity(stateId);
+                            } else {
+                                SHOW_INFO_TOAST(activity, "Please update your address");
+                            }
+                        } else {
                             SHOW_INFO_TOAST(activity, "Please update your address");
                         }
                     } else {
@@ -350,7 +454,7 @@ public class ProfileFragment extends Fragment {
     private void getCity(String stateId) {
         cityArrayList.clear();
         cityArrayListString.clear();
-        autoCompleteTextViewCity.setText("");
+        //autoCompleteTextViewCity.setText("");
         cityId = null;
         ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Loading Cities");
@@ -360,6 +464,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<StateCityModel> call, Response<StateCityModel> response) {
                 progressDialog.dismiss();
+                String json = new Gson().toJson(response.body());
+                Logger.d(json);
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         StateCityModel stateCityModel = response.body();
@@ -446,8 +552,42 @@ public class ProfileFragment extends Fragment {
                             if (response.body().getResponse()) {
                                 ProfileEditModel profileEditModel = response.body();
                                 textInputEditTextName.setText(profileEditModel.getData().get(0).getDetails().getCustomerName());
-                                textInputEditTextContactNo.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
-                                textInputEditTextEmail.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
+                                if (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty()) {
+                                    textInputEditTextContactNo.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
+                                    isPhoneVerified = true;
+                                    textInputEditTextContactNo.setEnabled(false);
+                                    profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_done, 0, 0, 0);
+                                    profile_verify.setText("Verified");
+                                } else {
+                                    emailOrPhone.setImageResource(R.drawable.ic_phone);
+                                    verifyStatus.setText("Verify Phone");
+                                    isPhoneVerified = false;
+                                    profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
+                                    profile_verify.setText("Unverified");
+                                }
+                                if (!profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()) {
+                                    textInputEditTextEmail.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
+                                    isEmailVerified = true;
+                                    textInputEditTextEmail.setEnabled(false);
+                                } else {
+                                    emailOrPhone.setImageResource(R.drawable.ic_email);
+                                    verifyStatus.setText("Verify Email Address");
+                                    isEmailVerified = false;
+                                }
+                                Logger.d("Is verified: " + (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty() && !profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()));
+                                if (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty() && !profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()) {
+                                    linearLayout.setVisibility(View.GONE);
+                                    /*isPhoneVerified = true;
+                                    isEmailVerified = true;
+                                    textInputEditTextContactNo.setEnabled(false);
+                                    textInputEditTextEmail.setEnabled(false);*/
+                                } else {
+                                    /*isPhoneVerified = false;
+                                    isEmailVerified = false;
+                                    textInputEditTextContactNo.setEnabled(true);
+                                    textInputEditTextEmail.setEnabled(true);*/
+                                    linearLayout.setVisibility(View.VISIBLE);
+                                }
                                 textInputEditTextStudentName.setText(profileEditModel.getData().get(0).getDetails().getStudentName());
                                 textInputEditTextStudentEmail.setText(profileEditModel.getData().get(0).getDetails().getStudentEmailId());
                                 textInputEditTextStudentContactNo.setText(profileEditModel.getData().get(0).getDetails().getStudentContactNo());
@@ -498,8 +638,63 @@ public class ProfileFragment extends Fragment {
                             if (response.body().getResponse()) {
                                 ProfileEditModel profileEditModel = response.body();
                                 textInputEditTextName.setText(profileEditModel.getData().get(0).getDetails().getCustomerName());
-                                textInputEditTextContactNo.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
-                                textInputEditTextEmail.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
+                                if (profileEditModel.getData().get(0).getDetails().getCustomerContactNo()!=null){
+                                    if (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty()) {
+                                        textInputEditTextContactNo.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
+                                        isPhoneVerified = true;
+                                        textInputEditTextContactNo.setEnabled(false);
+                                        profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_done, 0, 0, 0);
+                                        profile_verify.setText("Verified");
+                                    } else {
+                                        emailOrPhone.setImageResource(R.drawable.ic_phone);
+                                        verifyStatus.setText("Verify Phone");
+                                        isPhoneVerified = false;
+                                        profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
+                                        profile_verify.setText("Unverified");
+                                    }
+                                }
+                                else{
+                                    emailOrPhone.setImageResource(R.drawable.ic_phone);
+                                    verifyStatus.setText("Verify Phone");
+                                    isPhoneVerified = false;
+                                    profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
+                                    profile_verify.setText("Unverified");
+                                }
+                                if (profileEditModel.getData().get(0).getDetails().getCustomerEmail()!=null){
+                                    if (!profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()) {
+                                        textInputEditTextEmail.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
+                                        isEmailVerified = true;
+                                        textInputEditTextEmail.setEnabled(false);
+                                    } else {
+                                        emailOrPhone.setImageResource(R.drawable.ic_email);
+                                        verifyStatus.setText("Verify Email Address");
+                                        isEmailVerified = false;
+                                    }
+                                }
+                                else{
+                                    emailOrPhone.setImageResource(R.drawable.ic_email);
+                                    verifyStatus.setText("Verify Email Address");
+                                    isEmailVerified = false;
+                                }
+                                //Logger.d("Is verified: " + (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty() && !profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()));
+                                if (profileEditModel.getData().get(0).getDetails().getCustomerContactNo()!=null && profileEditModel.getData().get(0).getDetails().getCustomerEmail()!=null){
+                                    if (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty() && !profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()) {
+                                        linearLayout.setVisibility(View.GONE);
+                                    /*isPhoneVerified = true;
+                                    isEmailVerified = true;
+                                    textInputEditTextContactNo.setEnabled(false);
+                                    textInputEditTextEmail.setEnabled(false);*/
+                                    } else {
+                                    /*isPhoneVerified = false;
+                                    isEmailVerified = false;
+                                    textInputEditTextContactNo.setEnabled(true);
+                                    textInputEditTextEmail.setEnabled(true);*/
+                                        linearLayout.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                                else{
+                                    linearLayout.setVisibility(View.VISIBLE);
+                                }
                                 textInputEditTextStudentName.setText(profileEditModel.getData().get(0).getDetails().getStudentName());
                                 textInputEditTextStudentEmail.setText(profileEditModel.getData().get(0).getDetails().getStudentEmailId());
                                 textInputEditTextStudentContactNo.setText(profileEditModel.getData().get(0).getDetails().getStudentContactNo());
@@ -537,10 +732,39 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private void getProfileInfo(){
+    @Override
+    public void OnCallBackSuccess(String tag, String response) {
+        super.OnCallBackSuccess(tag, response);
+
+        if (tag.equalsIgnoreCase(EMAIL_OTP)) {
+            PhoneOtpSentResponse response1 = (PhoneOtpSentResponse) GsonUtil.toObject(response, PhoneOtpSentResponse.class);
+            // ToastUtils.showLong(activity, response1.getData().getOtp());
+            OTP = response1.getData().getOtp();
+            //bottomSheetDialogForPhone.dismiss();
+            textview_otp_sent_to.setText("OTP has been sent to " + email);
+            gotoEmail.setText("Proceed with Mobile Number");
+            bottomSheetDialogForOtp.show();
+        }
+        if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
+            LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
+            SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
+            SessionManager.setLoggedIn(true);
+            ToastUtils.showLong(activity, "Logged in successfully");
+        }
+    }
+
+    public void requestForEmailOtp(String email_id) {
+        this.email = email_id;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("email", email_id);
+        apiRequest.postRequest(EMAIL_OTP, map, EMAIL_OTP);
+    }
+
+    private void getProfileInfo() {
         ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Please wait");
         progressDialog.show();
+        Logger.d(userId);
         Call<ProfileEditModel> call = API_PLACE_HOLDER.getProfile(userId);
         call.enqueue(new Callback<ProfileEditModel>() {
             @Override
@@ -553,7 +777,29 @@ public class ProfileFragment extends Fragment {
                         if (response.body().getResponse()) {
                             ProfileEditModel profileEditModel = response.body();
                             textViewProfileName.setText(profileEditModel.getData().get(0).getDetails().getCustomerName());
-                            textViewEmailAddress.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
+                            if (profileEditModel.getData().get(0).getDetails().getCustomerEmail() != null) {
+                                if (!profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()) {
+                                    textViewEmailAddress.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
+                                } else {
+                                    textViewEmailAddress.setVisibility(View.GONE);
+                                }
+                            }
+                            else{
+                                textViewEmailAddress.setVisibility(View.GONE);
+                            }
+
+                            if (profileEditModel.getData().get(0).getDetails().getCustomerContactNo() != null) {
+                                if (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty()) {
+                                    phoneNumber.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
+                                } else {
+                                    phoneNumber.setVisibility(View.GONE);
+                                }
+                            }
+                            else{
+                                phoneNumber.setVisibility(View.GONE);
+                            }
+
+                            //phoneNumber.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
                         } else {
                             SHOW_ERROR_TOAST(activity, "Data Fetch Error");
                         }
@@ -564,6 +810,7 @@ public class ProfileFragment extends Fragment {
                     SHOW_ERROR_TOAST(activity, "No Response");
                 }
             }
+
             @Override
             public void onFailure(Call<ProfileEditModel> call, Throwable t) {
                 SHOW_ERROR_TOAST(activity, "Something went wrong");
@@ -571,5 +818,226 @@ public class ProfileFragment extends Fragment {
                 Logger.e(t.getMessage());
             }
         });
+    }
+
+    private void setBottomSheet() {
+
+        bottomSheetDialogForOtp = new BottomSheetDialog(activity, R.style.BottomSheetDialogThemeNoFloating);
+        bottomSheetDialogForEmail = new BottomSheetDialog(activity, R.style.BottomSheetDialogThemeNoFloating);
+
+
+        bottomSheetDialogForOtp.setContentView(R.layout.bottomsheet_otp_picker);
+        bottomSheetDialogForEmail.setContentView(R.layout.bottomsheet_email_picker);
+
+
+        gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
+        MaterialButton gotoPhone = bottomSheetDialogForEmail.findViewById(R.id.gotoPhone);
+
+        MaterialButton gotoEmailAgain = bottomSheetDialogForPhone.findViewById(R.id.login_using_phone);
+
+        gotoEmailAgain.setOnClickListener(v -> {
+            bottomSheetDialogForEmail.show();
+            bottomSheetDialogForPhone.dismiss();
+        });
+
+        if (gotoEmail != null)
+            gotoEmail.setOnClickListener(v -> {
+
+                if (loginType.equalsIgnoreCase("M"))
+                    bottomSheetDialogForEmail.show();
+                else bottomSheetDialogForPhone.show();
+                bottomSheetDialogForOtp.dismiss();
+
+            });
+
+        if (gotoPhone != null)
+            gotoPhone.setOnClickListener(v -> {
+                bottomSheetDialogForEmail.dismiss();
+                bottomSheetDialogForPhone.show();
+            });
+
+
+        /*OTP*/
+        OtpView otpView = bottomSheetDialogForOtp.findViewById(R.id.otp_view);
+        TextView textView = bottomSheetDialogForOtp.findViewById(R.id.otp_text);
+        TextView textview_resend_otp = bottomSheetDialogForOtp.findViewById(R.id.textview_resend_otp);
+        textview_otp_sent_to = bottomSheetDialogForOtp.findViewById(R.id.textview_otp_sent_to);
+        otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
+            @Override
+            public void onOtpCompleted(String otp) {
+                if (loginType == "M")
+                    OTP_Verification(otp);
+                else {
+                    if (OTP.equalsIgnoreCase(otp)) {
+                        if (bottomSheetDialogForEmail.isShowing())
+                            bottomSheetDialogForEmail.dismiss();
+                        bottomSheetDialogForOtp.dismiss();
+                        MethodClass.hideKeyboard(activity);
+                        MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
+                        loginWithEmailOrMobile("E");
+                        getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
+                                textInputEditTextContactNo.getText().toString(),
+                                textInputEditTextEmail.getText().toString(),
+                                textInputEditTextStudentName.getText().toString(),
+                                textInputEditTextStudentEmail.getText().toString(),
+                                textInputEditTextStudentContactNo.getText().toString(),
+                                dob, gender
+                        );
+                    } else
+                        MethodClass.showAlertDialog(activity, true, "Invalid OTP", "Invalid OTP", false);
+                }
+
+
+            }
+        });
+        MaterialButton materialButtonContinueOtp = bottomSheetDialogForOtp.findViewById(R.id.otp_continue);
+        materialButtonContinueOtp.setOnClickListener(v -> {
+
+        });
+        textview_resend_otp.setOnClickListener(v -> {
+            if (loginType == "M")
+                sentOTPRequest(phone_number);
+        });
+        /*Email*/
+        TextInputEditText textInputEditTextEmail = bottomSheetDialogForEmail.findViewById(R.id.bottom_email);
+        TextInputEditText textInputEditTextPassword = bottomSheetDialogForEmail.findViewById(R.id.bottom_password);
+        MaterialButton materialButtonContinueEmail = bottomSheetDialogForEmail.findViewById(R.id.button_continue);
+
+        materialButtonContinueEmail.setOnClickListener(v -> {
+            if (textInputEditTextEmail.getText().toString().length() > 0) {
+                loginType = "E";
+                requestForEmailOtp(textInputEditTextEmail.getText().toString());
+            }
+        });
+    }
+
+    public void sentOTPRequest(String phoneNumber) {
+        progressDialog.show();
+        phone_number = phoneNumber;
+
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+91" + phoneNumber,                     // Phone number to verify
+                60,                           // Timeout duration
+                TimeUnit.SECONDS,                // Unit of timeout
+                activity,        // Activity (for callback binding)
+                mCallback);
+    }
+
+
+    public void OTP_Verification(String otptext) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, otptext);
+        signInWithPhoneAuthCredential(credential, otptext);
+    }
+
+    public void loginWithEmailOrMobile(String type) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
+        map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
+        if (type.equalsIgnoreCase("M"))
+            map.put("mobile", phone_number);
+        else map.put("email", email);
+        apiRequest.postRequest(type.equalsIgnoreCase("M") ? MOBILE_LOGIN : EMAIL_LOGIN, map, MOBILE_LOGIN);
+    }
+
+    private void startFirebaseLogin() {
+        FirebaseApp.initializeApp(activity);
+        auth = FirebaseAuth.getInstance();
+        mCallback = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(@NotNull PhoneAuthCredential phoneAuthCredential) {
+                //System.out.println ("====verification complete call  " + phoneAuthCredential.getSmsCode ());
+                progressDialog.dismiss();
+                if (bottomSheetDialogForPhone.isShowing())
+                    bottomSheetDialogForPhone.dismiss();
+                if (bottomSheetDialogForOtp.isShowing())
+                    bottomSheetDialogForOtp.dismiss();
+
+                loginWithEmailOrMobile("M");
+            }
+
+            @Override
+            public void onVerificationFailed(@NotNull FirebaseException e) {
+                setSnackBar(e.getLocalizedMessage(), getString(R.string.btn_ok), "failed");
+                Toast.makeText(activity.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(s, forceResendingToken);
+                verificationCode = s;
+                Toast.makeText(activity.getApplicationContext(), getString(R.string.otp_sent), Toast.LENGTH_SHORT).show();
+
+                if (bottomSheetDialogForPhone.isShowing())
+                    bottomSheetDialogForPhone.dismiss();
+
+                if (!bottomSheetDialogForOtp.isShowing())
+                    bottomSheetDialogForOtp.show();
+                gotoEmail.setText("Proceed with Email ID");
+
+
+                textview_otp_sent_to.setText("OTP has been sent to +91" + phone_number);
+                progressDialog.dismiss();
+
+            }
+        };
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential, final String otptext) {
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //verification successful we will start the profile activity
+                            loginWithEmailOrMobile("M");
+                            if (bottomSheetDialogForOtp.isShowing())
+                                bottomSheetDialogForOtp.dismiss();
+                            if (bottomSheetDialogForPhone.isShowing())
+                                bottomSheetDialogForPhone.dismiss();
+                            getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
+                                    textInputEditTextContactNo.getText().toString(),
+                                    textInputEditTextEmail.getText().toString(),
+                                    textInputEditTextStudentName.getText().toString(),
+                                    textInputEditTextStudentEmail.getText().toString(),
+                                    textInputEditTextStudentContactNo.getText().toString(),
+                                    dob, gender
+                            );
+
+                        } else {
+
+                            //verification unsuccessful.. display an error message
+                            String message = "Something is wrong, we will fix it soon...";
+
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                message = "Invalid code entered...";
+                            }
+                            ToastUtils.showLong(activity, message);
+
+                        }
+                    }
+                });
+    }
+
+    public void setSnackBar(String message, String action, final String type) {
+        final Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(action, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (type.equals("reset_pass") || type.equals("forgot") || type.equals("register")) {
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+                snackbar.dismiss();
+            }
+        });
+        snackbar.setActionTextColor(Color.RED);
+        View snackbarView = snackbar.getView();
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setMaxLines(5);
+        snackbar.show();
     }
 }
