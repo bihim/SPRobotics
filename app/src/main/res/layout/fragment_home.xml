@@ -253,6 +253,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -305,69 +306,91 @@
             </androidx.recyclerview.widget.RecyclerView>
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_20sdp">
 
-                <LinearLayout
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colors3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:orientation="vertical">
-                    <TextView
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20sdp">
+
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:text="Welcome to the World of Practical Learning"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
+                        app:cardCornerRadius="@dimen/_15sdp"
+                        android:id="@+id/course_main"
+                        app:cardElevation="@dimen/_5sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:text="Learn Coding. Android app building &amp; Drones with us and rediscover the joy of learning!"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_9ssp"
-                        android:layout_marginEnd="@dimen/_90sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"/>
+                        android:background="@color/colors3"
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/goto_about_us"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:elevation="0dp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:text="Learn More"/>
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:text="Welcome to the World of Practical Learning"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp"
+                            android:textStyle="bold" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Learn Coding. Android app building &amp; Drones with us and rediscover the joy of learning!"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_9ssp"
+                            android:layout_marginEnd="@dimen/_90sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/goto_about_us"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:elevation="0dp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:text="Learn More"/>
+
+                    </LinearLayout>
 
 
-                <ImageView
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_120sdp"
-                    android:layout_marginTop="@dimen/_60sdp"
-                    android:src="@drawable/icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    </com.google.android.material.card.MaterialCardView>
 
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+             <ImageView
+                 android:layout_width="@dimen/_100sdp"
+                 android:layout_height="@dimen/_120sdp"
+                 android:layout_marginTop="@dimen/_60sdp"
+                 android:layout_marginEnd="@dimen/_20sdp"
+                 android:src="@drawable/icon"
+                 android:layout_alignParentEnd="true"
+                 android:layout_alignParentBottom="true"/>
+
+         </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,7 +44,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         DataItem item = list.get(position);
         holder.course_name.setText(item.getName());
 
-        holder.course_view.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
 
             Intent intent = new Intent(context, CourseDetailsActivity.class);
             intent.putExtra("MyClass", item);
@@ -105,6 +106,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public class CourseViewHolder extends RecyclerView.ViewHolder {
         TextView textViewYear, course_name;
         ImageView imageView;
+        LinearLayout lyt_root;
         MaterialButton course_view;
         MaterialCardView materialCardView;
 
@@ -115,6 +117,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             course_view = itemView.findViewById(R.id.course_view);
             course_name = itemView.findViewById(R.id.course_name);
             materialCardView = itemView.findViewById(R.id.course_main);
+            lyt_root = itemView.findViewById(R.id.lyt_root);
         }
     }
 

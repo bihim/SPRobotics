@@ -99,6 +99,8 @@ public class MainActivity extends NetworkCallActivity {
 
     MaterialTextView textview_otp_sent_to;
 
+    MaterialButton gotoEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,12 +297,20 @@ public class MainActivity extends NetworkCallActivity {
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                     return true;
                 case R.id.page_2:
-                    /*startActivity(new Intent(this, AboutUsActivity.class));*/
-                    //startActivity(new Intent(this, ParsingHtmlActivity.class).putExtra("source", "terms"));
+                    if (SessionManager.isLoggedIn()) {
+
+                    }
+                    //fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
+                    else {
+                        bottomSheetDialogForPhone.show();
+                    }
                     return true;
                 case R.id.page_3:
-                    //bottomSheetDialogForPhone.show();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
+                    if (SessionManager.isLoggedIn())
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
+                    else {
+                        bottomSheetDialogForPhone.show();
+                    }
                     return true;
                 case R.id.page_4:
                     if (SessionManager.isLoggedIn())
@@ -325,7 +335,7 @@ public class MainActivity extends NetworkCallActivity {
         bottomSheetDialogForEmail.setContentView(R.layout.bottomsheet_email_picker);
 
 
-        MaterialButton gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
+        gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
         MaterialButton gotoPhone = bottomSheetDialogForEmail.findViewById(R.id.gotoPhone);
 
         MaterialButton gotoEmailAgain = bottomSheetDialogForPhone.findViewById(R.id.login_using_phone);
@@ -337,8 +347,12 @@ public class MainActivity extends NetworkCallActivity {
 
         if (gotoEmail != null)
             gotoEmail.setOnClickListener(v -> {
+
+                if (loginType.equalsIgnoreCase("M"))
+                    bottomSheetDialogForEmail.show();
+                else bottomSheetDialogForPhone.show();
                 bottomSheetDialogForOtp.dismiss();
-                bottomSheetDialogForEmail.show();
+
             });
 
         if (gotoPhone != null)
@@ -360,7 +374,8 @@ public class MainActivity extends NetworkCallActivity {
                     OTP_Verification(otp);
                 else {
                     if (OTP.equalsIgnoreCase(otp)) {
-                       if (bottomSheetDialogForEmail.isShowing())bottomSheetDialogForEmail.dismiss();
+                        if (bottomSheetDialogForEmail.isShowing())
+                            bottomSheetDialogForEmail.dismiss();
                         bottomSheetDialogForOtp.dismiss();
                         MethodClass.hideKeyboard(activity);
                         MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
@@ -445,8 +460,15 @@ public class MainActivity extends NetworkCallActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 10) {
-                    loginType = "M";
-                    sentOTPRequest(s.toString());
+
+                    if (s.toString().startsWith("6") || s.toString().startsWith("7")|| s.toString().startsWith("8")|| s.toString().startsWith("9")) {
+                        loginType = "M";
+                        sentOTPRequest(s.toString());
+                    }
+
+                    else {
+                        ToastUtils.showLong(MainActivity.this,"Enter a valid Mobile Number");
+                    }
                 }
 
 
@@ -492,9 +514,11 @@ public class MainActivity extends NetworkCallActivity {
 
         if (tag.equalsIgnoreCase(EMAIL_OTP)) {
             PhoneOtpSentResponse response1 = (PhoneOtpSentResponse) GsonUtil.toObject(response, PhoneOtpSentResponse.class);
-            ToastUtils.showLong(activity, response1.getData().getOtp());
+            // ToastUtils.showLong(activity, response1.getData().getOtp());
             OTP = response1.getData().getOtp();
             bottomSheetDialogForPhone.dismiss();
+            textview_otp_sent_to.setText("OTP has been sent to " + email);
+            gotoEmail.setText("Proceed with Mobile Number");
             bottomSheetDialogForOtp.show();
 
 
@@ -562,6 +586,7 @@ public class MainActivity extends NetworkCallActivity {
 
                 if (!bottomSheetDialogForOtp.isShowing())
                     bottomSheetDialogForOtp.show();
+                gotoEmail.setText("Proceed with Email ID");
 
 
                 textview_otp_sent_to.setText("OTP has been sent to +91" + phone_number);

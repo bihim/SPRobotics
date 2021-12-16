@@ -79,6 +79,6 @@
         android:layout_marginTop="@dimen/_10sdp"
         app:cornerRadius="@dimen/_10sdp"
         android:padding="@dimen/_15sdp"
-        android:text="Finish"/>
+        android:text="Continue"/>
 
 </LinearLayout>

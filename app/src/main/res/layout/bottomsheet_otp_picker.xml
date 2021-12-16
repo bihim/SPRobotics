@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.textview.MaterialTextView
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter code sent to your number"
@@ -77,6 +78,13 @@
         android:backgroundTint="@color/colors4"
         app:icon="@drawable/ic_forward"
         app:iconGravity="textEnd"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/terms_condition" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/gotoEmail"

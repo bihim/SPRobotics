@@ -67,8 +67,9 @@ public class VideoCarouselAdapter extends SliderViewAdapter<VideoCarouselAdapter
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 String videoId = mSliderItems.get(position);
                 youTubePlayer.loadVideo(videoId, 0);
+                youTubePlayer.pause();
                 if (position == 0){
-                    youTubePlayer.play();
+                 //   youTubePlayer.play();
                 }
                 else{
                     youTubePlayer.pause();

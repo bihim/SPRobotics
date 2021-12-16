@@ -318,10 +318,10 @@ public class CourseDetailsActivity extends NetworkCallActivity {
 
         switch (courseDetails.getAgeCategory().get(0)) {
             case "Junior":
-                course_details_age.setText("10");
+                course_details_age.setText("7+");
                 break;
             case "Senior":
-                course_details_age.setText("13");
+                course_details_age.setText("10+");
                 break;
 
             default:
