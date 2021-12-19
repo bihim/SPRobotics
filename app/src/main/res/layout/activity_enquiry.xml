@@ -45,9 +45,10 @@
                 app:boxCornerRadiusTopStart="@dimen/_8sdp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/profile_state"
+                    android:id="@+id/enquire_courses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -162,6 +163,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enquire_query"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:gravity="top"
@@ -179,7 +181,7 @@
                 android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/profile_address_update"
+                android:id="@+id/submit_enquire"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

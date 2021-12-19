@@ -2,6 +2,9 @@ package com.sproboticworks.network.zubaer;
 
 
 import com.sproboticworks.model.AddressModel;
+import com.sproboticworks.model.AllCoursesModel;
+import com.sproboticworks.model.EnquiryModel;
+import com.sproboticworks.model.OrderHistoryModel;
 import com.sproboticworks.model.ProfileEditModel;
 import com.sproboticworks.model.StateCityModel;
 
@@ -53,4 +56,20 @@ public interface ApiPlaceHolder {
     @POST(Api.city)
     Call<StateCityModel> getCity(
             @Field("state_id") String stateId);
+
+    @FormUrlEncoded
+    @POST(Api.orderHistory)
+    Call<OrderHistoryModel> getOrderHistory(
+            @Field("customer_id") String customerId);
+
+    @FormUrlEncoded
+    @POST(Api.enquiry)
+    Call<EnquiryModel> setEnquiry(
+            @Field("customer_id") String customerId,
+            @Field("product_id") String productId,
+            @Field("message") String message);
+
+
+    @POST(Api.allCourse)
+    Call<AllCoursesModel> getAllCourses();
 }

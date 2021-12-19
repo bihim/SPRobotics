@@ -82,6 +82,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CourseDetailsActivity extends NetworkCallActivity {
+    ProgressDialog progressDialog;
+    ////Firebase
+    String phone_number, firebase_otp, otpFor = "";
+    FirebaseAuth auth;
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
+    MaterialTextView textview_otp_sent_to;
+    MaterialButton gotoEmail;
+    String verificationCode;
     private TabLayout tabLayout;
     private FrameLayout frameLayout;
     private ImageButton imageButtonBack;
@@ -97,18 +105,6 @@ public class CourseDetailsActivity extends NetworkCallActivity {
     private ImageView imageViewCourseDetails;
     private String loginType = "M";
     private String email = "";
-    ProgressDialog progressDialog;
-    ////Firebase
-    String phone_number, firebase_otp, otpFor = "";
-    FirebaseAuth auth;
-    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
-
-    MaterialTextView textview_otp_sent_to;
-
-    MaterialButton gotoEmail;
-    String verificationCode;
-
-
     /*What will you learn*/
     private MaterialButton firstItemButton, secondItemButton, thirdItemButton, fourthItemButton;
     private ExpandableLayout firstItemLayout, secondItemLayout, thirdItemLayout, fourthItemLayout;
@@ -133,7 +129,14 @@ public class CourseDetailsActivity extends NetworkCallActivity {
             onBackPressed();
         });
         materialCardViewEnquire.setOnClickListener(v -> {
-
+            startActivity(new Intent(this, EnquiryActivity.class).
+                    putExtra("bottomTag", "page_1").
+                    putExtra("comingFromCourseDetails", true).
+                    putExtra("course", courseDetails.getProductId()).
+                    putExtra("courseName", courseDetails.getName())
+            );
+            overridePendingTransition(0, 0);
+            finish();
         });
         /*materialCardViewBuy.setOnClickListener(v -> {
 
@@ -353,7 +356,6 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         course_details_money.setText("Rs. " + courseDetails.getPrice().get(0));
 
         Glide.with(getApplicationContext()).load(courseDetails.getMobile_app_image()).placeholder(getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(imageViewCourseDetails);
-
 
 
         switch (courseDetails.getAgeCategory().get(0)) {

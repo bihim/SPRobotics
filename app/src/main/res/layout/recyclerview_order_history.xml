@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2">
+                android:layout_weight="1.5">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
                     android:textColor="@color/blackish"/>
 
                 <TextView
+                    android:id="@+id/orderHistoryOrderNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12344534564545/ 22 Aug. 2021"
@@ -42,6 +43,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="View Details"
+                android:textAllCaps="false"
+                android:visibility="gone"
                 android:textSize="@dimen/_10ssp"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_height="@dimen/_30sdp"/>
@@ -55,9 +58,12 @@
             android:layout_marginHorizontal="@dimen/_10sdp"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderHistoryRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             tools:listitem="@layout/recyclerview_order_history_list"/>
 
     </LinearLayout>

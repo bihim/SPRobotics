@@ -22,6 +22,9 @@
         android:theme="@style/Theme.SPRobotics"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.activity.OrderHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.EnquiryActivity"
             android:exported="false" />
         <activity

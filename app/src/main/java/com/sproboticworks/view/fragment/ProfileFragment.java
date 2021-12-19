@@ -63,6 +63,7 @@ import com.sproboticworks.util.MethodClass;
 import com.sproboticworks.util.NetworkCallFragment;
 import com.sproboticworks.view.activity.AboutUsActivity;
 import com.sproboticworks.view.activity.MainActivity;
+import com.sproboticworks.view.activity.OrderHistoryActivity;
 import com.sproboticworks.view.activity.ParsingHtmlActivity;
 import com.sproboticworks.view.activity.SplashScreenActivity;
 
@@ -133,6 +134,7 @@ public class ProfileFragment extends NetworkCallFragment {
     private ProgressDialog progressDialog;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
     private String verificationCode;
+    private LinearLayout orderHistoryButton;
 
 
     @Nullable
@@ -204,6 +206,7 @@ public class ProfileFragment extends NetworkCallFragment {
         otpView = bottomSheetDialogForOtp.findViewById(R.id.otp_view);
         progressDialog = new ProgressDialog(activity, ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("please wait...");
+        orderHistoryButton = view.findViewById(R.id.orderHistoryButton);
         otherButtonsOfAboutUs(termsAndCondition, "terms");
         otherButtonsOfAboutUs(privacyPolicy, "privacy");
         otherButtonsOfAboutUs(disclaimer, "disclaimer");
@@ -226,6 +229,10 @@ public class ProfileFragment extends NetworkCallFragment {
                 expandableLayoutAboutus.expand();
                 imageViewAbout.setImageResource(R.drawable.ic_down);
             }
+        });
+
+        orderHistoryButton.setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), OrderHistoryActivity.class));
         });
 
         aboutSp.setOnClickListener(v -> {
