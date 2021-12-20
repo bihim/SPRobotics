@@ -313,7 +313,7 @@ public class ParsingHtmlActivity extends AppCompatActivity {
                 "                            <p>\n" +
                 "                                This privacy policy document outlines the types of personal information received and collected by <a href=\"/\" target=\"_blank\">www.sproboticworks.com</a> (“Website”) and how it is used.\n" +
                 "                            </p>\n" +
-                "                            <h4 >LOG FILES</h4>\n" +
+                "                            <h4>LOG FILES</h4>\n" +
                 "                            <p>\n" +
                 "                                We will be collecting non personally identifiable information like many other Web sites, SPRW makes use of log files. The information inside the log files includes internet protocol ( IP ) addresses, type of browser, Internet Service Provider ( ISP ), date/time stamp, referring/exit pages, and number of clicks to analyze trends, administer the site, track users movement around the site, and gather demographic information. IP addresses, and other such information are not linked to any information that is personally identifiable.\n" +
                 "                            </p>\n" +

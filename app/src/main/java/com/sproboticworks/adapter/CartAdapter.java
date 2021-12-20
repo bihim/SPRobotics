@@ -46,7 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
 
         DataItem item = list.get(position);
         holder.course_name.setText(item.getProductName().get(0));
-        holder.tvCoursePrice.setText(item.getProductLocalPrice());
+        holder.tvCoursePrice.setText("INR "+item.getProductLocalPrice());
         holder.tvQuantity.setText(item.getProductQuantity());
 
         String url = item.getImage();
@@ -60,16 +60,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CourseViewHold
 
         });
         holder.imgPlus.setOnClickListener(v -> {
-
             int updatedQty= Integer.valueOf(holder.tvQuantity.getText().toString())+1;
             ((CartActivity) context).updateQuantity(item.getItemId(),""+updatedQty);
 
         });
         holder.imgMinus.setOnClickListener(v -> {
-
             if (!holder.tvQuantity.getText().toString().equalsIgnoreCase("1")) {
                 int updatedQty = Integer.valueOf(holder.tvQuantity.getText().toString()) - 1;
-                ((CartActivity) context).updateQuantity(item.getItemId(), "" + updatedQty);
+                ((CartActivity) context).updateQuantityMinus(item.getItemId(), "" + updatedQty);
             }
 
         });

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_170sdp"
+    android:layout_marginVertical="@dimen/_15sdp"
+    android:layout_marginStart="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_20sdp"
+    app:cardCornerRadius="@dimen/_15sdp"
+    android:id="@+id/course_main"
+    app:cardElevation="@dimen/_5sdp">
+
+    <LinearLayout
+        android:id="@+id/lyt_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/course_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:gravity="center"
+            android:text="SCRATCH PROGRAMMING ONLINE COURSE (+ JUNIOR NCRC)"
+            android:textColor="@color/blackish"
+            android:textSize="@dimen/_10ssp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:textFontWeight="900"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/course_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:src="@drawable/sprobotics_recyclerview"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:background="@drawable/ribbon"
+                android:gravity="center|start"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/course_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="10\+ years"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:clickable="false"
+            android:id="@+id/course_view"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Add to cart"
+            android:textSize="@dimen/_8ssp"
+            android:textColor="@color/blackish"
+            app:icon="@drawable/ic_cart"
+            android:textAllCaps="false"
+            app:iconGravity="textStart"
+            app:iconTint="@color/blackish" />
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

@@ -60,6 +60,9 @@ public class OrderHistoryModel {
         @SerializedName("order_no")
         @Expose
         private String orderNo;
+        @SerializedName("order_date")
+        @Expose
+        private String orderDate;
         @SerializedName("invoice_no")
         @Expose
         private Object invoiceNo;
@@ -99,6 +102,14 @@ public class OrderHistoryModel {
             this.orderItemArray = orderItemArray;
         }
 
+        public String getOrderDate() {
+            return orderDate;
+        }
+
+        public void setOrderDate(String orderDate) {
+            this.orderDate = orderDate;
+        }
+
     }
 
     public class OrderItemArray {
@@ -112,6 +123,9 @@ public class OrderHistoryModel {
         @SerializedName("item_name")
         @Expose
         private String itemName;
+        @SerializedName("mobile_app_image")
+        @Expose
+        private String mobileAppImage;
         @SerializedName("quantity")
         @Expose
         private Integer quantity;
@@ -124,6 +138,17 @@ public class OrderHistoryModel {
         @SerializedName("net_total")
         @Expose
         private String netTotal;
+        @SerializedName("status")
+        @Expose
+        private String status;
+
+        public String getMobileAppImage() {
+            return mobileAppImage;
+        }
+
+        public void setMobileAppImage(String mobileAppImage) {
+            this.mobileAppImage = mobileAppImage;
+        }
 
         public Integer getOrderItemId() {
             return orderItemId;
@@ -179,6 +204,14 @@ public class OrderHistoryModel {
 
         public void setNetTotal(String netTotal) {
             this.netTotal = netTotal;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
         }
 
     }

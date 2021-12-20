@@ -101,7 +101,11 @@ public class MethodClass {
 
     public static void go_to_next_activity(Activity activity, Class next_activity) {
         activity.startActivity(new Intent(activity, next_activity));
+    }
 
+    public static void go_to_next_activity_with_finish(Activity activity, Class next_activity) {
+        activity.startActivity(new Intent(activity, next_activity));
+        activity.finish();
     }
 
 

@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,6 +49,7 @@
                     app:strokeWidth="@dimen/_1sdp">
 
                     <LinearLayout
+                        android:id="@+id/ll_preview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/color1"
@@ -84,11 +85,8 @@
                 android:padding="@dimen/_20sdp"
                 android:text="ELECTRO-BLOCK KIT + 16 HOURS OF ONLINE LEARNING"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_15ssp"
                 android:textStyle="bold" />
-
-
-
 
 
             <LinearLayout
@@ -154,9 +152,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:gravity="center_horizontal"
-                android:layout_gravity="center"
                 app:cardCornerRadius="@dimen/_6sdp"
                 app:cardElevation="0dp">
 
@@ -196,35 +194,48 @@
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/course_details_buy_now"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:backgroundTint="@color/colors6"
-                android:paddingVertical="@dimen/_15sdp"
-                android:text="Buy Now"
-                android:textAllCaps="false"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold"
-                app:cornerRadius="@dimen/_10sdp"
-                app:elevation="0dp" />
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/course_details_enquire_now"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:backgroundTint="@color/colors1"
-                android:paddingVertical="@dimen/_15sdp"
-                android:text="Enquire Now"
-                android:textAllCaps="false"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold"
-                app:cornerRadius="@dimen/_10sdp"
-                app:elevation="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/course_details_enquire_now"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colors1"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text="Enquire Now"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:cornerRadius="@dimen/_6sdp"
+                    app:elevation="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/course_details_buy_now"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colors6"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text="Buy Now"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:cornerRadius="@dimen/_6sdp"
+                    app:elevation="0dp" />
+
+
+            </LinearLayout>-->
 
             <!--<LinearLayout
                 android:layout_width="match_parent"
@@ -386,9 +397,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -415,8 +426,7 @@
                 <net.cachapa.expandablelayout.ExpandableLayout
                     android:id="@+id/firstItemLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -456,8 +466,7 @@
                 <net.cachapa.expandablelayout.ExpandableLayout
                     android:id="@+id/secondItemLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -498,8 +507,7 @@
                 <net.cachapa.expandablelayout.ExpandableLayout
                     android:id="@+id/thirdItemLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -577,6 +585,50 @@
         android:tint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/course_details_enquire_now"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colors1"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="Enquire Now"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/_6sdp"
+            app:elevation="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/course_details_buy_now"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colors6"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="Buy Now"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/_6sdp"
+            app:elevation="0dp" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

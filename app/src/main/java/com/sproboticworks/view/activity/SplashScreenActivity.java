@@ -52,7 +52,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             }*/
 
-
+            Logger.d("Granted");
         }
 
         new Handler().postDelayed(() -> {
@@ -68,19 +68,12 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         }, 2000);
 
-
-
     }
 
     public boolean isLocationPermissionGranted() {
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-
-            return false;
-
-        }
-        return true;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
     }
 
 

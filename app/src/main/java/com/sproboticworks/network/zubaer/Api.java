@@ -9,6 +9,7 @@ public class Api {
     public static final String orderHistory = "order-history";
     public static final String allCourse = "all-course";
     public static final String enquiry = "enquiry";
+    public static final String notification = "enquiry";
 
 
 }

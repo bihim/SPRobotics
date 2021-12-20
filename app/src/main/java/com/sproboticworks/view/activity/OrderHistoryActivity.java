@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -29,6 +31,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private OrderHistoryAdapter orderHistoryAdapter;
     private ArrayList<OrderHistoryModel.Datum> orderHistoryList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_history);
         imageButton = findViewById(R.id.back_button);
         recyclerView = findViewById(R.id.orderHistoryRecyler);
+        linearLayout = findViewById(R.id.no_order);
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
@@ -53,6 +57,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
                             orderHistoryList.addAll(response.body().getData());
                             orderHistoryAdapter = new OrderHistoryAdapter(orderHistoryList, OrderHistoryActivity.this);
                             recyclerView.setAdapter(orderHistoryAdapter);
+                        }
+                        else{
+                            linearLayout.setVisibility(View.VISIBLE);
                         }
                     }
                 }

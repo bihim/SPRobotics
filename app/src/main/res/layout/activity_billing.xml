@@ -312,7 +312,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="₹ "
+                            android:text="INR "
                             android:textColor="@color/blackish"
                             android:textSize="@dimen/_12ssp" />
 
@@ -330,41 +330,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Discount(-)"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12ssp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="₹ "
-                            android:textColor="@color/blackish"
-                            android:textSize="@dimen/_12ssp" />
-
-                        <TextView
-                            android:id="@+id/tv_cart_discount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="0.00"
-                            android:textColor="@color/color3"
-                            android:textSize="@dimen/_12ssp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -372,16 +337,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Estimated IGST(18%+)"
+                            android:text="Including IGST(18%+)"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_12ssp" />
+                            android:textSize="@dimen/_8ssp"  />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="₹ "
+                            android:text="INR "
+                            android:visibility="gone"
                             android:textColor="@color/blackish"
                             android:textSize="@dimen/_12ssp" />
 
@@ -391,6 +357,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             tools:text="$71"
+                            android:visibility="gone"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12ssp" />
 
@@ -424,6 +391,40 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Discount(-)"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="INR "
+                            android:textColor="@color/blackish"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_cart_discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="0.00"
+                            android:textColor="@color/color3"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
@@ -449,7 +450,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="₹ "
+                            android:text="INR "
                             android:textColor="@color/blackish"
                             android:textSize="@dimen/_12ssp" />
 
@@ -478,7 +479,7 @@
                 android:clickable="true"
                 app:cardElevation="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                app:cardCornerRadius="@dimen/_10sdp">
+                app:cardCornerRadius="@dimen/_3sdp">
 
                 <TextView
                     android:layout_width="match_parent"

@@ -2,17 +2,28 @@ package com.sproboticworks.view.fragment;
 
 import static com.sproboticworks.network.util.Constant.GET_AGE_GROUP;
 import static com.sproboticworks.network.util.Constant.GET_CART;
+import static com.sproboticworks.network.util.Constant.GET_VIDEO;
 import static com.sproboticworks.network.util.Constant.PRODUCT_LIST;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +49,7 @@ import com.sproboticworks.util.NetworkCallFragment;
 import com.sproboticworks.view.activity.AboutUsActivity;
 import com.sproboticworks.view.activity.CartActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,9 +75,18 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
     private MaterialCardView materialCardViewJunior, materialCardViewSenior;
     private TextView textViewJunior, textViewSenior;
     private MaterialButton materialCardViewLearnMore;
-    private  VideoCarouselAdapter videoCarouselAdapter;
+    private VideoCarouselAdapter videoCarouselAdapter;
     private List<String> youtubeIds = new ArrayList<>();
+    private MaterialCardView course_main;
 
+    /*Video*/
+    private VideoView simpleVideoView;
+    private ProgressBar progress;
+    private ImageView iv_play, iv_volume;
+
+    private Boolean isSenior = true, isMute = true;
+
+    MediaPlayer mediaPlayer;
 
     @Nullable
     @Override
@@ -73,11 +94,16 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         findViewById(view);
         setButtonCallbacks();
-        setSliderView();
         return view;
     }
 
     private void findViewById(View view) {
+
+        simpleVideoView = view.findViewById(R.id.simpleVideoView);
+        progress = view.findViewById(R.id.progress);
+        iv_play = view.findViewById(R.id.iv_play);
+        iv_volume = view.findViewById(R.id.iv_volume);
+
         textViewName = view.findViewById(R.id.home_fragment_name);
         imageButtonCart = view.findViewById(R.id.cart_button);
         cartCountView = view.findViewById(R.id.cart_count_view);
@@ -98,18 +124,13 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         textViewJunior = view.findViewById(R.id.junior_course_text);
         textViewSenior = view.findViewById(R.id.senior_course_text);
         materialCardViewLearnMore = view.findViewById(R.id.goto_about_us);
+        course_main = view.findViewById(R.id.course_main);
         //textViewSuperSenior = view.findViewById(R.id.super_senior_course_text);
 
         getAgeGroupId();
     }
 
-    private void setSliderView(){
-        youtubeIds.add("cAU-HT0OJH0"); //6
-        youtubeIds.add("tnNIKwmW7J8"); //4
-        youtubeIds.add("O_YR7_yHXiU"); //3
-        youtubeIds.add("u7H0_39uZw0"); //1
-        youtubeIds.add("3JujmVbkA2A"); //2
-        youtubeIds.add("ubjOu0hmtLs"); //5
+    private void setSliderView(List<String> videosList) {
         videoCarouselAdapter = new VideoCarouselAdapter(getActivity());
         sliderView.setSliderAdapter(videoCarouselAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
@@ -117,13 +138,9 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         sliderView.setIndicatorSelectedColor(Color.WHITE);
         sliderView.setIndicatorUnselectedColor(Color.GRAY);
-        /*videoCarouselAdapter.addItem("u7H0_39uZw0");
-        videoCarouselAdapter.addItem("3JujmVbkA2A");
-        videoCarouselAdapter.addItem("O_YR7_yHXiU");
-        videoCarouselAdapter.addItem("tnNIKwmW7J8");
-        videoCarouselAdapter.addItem("ubjOu0hmtLs");
-        videoCarouselAdapter.addItem("cAU-HT0OJH0");*/
-        videoCarouselAdapter.renewItems(youtubeIds);
+
+
+        videoCarouselAdapter.renewItems(videosList);
     }
 
     @Override
@@ -138,7 +155,6 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         HashMap<String, String> map = new HashMap<>();
         map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
         apiRequest.postRequest(GET_CART, map, GET_CART);
-
     }
 
     private void selectedTopButtonColor(MaterialCardView materialCardView, TextView textView) {
@@ -163,7 +179,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
 
         });
 
-        materialCardViewLearnMore.setOnClickListener(v->{
+        course_main.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), AboutUsActivity.class));
         });
 
@@ -179,6 +195,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         });*/
 
         materialCardViewJunior.setOnClickListener(v -> {
+            isSenior = false;
             HashMap<String, String> map = new HashMap<>();
             map.put("age_category_id", Constant.JUNIOR_AGE_ID);
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
@@ -188,6 +205,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         });
 
         materialCardViewSenior.setOnClickListener(v -> {
+            isSenior = true;
             HashMap<String, String> map = new HashMap<>();
             map.put("age_category_id", Constant.SENIOR_AGE_ID);
             apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
@@ -230,6 +248,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         }
 
         apiRequest.postRequest(PRODUCT_LIST, map, PRODUCT_LIST);
+        apiRequest.postRequest(GET_VIDEO, map, GET_VIDEO);
 
 
     }
@@ -245,8 +264,8 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         super.OnCallBackSuccess(tag, response);
         if (tag.equalsIgnoreCase(PRODUCT_LIST)) {
             CourseListResponse response1 = (CourseListResponse) GsonUtil.toObject(response, CourseListResponse.class);
-            recyclerViewCourse.setAdapter(new CourseAdapter(response1.getData(), requireContext()));
-            recyclerViewCoursePopular.setAdapter(new CourseAdapter(response1.getPopular(), requireContext()));
+            recyclerViewCourse.setAdapter(new CourseAdapter(response1.getData(), requireContext(), isSenior));
+            recyclerViewCoursePopular.setAdapter(new CourseAdapter(response1.getPopular(), requireContext(), !isSenior));
         }
         if (tag.equalsIgnoreCase(GET_AGE_GROUP)) {
 
@@ -280,13 +299,37 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
 
 
         }
+        if (tag.equalsIgnoreCase(GET_VIDEO)) {
+
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                boolean status = jsonObject.getBoolean("response");
+                if (status) {
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    List<String> videoUrls = new ArrayList<>();
+                    for (int i = 0; i < data.length(); i++) {
+                        videoUrls.add(data.getString(i));
+                    }
+//                    setSliderView(videoUrls);
+
+                    playVideo(videoUrls.get(0));
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 
     @Override
     public void addLifeCycleCallBack(YouTubePlayerView youTubePlayerView) {
         getLifecycle().addObserver(youTubePlayerView);
     }
-
 
 
     @Override
@@ -297,4 +340,108 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
 
         Logger.d("Detach Home Fragment");
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        andExoPlayerView.stopPlayer();
+    }
+
+    private void playVideo(String url) {
+
+
+//        andExoPlayerView.setSource(url, new HashMap<>());
+//        andExoPlayerView.setShowControllers(true);
+
+//        MediaController mediaController = new MediaController(getActivity());
+//        mediaController.setAnchorView(simpleVideoView);
+//        simpleVideoView.setMediaController(mediaController);
+
+
+//        scrollView2.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+//
+//            @Override
+//            public void onScrollChanged() {
+//                mediaController.hide();
+//            }
+//        });
+
+        simpleVideoView.setVideoURI(Uri.parse(url));
+
+        simpleVideoView.setOnPreparedListener(mp -> {
+            progress.setVisibility(View.GONE);
+            simpleVideoView.start();
+            mediaPlayer = mp;
+            setVolume(0);
+        });
+
+        simpleVideoView.setOnClickListener(view -> {
+            if (iv_play.getVisibility() == View.VISIBLE)
+                iv_play.setVisibility(View.GONE);
+            else
+                iv_play.setVisibility(View.VISIBLE);
+        });
+        iv_volume.setOnClickListener(view -> {
+            if(isMute){
+//                mediaPlayer.setVolume(50,50);
+                setVolume(100);
+                iv_volume.setImageResource(R.drawable.ic_unmute);
+            }
+            else{
+                setVolume(0);
+//                mediaPlayer.setVolume(0,0);
+                iv_volume.setImageResource(R.drawable.ic_mute);
+            }
+
+            isMute = !isMute;
+        });
+
+
+
+
+
+        iv_play.setOnClickListener(view -> {
+            if (simpleVideoView.isPlaying()) {
+                simpleVideoView.pause();
+                iv_play.setImageResource(R.drawable.ic_play);
+            } else {
+                simpleVideoView.start();
+                iv_play.setImageResource(R.drawable.ic_pause);
+            }
+        });
+
+
+
+
+        simpleVideoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+            @Override
+            public boolean onInfo(MediaPlayer mediaPlayer, int i, int i1) {
+                switch (i) {
+                    case MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START: {
+                        progress.setVisibility(View.GONE);
+                        return true;
+                    }
+                    case MediaPlayer.MEDIA_INFO_BUFFERING_START: {
+                        progress.setVisibility(View.VISIBLE);
+                        return true;
+                    }
+                    case MediaPlayer.MEDIA_INFO_BUFFERING_END: {
+                        progress.setVisibility(View.GONE);
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+    }
+    private void setVolume(int amount) {
+        final int max = 100;
+        final double numerator = max - amount > 0 ? Math.log(max - amount) : 0;
+        final float volume = (float) (1 - (numerator / Math.log(max)));
+
+        this.mediaPlayer.setVolume(volume, volume);
+    }
+
 }

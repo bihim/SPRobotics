@@ -486,6 +486,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/enquire_now"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
@@ -774,7 +775,7 @@
                         android:textColor="@color/black"
                         android:textAllCaps="false"
                         android:gravity="start|center"
-                        android:text="About SP Robotics"/>
+                        android:text="About SP Robotic Works"/>
 
                     <com.google.android.material.button.MaterialButton
                         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"

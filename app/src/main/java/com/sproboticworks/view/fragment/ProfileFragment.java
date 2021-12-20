@@ -62,6 +62,7 @@ import com.sproboticworks.preferences.SessionManager;
 import com.sproboticworks.util.MethodClass;
 import com.sproboticworks.util.NetworkCallFragment;
 import com.sproboticworks.view.activity.AboutUsActivity;
+import com.sproboticworks.view.activity.EnquiryActivity;
 import com.sproboticworks.view.activity.MainActivity;
 import com.sproboticworks.view.activity.OrderHistoryActivity;
 import com.sproboticworks.view.activity.ParsingHtmlActivity;
@@ -134,7 +135,7 @@ public class ProfileFragment extends NetworkCallFragment {
     private ProgressDialog progressDialog;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
     private String verificationCode;
-    private LinearLayout orderHistoryButton;
+    private LinearLayout orderHistoryButton, enquireNow;
 
 
     @Nullable
@@ -207,6 +208,7 @@ public class ProfileFragment extends NetworkCallFragment {
         progressDialog = new ProgressDialog(activity, ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("please wait...");
         orderHistoryButton = view.findViewById(R.id.orderHistoryButton);
+        enquireNow = view.findViewById(R.id.enquire_now);
         otherButtonsOfAboutUs(termsAndCondition, "terms");
         otherButtonsOfAboutUs(privacyPolicy, "privacy");
         otherButtonsOfAboutUs(disclaimer, "disclaimer");
@@ -221,6 +223,12 @@ public class ProfileFragment extends NetworkCallFragment {
     }
 
     private void setButtonCallBacks() {
+
+        enquireNow.setOnClickListener(v->{
+            getActivity().startActivity(new Intent(getActivity(), EnquiryActivity.class).putExtra("bottomTag", "page_4"));
+            getActivity().overridePendingTransition(0, 0);
+        });
+
         about_us.setOnClickListener(v -> {
             if (expandableLayoutAboutus.isExpanded()) {
                 expandableLayoutAboutus.collapse();

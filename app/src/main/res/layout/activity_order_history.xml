@@ -29,6 +29,32 @@
             android:textColor="@color/blackish"
             android:textSize="@dimen/_14ssp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/no_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:src="@drawable/ic_order_history_no"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Order History Available"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderHistoryRecyler"
         android:layout_width="match_parent"

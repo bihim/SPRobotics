@@ -19,6 +19,8 @@ public class Constant {
     public static final String UPDATE_CART_ITEM=BASE_URL+"cart-update";
     public static final String PLACE_ORDER=BASE_URL+"order-place";
     public static final String SET_GET_ADDRESS=BASE_URL+"customer-address-save";
+    public static final String GET_ALL_COURSES= BASE_URL+"all-course";
+    public static final String GET_VIDEO=BASE_URL+"dashboard-video";
 
 
 

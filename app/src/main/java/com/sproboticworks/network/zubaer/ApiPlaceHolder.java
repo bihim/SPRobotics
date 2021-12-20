@@ -4,6 +4,7 @@ package com.sproboticworks.network.zubaer;
 import com.sproboticworks.model.AddressModel;
 import com.sproboticworks.model.AllCoursesModel;
 import com.sproboticworks.model.EnquiryModel;
+import com.sproboticworks.model.NotificationModel;
 import com.sproboticworks.model.OrderHistoryModel;
 import com.sproboticworks.model.ProfileEditModel;
 import com.sproboticworks.model.StateCityModel;
@@ -65,6 +66,13 @@ public interface ApiPlaceHolder {
     @FormUrlEncoded
     @POST(Api.enquiry)
     Call<EnquiryModel> setEnquiry(
+            @Field("customer_id") String customerId,
+            @Field("product_id") String productId,
+            @Field("message") String message);
+
+    @FormUrlEncoded
+    @POST(Api.notification)
+    Call<NotificationModel> getNotification(
             @Field("customer_id") String customerId,
             @Field("product_id") String productId,
             @Field("message") String message);

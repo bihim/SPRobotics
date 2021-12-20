@@ -21,8 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp">
 
                 <LinearLayout
                     android:id="@+id/guestName"
@@ -58,8 +58,8 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guestName"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guestName"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,12 +80,12 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/cart_count_view"
                             android:layout_width="@dimen/_10sdp"
                             android:layout_height="@dimen/_10sdp"
                             android:background="@drawable/linearlayout_circle"
                             android:gravity="center"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -93,10 +93,10 @@
                                 android:id="@+id/cart_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="5"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_6ssp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="5" />
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,12 +118,12 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/noti_count_view"
                             android:layout_width="@dimen/_10sdp"
                             android:layout_height="@dimen/_10sdp"
                             android:background="@drawable/linearlayout_circle"
                             android:gravity="center"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -143,10 +143,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -154,25 +154,26 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start">
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/junior_course_button"
                         android:layout_width="match_parent"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp">
 
                         <TextView
                             android:id="@+id/junior_course_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/colors1"
+                            android:gravity="center"
                             android:paddingHorizontal="@dimen/_20sdp"
                             android:paddingVertical="@dimen/_10sdp"
                             android:text="JUNIOR (7+)"
-                            android:gravity="center"
-                            android:textSize="@dimen/_10ssp"
                             android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textFontWeight="800"/>
+                            android:textFontWeight="800"
+                            android:textSize="@dimen/_10ssp"
+                            android:textStyle="bold" />
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
@@ -181,6 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center">
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/senior_course_button"
                         android:layout_width="match_parent"
@@ -193,12 +195,12 @@
                             android:id="@+id/senior_course_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:paddingHorizontal="@dimen/_20sdp"
                             android:paddingVertical="@dimen/_10sdp"
                             android:text="SENIOR (10+)"
-                            android:gravity="center"
-                            android:textSize="@dimen/_10ssp"
                             android:textColor="@color/fragment_home_card_text_color"
+                            android:textSize="@dimen/_10ssp"
                             android:textStyle="bold" />
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
@@ -208,22 +210,21 @@
                 android:id="@+id/course_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="2"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/recyclerview_course">
-            </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/recyclerview_course"></androidx.recyclerview.widget.RecyclerView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/banner_slider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
+                android:visibility="gone"
                 app:cardCornerRadius="@dimen/_15sdp"
                 app:cardElevation="0dp">
 
@@ -236,7 +237,7 @@
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/imageSlider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_150sdp"
                         app:sliderAnimationDuration="600"
                         app:sliderAutoCycleDirection="back_and_forth"
                         app:sliderAutoCycleEnabled="true"
@@ -252,10 +253,84 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
-                android:layout_marginTop="@dimen/_10sdp"
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                app:cardElevation="0dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_centerInParent="true">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <!--<VideoView
+                            android:id="@+id/videoView"
+                            android:layout_width="@dimen/dimen_0dp"
+                            android:layout_height="@dimen/dimen_0dp"
+                            android:visibility="gone"
+                            />-->
+                        <VideoView
+                            android:id="@+id/simpleVideoView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!--<VideoView
+                        android:id="@+id/simpleVideoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true" />-->
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+
+                    <ImageView
+                        android:id="@+id/iv_play"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_pause"
+                        android:visibility="gone"
+                        app:tint="@color/white" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_volume"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:src="@drawable/ic_mute"
+                        app:tint="@color/white" />
+
+
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -280,14 +355,14 @@
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="View All"
-                        android:visibility="gone"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
                         android:layout_marginEnd="@dimen/_15sdp"
+                        android:text="View All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_8ssp"
+                        android:visibility="gone"
                         app:icon="@drawable/ic_forward"
                         app:iconGravity="textEnd"
-                        android:textSize="@dimen/_8ssp"
                         app:iconTint="@color/black" />
                 </LinearLayout>
             </LinearLayout>
@@ -296,20 +371,18 @@
                 android:id="@+id/course_recyclerview_popular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
+                android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="2"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/recyclerview_course">
-            </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/recyclerview_course"></androidx.recyclerview.widget.RecyclerView>
 
 
-
-         <RelativeLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -319,77 +392,73 @@
                     android:layout_marginBottom="@dimen/_20sdp">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/course_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_15sdp"
-                        android:id="@+id/course_main"
                         app:cardElevation="@dimen/_5sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colors3"
-
-                        android:orientation="vertical">
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:gravity="center"
-                            android:text="Welcome to the World of Practical Learning"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_14ssp"
-                            android:textStyle="bold" />
+                            android:background="@color/colors3"
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:text="Learn Coding. Android app building &amp; Drones with us and rediscover the joy of learning!"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_9ssp"
-                            android:layout_marginEnd="@dimen/_90sdp"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_10sdp"/>
+                            android:orientation="vertical">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/goto_about_us"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:elevation="0dp"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:text="Learn More"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_15sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:gravity="center"
+                                android:text="Welcome to the World of Practical Learning"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold" />
 
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_90sdp"
+                                android:gravity="start"
+                                android:text="Learn Coding. Android app building &amp; Drones with us and rediscover the joy of learning!"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_9ssp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/goto_about_us"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:text="Learn More"
+                                app:elevation="0dp" />
+
+                        </LinearLayout>
 
 
                     </com.google.android.material.card.MaterialCardView>
 
 
-
-
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-             <ImageView
-                 android:layout_width="@dimen/_100sdp"
-                 android:layout_height="@dimen/_120sdp"
-                 android:layout_marginTop="@dimen/_60sdp"
-                 android:layout_marginEnd="@dimen/_20sdp"
-                 android:src="@drawable/icon"
-                 android:layout_alignParentEnd="true"
-                 android:layout_alignParentBottom="true"/>
+                <ImageView
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/_60sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:src="@drawable/icon" />
 
-         </RelativeLayout>
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

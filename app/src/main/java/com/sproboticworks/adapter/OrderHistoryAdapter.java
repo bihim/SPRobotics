@@ -4,15 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sproboticworks.R;
 import com.sproboticworks.model.OrderHistoryModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderHistoryViewHolder> {
@@ -35,7 +40,20 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         OrderHistoryModel.Datum selectedItem = orderHistoryModels.get(position);
         OrderHistoryListAdapter orderHistoryListAdapter = new OrderHistoryListAdapter(selectedItem.getOrderItemArray(), context);
         holder.recyclerView.setAdapter(orderHistoryListAdapter);
-        holder.textView.setText(selectedItem.getOrderId().toString());
+        holder.textView.setText(selectedItem.getOrderNo());
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat output = new SimpleDateFormat("dd MMM, yyyy");
+        Date d = null;
+        try {
+            d = input.parse(selectedItem.getOrderDate());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String formatted = output.format(d);
+        holder.orderHistoryDate.setText(formatted);
+
+
     }
 
     @Override
@@ -45,12 +63,13 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     class OrderHistoryViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
-        TextView textView;
+        TextView textView, orderHistoryDate;
 
         public OrderHistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.orderHistoryRecyclerview);
             textView = itemView.findViewById(R.id.orderHistoryOrderNo);
+            orderHistoryDate = itemView.findViewById(R.id.orderHistoryDate);
         }
     }
 }
@@ -75,11 +94,13 @@ class OrderHistoryListAdapter extends RecyclerView.Adapter<OrderHistoryListAdapt
     @Override
     public void onBindViewHolder(@NonNull OrderHistoryListViewHolder holder, int position) {
         OrderHistoryModel.OrderItemArray selectedItem = orderItemArrayArrayList.get(position);
+        holder.orderHistoryListOrderStatus.setText(selectedItem.getStatus());
         holder.orderHistoryListName.setText(selectedItem.getItemName() == null ? "No Name" : "" + selectedItem.getItemName());
-        holder.orderHistoryListQuantity.setText("Quantity: "+selectedItem.getQuantity().toString());
-        holder.orderHistoryListPrice.setText("Price: "+selectedItem.getPrice().toString());
-        holder.orderHistoryListSubTotal.setText("Subtotal: "+ selectedItem.getSubTotal().toString());
-        holder.orderHistoryListNetTotal.setText("NetTotal: "+selectedItem.getNetTotal().toString());
+        holder.orderHistoryListQuantity.setText("Quantity: " + selectedItem.getQuantity().toString());
+        holder.orderHistoryListPrice.setText("Price: " + selectedItem.getPrice().toString());
+        holder.orderHistoryListSubTotal.setText("Subtotal: " + selectedItem.getSubTotal().toString());
+        holder.orderHistoryListNetTotal.setText("NetTotal: " + selectedItem.getNetTotal().toString());
+        Glide.with(context).load(selectedItem.getMobileAppImage()).into(holder.imageView);
     }
 
     @Override
@@ -89,6 +110,7 @@ class OrderHistoryListAdapter extends RecyclerView.Adapter<OrderHistoryListAdapt
 
     class OrderHistoryListViewHolder extends RecyclerView.ViewHolder {
         TextView orderHistoryListName, orderHistoryListOrderStatus, orderHistoryListQuantity, orderHistoryListPrice, orderHistoryListSubTotal, orderHistoryListNetTotal;
+        ImageView imageView;
 
         public OrderHistoryListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +120,7 @@ class OrderHistoryListAdapter extends RecyclerView.Adapter<OrderHistoryListAdapt
             orderHistoryListPrice = itemView.findViewById(R.id.orderHistoryListPrice);
             orderHistoryListSubTotal = itemView.findViewById(R.id.orderHistoryListSubTotal);
             orderHistoryListNetTotal = itemView.findViewById(R.id.orderHistoryListNetTotal);
+            imageView = itemView.findViewById(R.id.cart_image);
         }
     }
 }

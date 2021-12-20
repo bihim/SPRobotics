@@ -26,10 +26,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
     List<com.sproboticworks.model.courseresponse.DataItem> list;
     Context context;
+    Boolean isSenior;
 
-    public CourseAdapter(List<DataItem> list, Context context) {
+    public CourseAdapter(List<DataItem> list, Context context, Boolean isSenior) {
         this.list = list;
         this.context = context;
+        this.isSenior = isSenior;
     }
 
     @NonNull
@@ -48,6 +50,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
             Intent intent = new Intent(context, CourseDetailsActivity.class);
             intent.putExtra("MyClass", item);
+            intent.putExtra("comingFromCourseAdapter", true);
             context.startActivity(intent);
 
         });
@@ -58,28 +61,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         String url = item.getMobile_app_image();
         Logger.d(item.getName());
 
-     /*   switch (item.getSlug()) {
-            case "scratch-programming-online-course":
-                holder.imageView.setImageResource(R.drawable.scratch);
-                break;
-
-            case "android-kit":
-                holder.imageView.setImageResource(R.drawable.android);
-                break;
-
-            case "codey-inventor-kit":
-                holder.imageView.setImageResource(R.drawable.codey);
-                break;
-
-            case "electro-blocks":
-                holder.imageView.setImageResource(R.drawable.electro);
-                break;
-
-            case "drone-kit":
-                holder.imageView.setImageResource(R.drawable.drone);
-                break;
-
-        }*/
+        if (isSenior)
+            holder.textViewYear.setText("10+ years");
+        else
+            holder.textViewYear.setText("7+ years");
 
         Glide.with(context.getApplicationContext()).load(url).placeholder(context.getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(holder.imageView);
     }

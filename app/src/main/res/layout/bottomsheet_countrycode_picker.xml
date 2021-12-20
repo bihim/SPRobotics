@@ -68,7 +68,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         app:iconGravity="textEnd"/>
     <TextView
-        android:id="@+id/privacyPolicy"
+        android:id="@+id/privacyPolicyy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/terms_condition"/>

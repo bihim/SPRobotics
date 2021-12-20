@@ -58,8 +58,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
+import com.orhanobut.logger.Logger;
 import com.sproboticworks.R;
 import com.sproboticworks.model.loginresponse.LogInResponse;
 import com.sproboticworks.model.mobileotp.PhoneOtpSentResponse;
@@ -69,8 +72,10 @@ import com.sproboticworks.network.util.ToastUtils;
 import com.sproboticworks.preferences.SessionManager;
 import com.sproboticworks.util.MethodClass;
 import com.sproboticworks.util.NetworkCallActivity;
+import com.sproboticworks.view.fragment.EnquiryFragment;
 import com.sproboticworks.view.fragment.FragmentEnquaries;
 import com.sproboticworks.view.fragment.HomeFragment;
+import com.sproboticworks.view.fragment.MyOrdersFragment;
 import com.sproboticworks.view.fragment.ProfileFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -122,6 +127,14 @@ public class MainActivity extends NetworkCallActivity {
         } else {
             MethodClass.displayLocationSettingsRequest(activity);
         }
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                Logger.d("Token: "+ instanceIdResult.getToken());
+            }
+        });
+
 
 
         findViewById();
@@ -181,8 +194,8 @@ public class MainActivity extends NetworkCallActivity {
 
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-        fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        /*Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);*/
 
     }
 
@@ -301,9 +314,8 @@ public class MainActivity extends NetworkCallActivity {
                 case R.id.page_2:
                     bottomTag = "page_2";
                     if (SessionManager.isLoggedIn()) {
-
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new MyOrdersFragment()).commit();
                     }
-                    //fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
                     else {
                         bottomSheetDialogForPhone.show();
                     }
@@ -311,9 +323,9 @@ public class MainActivity extends NetworkCallActivity {
                 case R.id.page_3:
                     bottomTag = "page_3";
                     if (SessionManager.isLoggedIn()){
-                        this.startActivity(new Intent(this, EnquiryActivity.class).putExtra("bottomTag", bottomTag));
-                        this.overridePendingTransition(0, 0);
-                        //fragmentManager.beginTransaction().replace(R.id.fragment_container, new FragmentEnquaries()).commit();
+                        /*this.startActivity(new Intent(this, EnquiryActivity.class).putExtra("bottomTag", bottomTag));
+                        this.overridePendingTransition(0, 0);*/
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new EnquiryFragment()).commit();
                     }
                     else {
                         bottomSheetDialogForPhone.show();
@@ -388,6 +400,7 @@ public class MainActivity extends NetworkCallActivity {
                         MethodClass.hideKeyboard(activity);
                         MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
                         loginWithEmailOrMobile("E");
+
                     } else
                         MethodClass.showAlertDialog(activity, true, "Invalid OTP", "Invalid OTP", false);
                 }
@@ -447,12 +460,15 @@ public class MainActivity extends NetworkCallActivity {
         bottomSheetDialogForPhone = new BottomSheetDialog(this, R.style.BottomSheetDialogThemeNoFloating);
         bottomSheetDialogForPhone.setContentView(R.layout.bottomsheet_countrycode_picker);
 
+        TextView textViewprivacyPolicy = bottomSheetDialogForPhone.findViewById(R.id.privacyPolicyy);
+        textViewprivacyPolicy.setVisibility(View.VISIBLE);
+
         MaterialButton gotoOtp = bottomSheetDialogForPhone.findViewById(R.id.gotoOtp);
         EditText editText_carrierNumber = bottomSheetDialogForPhone.findViewById(R.id.editText_carrierNumber);
 
 
-        TextView text_view = bottomSheetDialogForPhone.findViewById(R.id.privacyPolicy);
-        setTextViewHTML(text_view, str_links);
+        /*TextView text_view = bottomSheetDialogForPhone.findViewById(R.id.privacyPolicy);
+        setTextViewHTML(text_view, str_links);*/
 
         editText_carrierNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -655,27 +671,5 @@ public class MainActivity extends NetworkCallActivity {
         TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setMaxLines(5);
         snackbar.show();
-    }
-
-    @Override
-    protected void onResume() {
-        switch (bottomTag) {
-            case "page_1":
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                bottomNavigationView.setSelectedItemId(R.id.page_1);
-                break;
-            case "page_2":
-                bottomNavigationView.setSelectedItemId(R.id.page_2);
-                break;
-            case "page_3":
-                bottomNavigationView.setSelectedItemId(R.id.page_3);
-                break;
-            case "page_4":
-                if (SessionManager.isLoggedIn())
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-                bottomNavigationView.setSelectedItemId(R.id.page_4);
-                break;
-        }
-        super.onResume();
     }
 }

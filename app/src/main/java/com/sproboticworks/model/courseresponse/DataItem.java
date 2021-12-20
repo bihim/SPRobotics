@@ -12,6 +12,9 @@ public class DataItem implements Serializable {
 	@SerializedName("iamge")
 	private String iamge;
 
+	@SerializedName("mobile_app_video")
+	private String mobile_app_video;
+
 	@SerializedName("mobile_app_image")
 	private String mobile_app_image;
 
@@ -24,6 +27,9 @@ public class DataItem implements Serializable {
 	@SerializedName("name")
 	private String name;
 
+	@SerializedName("age_group")
+	private String age_group;
+
 	@SerializedName("description")
 	private String description;
 
@@ -32,6 +38,22 @@ public class DataItem implements Serializable {
 
 	@SerializedName("slug")
 	private String slug;
+
+	public String getAge_group() {
+		return age_group;
+	}
+
+	public void setAge_group(String age_group) {
+		this.age_group = age_group;
+	}
+
+	public String getMobile_app_video() {
+		return mobile_app_video;
+	}
+
+	public void setMobile_app_video(String mobile_app_video) {
+		this.mobile_app_video = mobile_app_video;
+	}
 
 	public String getMobile_app_image() {
 		return mobile_app_image;

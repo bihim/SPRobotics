@@ -111,7 +111,7 @@
                             android:layout_height="match_parent"
                             android:textColor="@color/white"
                             android:gravity="center"
-                            android:text="1Lac+\nLives \nTouched" />
+                            android:text="2.5Lac+\nLives \nTouched" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -121,17 +121,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:text="Who We Are"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:text="Who Are We"
                 android:visibility="visible"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_16sdp"/>
+                android:textSize="@dimen/_14ssp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:text="A team of motivated and cohesive individuals driven by a desire to transform the way Engineering and STEM Education is accessed and consumed globally. Commencing in the year 2012 with a modest training centre, the company has grown to have over 75 centres/Maker Labs and at dominant online force. Our success is driven by not only by motivated AI and Robotics Engineers but also by eclectic set of young students who are ever curious to learn Robotics and Coding."
+                android:layout_marginHorizontal="@dimen/_15ssp"
+                android:text="With over a decade in providing Quality STEM Education, SP Robotic Works has always been driven in providing the Community First experience to all our Makers/students across the world! At the heart of it all, it is our 'Community' that keeps our energy going to spread the fun and joy of Learning Robotics &amp; Coding via Projects &amp; practical Experiments!What's better than your own child learning to be independent &amp; facing the world confidently! We also have 75+ experiential Learning Centers called Maker Labs across 13 states and 32 cities!"
                 android:justificationMode="inter_word"
                 android:visibility="visible"
                 android:lineHeight="@dimen/_16sdp"
@@ -148,17 +149,41 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
-                android:layout_margin="@dimen/_10sdp"
-                android:text="India's #1 AI Led LEARNING PLATFORM - 'SPARKY'"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:text="What's different about us"
+                android:visibility="visible"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_16sdp"/>
+                android:textSize="@dimen/_14ssp"/>
+
+
+            <TextView
+                android:id="@+id/whatsDifferentAboutUs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_15ssp"
+                android:justificationMode="inter_word"
+                android:visibility="visible"
+                android:lineHeight="@dimen/_16sdp"
+                android:textColor="@color/blackish"
+                android:textSize="@dimen/_10sdp"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
-                android:layout_marginHorizontal="@dimen/_10sdp"
+
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:text="India's #1 AI Led LEARNING PLATFORM - 'SPARKY'"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="@dimen/_15sdp"
                 android:text="To cater to an ever increasing Indian and Global demand for Coding and Robotics Education, SP Robotic Works has pioneered an Artificial Intelligence led Learning Platform - 'SPARKY'. SPARKY handles a whole suite of Courses and Modules spanning from simple ones such as Scratch Programming, Electronics and Android to more complex ones such as Robotics, Drones, Computer Vision, Machine Learning and Virtual and Augmented Reality. SPARKY understands what programs are suitable to you. It also adjusts the pace of delivery of the modules and testing so as to improve learning outcomes. SPARKY also suggests the next appropriate course/modules based on Learners' specific capabilities. Lastly SPARKY connects Learners with extended Community of like minded people to discuss and share Learnings and Learning Outcomes.SPARKY is an Artificial Intelligence Platform that understands a wide variety of Learners"
                 android:justificationMode="inter_word"
                 android:textColor="@color/blackish"
@@ -174,7 +199,7 @@
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_16sdp"/>
+                android:textSize="@dimen/_14ssp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/key_team_members"
@@ -188,9 +213,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:text="Board Members"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_16sdp"/>
+                android:textSize="@dimen/_14ssp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/board_members"

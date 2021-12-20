@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.orhanobut.logger.Logger;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
@@ -202,7 +203,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
         super.OnCallBackSuccess(tag, response);
         if (tag.equalsIgnoreCase(PLACE_ORDER)) {
             OrderResponse response1 = (OrderResponse) GsonUtil.toObject(response, OrderResponse.class);
-
+            Logger.d(response);
             if (response1.isResponse()) {
 
                 ToastUtils.showLong(BillingActivity.this, response1.getMessage());
@@ -212,8 +213,8 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 bundle.putString("tv_cart_total", tv_cart_total.getText().toString());
                 intent.putExtra("get_bundle", bundle);
+                intent.putExtra("orderId", response1.getData().getOrderNo());
                 startActivity(intent);
-
 
             }
 

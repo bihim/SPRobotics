@@ -17,8 +17,6 @@ public class NetworkCallActivity extends AppCompatActivity implements OnCallBack
         super.onCreate(savedInstanceState);
         apiRequest=new ApiRequest(this,this);
 
-
-
     }
 
     @Override

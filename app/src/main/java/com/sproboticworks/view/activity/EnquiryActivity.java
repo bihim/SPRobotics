@@ -48,6 +48,7 @@ public class EnquiryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enquiry);
+        bottomTag = getIntent().getStringExtra("bottomTag");
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         autoCompleteTextViewCourses = findViewById(R.id.enquire_courses);
         enquireQuery = findViewById(R.id.enquire_query);
@@ -115,7 +116,7 @@ public class EnquiryActivity extends AppCompatActivity {
                     if (response.body()!=null){
                         EnquiryModel enquiryModel = response.body();
                         if (enquiryModel.getResponse()){
-                            Toasty.success(context, enquiryModel.getMessage(), Toasty.LENGTH_SHORT).show();
+                            Toasty.success(context, "Thank you, We will get back to you shortly.", Toasty.LENGTH_SHORT).show();
                             enquireQuery.setText("");
                         }
                         else{
@@ -139,6 +140,7 @@ public class EnquiryActivity extends AppCompatActivity {
         isComingFromCourseDetails = getIntent().getBooleanExtra("comingFromCourseDetails", false);
         if (isComingFromCourseDetails){
             courseId = getIntent().getStringExtra("course");
+            courseName = getIntent().getStringExtra("courseName");
             autoCompleteTextViewCourses.setText(courseName);
             autoCompleteTextViewCourses.setEnabled(false);
         }

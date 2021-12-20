@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_10sdp"
-    app:cardElevation="@dimen/_10sdp"
+    app:cardElevation="0dp"
     app:cardCornerRadius="@dimen/_10sdp">
 
     <LinearLayout
@@ -72,22 +72,22 @@
                 android:textSize="@dimen/_11ssp" />
 
             <TextView
-                android:id="@+id/orderHistoryListOrderStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:text="Delivered"
-                android:textColor="@color/blackish"
-                android:textSize="@dimen/_16ssp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/orderHistoryListQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:text="Quantity: 1"/>
 
             <TextView
+                android:id="@+id/orderHistoryListOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Status: Delivered"
+                android:textColor="@color/blackish"/>
+
+            <TextView
+                android:visibility="gone"
                 android:id="@+id/orderHistoryListPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

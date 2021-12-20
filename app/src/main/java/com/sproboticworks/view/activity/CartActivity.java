@@ -97,9 +97,10 @@ public class CartActivity extends NetworkCallActivity {
             onBackPressed();
         });
         course_details_enquire_now.setOnClickListener(v->{
-            this.startActivity(new Intent(this, MainActivity.class).putExtra("bottomTag", "page_1"));
+            /*this.startActivity(new Intent(this, MainActivity.class).putExtra("bottomTag", "page_1"));
             this.overridePendingTransition(0, 0);
-            finish();
+            finish();*/
+            startActivity(new Intent(this, AllCoursesActivity.class));
         });
 
         cart_pincode_edit.setOnClickListener(v->{
@@ -134,7 +135,6 @@ public class CartActivity extends NetworkCallActivity {
 
             Bundle bundle = new Bundle();
             Intent intent = new Intent(CartActivity.this, BillingActivity.class);
-
             bundle.putString("edt_cart_coupon", edt_cart_coupon.getText().toString());
             bundle.putString("tv_cart_value_of_products", tv_cart_value_of_products.getText().toString());
             bundle.putString("tv_cart_discount", tv_cart_discount.getText().toString());
@@ -181,8 +181,16 @@ public class CartActivity extends NetworkCallActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("cart_item_id", cart_item_id);
         map.put("qty", quantity);
+        map.put("action", "plus");
         apiRequest.postRequest(UPDATE_CART_ITEM, map, UPDATE_CART_ITEM);
+    }
 
+    public void updateQuantityMinus(String cart_item_id, String quantity) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("cart_item_id", cart_item_id);
+        map.put("qty", quantity);
+        map.put("action", "minus");
+        apiRequest.postRequest(UPDATE_CART_ITEM, map, UPDATE_CART_ITEM);
     }
 
     public void deleteItem(String cart_item_id) {
@@ -212,7 +220,8 @@ public class CartActivity extends NetworkCallActivity {
 
     public void setTotalPrice() {
         double totalAmount = totalPrice + igstCalculation - (Double.valueOf(tv_cart_discount.getText().toString()));
-        String total = String.format("%.2f", totalAmount);
+        //String total = String.format("%.2f", totalAmount);
+        String total = String.format("%.2f", totalPrice);
         tv_cart_total.setText(total);
     }
 

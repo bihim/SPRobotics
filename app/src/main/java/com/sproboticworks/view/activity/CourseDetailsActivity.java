@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,14 +83,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CourseDetailsActivity extends NetworkCallActivity {
-    ProgressDialog progressDialog;
-    ////Firebase
-    String phone_number, firebase_otp, otpFor = "";
-    FirebaseAuth auth;
-    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
-    MaterialTextView textview_otp_sent_to;
-    MaterialButton gotoEmail;
-    String verificationCode;
     private TabLayout tabLayout;
     private FrameLayout frameLayout;
     private ImageButton imageButtonBack;
@@ -105,6 +98,19 @@ public class CourseDetailsActivity extends NetworkCallActivity {
     private ImageView imageViewCourseDetails;
     private String loginType = "M";
     private String email = "";
+    ProgressDialog progressDialog;
+    ////Firebase
+    String phone_number, firebase_otp, otpFor = "";
+    FirebaseAuth auth;
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
+
+    MaterialTextView textview_otp_sent_to;
+
+    MaterialButton gotoEmail;
+    String verificationCode;
+
+    LinearLayout ll_preview;
+
     /*What will you learn*/
     private MaterialButton firstItemButton, secondItemButton, thirdItemButton, fourthItemButton;
     private ExpandableLayout firstItemLayout, secondItemLayout, thirdItemLayout, fourthItemLayout;
@@ -117,26 +123,47 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         setContentView(R.layout.activity_course_details);
         activity = this;
         courseDetails = (DataItem) getIntent().getSerializableExtra("MyClass");
+        progressDialog = new ProgressDialog(activity, ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("please wait...");
         findViewById();
         setButtonCallBacks();
-        setBottomSheet();
         initLoginBottomSheet();
+        setBottomSheet();
         setTabLayout(savedInstanceState);
+        startFirebaseLogin();
     }
 
     private void setButtonCallBacks() {
+
+        ll_preview.setOnClickListener(view -> {
+            if(courseDetails.getMobile_app_video().contains(".mp4")) {
+                startActivity(new Intent(CourseDetailsActivity.this, VideoActivity.class)
+                        .putExtra("videourl", courseDetails.getMobile_app_video())
+                );
+            }
+            else
+            {
+                Toast.makeText(this, "No Preview Available!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         imageButtonBack.setOnClickListener(v -> {
             onBackPressed();
         });
         materialCardViewEnquire.setOnClickListener(v -> {
-            startActivity(new Intent(this, EnquiryActivity.class).
-                    putExtra("bottomTag", "page_1").
-                    putExtra("comingFromCourseDetails", true).
-                    putExtra("course", courseDetails.getProductId()).
-                    putExtra("courseName", courseDetails.getName())
-            );
-            overridePendingTransition(0, 0);
-            finish();
+
+            if (!SessionManager.isLoggedIn()) {
+                bottomSheetDialogForPhone.show();
+            } else {
+                startActivity(new Intent(this, EnquiryActivity.class).
+                        putExtra("bottomTag", "page_1").
+                        putExtra("comingFromCourseDetails", true).
+                        putExtra("course", courseDetails.getProductId()).
+                        putExtra("courseName", courseDetails.getName())
+                );
+                overridePendingTransition(0, 0);
+                finish();
+            }
         });
         /*materialCardViewBuy.setOnClickListener(v -> {
 
@@ -253,6 +280,8 @@ public class CourseDetailsActivity extends NetworkCallActivity {
     }
 
     private void findViewById() {
+        ll_preview = findViewById(R.id.ll_preview);
+
         tabLayout = findViewById(R.id.simpleTabLayout);
         frameLayout = findViewById(R.id.simpleFrameLayout);
         imageButtonBack = findViewById(R.id.back_button);
@@ -353,22 +382,31 @@ public class CourseDetailsActivity extends NetworkCallActivity {
 
         course_details_title.setText(courseDetails.getName());
         // course_details_age.setText(courseDetails.getAgeCategory().get(0));
-        course_details_money.setText("Rs. " + courseDetails.getPrice().get(0));
+        course_details_money.setText("INR " + courseDetails.getPrice().get(0));
 
         Glide.with(getApplicationContext()).load(courseDetails.getMobile_app_image()).placeholder(getResources().getDrawable(R.drawable.sprobotics_recyclerview)).into(imageViewCourseDetails);
 
+        boolean comingFromCourseAdapter = getIntent().getBooleanExtra("comingFromCourseAdapter", false);
 
-        switch (courseDetails.getAgeCategory().get(0)) {
-            case "Junior":
-                course_details_age.setText("7+");
-                break;
-            case "Senior":
-                course_details_age.setText("10+");
-                break;
+        if (comingFromCourseAdapter){
+            switch (courseDetails.getAgeCategory().get(0)) {
+                case "Junior":
+                    course_details_age.setText("7+");
+                    break;
+                case "Senior":
+                    course_details_age.setText("10+");
+                    break;
 
-            default:
-                course_details_age.setText("13+");
+                default:
+                    course_details_age.setText("13+");
+            }
         }
+        else{
+            course_details_age.setText(courseDetails.getAge_group());
+        }
+
+
+
 
 
     }
@@ -503,7 +541,15 @@ public class CourseDetailsActivity extends NetworkCallActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 10) {
-                    requestForMobileOTP(s.toString());
+
+                    if (s.toString().startsWith("6") || s.toString().startsWith("7")|| s.toString().startsWith("8")|| s.toString().startsWith("9")) {
+                        loginType = "M";
+                        sentOTPRequest(s.toString());
+                    }
+
+                    else {
+                        ToastUtils.showLong(CourseDetailsActivity.this,"Enter a valid Mobile Number");
+                    }
                 }
             }
         });
@@ -663,12 +709,12 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         gotoEmail = bottomSheetDialogForOtp.findViewById(R.id.gotoEmail);
         MaterialButton gotoPhone = bottomSheetDialogForEmail.findViewById(R.id.gotoPhone);
 
-        //MaterialButton gotoEmailAgain = bottomSheetDialogForPhone.findViewById(R.id.login_using_phone);
+        MaterialButton gotoEmailAgain = bottomSheetDialogForPhone.findViewById(R.id.login_using_phone);
 
-        /*gotoEmailAgain.setOnClickListener(v -> {
+        gotoEmailAgain.setOnClickListener(v -> {
             bottomSheetDialogForEmail.show();
             bottomSheetDialogForPhone.dismiss();
-        });*/
+        });
 
         if (gotoEmail != null)
             gotoEmail.setOnClickListener(v -> {
@@ -856,3 +902,12 @@ public class CourseDetailsActivity extends NetworkCallActivity {
         snackbar.show();
     }
 }
+/*
+* startActivity(new Intent(this, EnquiryActivity.class).
+                    putExtra("bottomTag", "page_1").
+                    putExtra("comingFromCourseDetails", true).
+                    putExtra("course", courseDetails.getProductId()).
+                    putExtra("courseName", courseDetails.getName())
+            );
+            overridePendingTransition(0, 0);
+            finish();*/
