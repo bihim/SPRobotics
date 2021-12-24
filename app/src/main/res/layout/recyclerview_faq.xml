@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/faqbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:gravity="start|center"
+        android:text="Drone"
+        android:textSize="@dimen/_9ssp"
+        android:textColor="@color/black"
+        app:icon="@drawable/ic_plus"
+        app:iconGravity="end"
+        app:iconTint="@color/black" />
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/faqlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:src="@drawable/ic_course_details_done" />
+
+            <TextView
+                android:id="@+id/faqText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:justificationMode="inter_word"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:text="Learning coding by just looking at the monitor makes imagination very difficult for a child. This course has specially been designed to make coding real with a robot. When a child sees the code in action, his/her imagination becomes real and their coding skills improve drastically. Debugging the code becomes so easy for your child. Children have also shown clear improvement in their creativity, focus, logical thinking and problem solving skills." />
+
+        </LinearLayout>
+    </net.cachapa.expandablelayout.ExpandableLayout>
+
+</LinearLayout>

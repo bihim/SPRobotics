@@ -75,7 +75,7 @@
             android:justificationMode="inter_word"
             android:text="She started the business career at 19, back-packing across the country, going hands-on, participating and winning in national and international competitions in Robotics, Engineering and STEM. This led to the creation of AI led Tech Platform for Online and Assisted Online Education in Robotics, Engineering and STEM. Taking the first letter of her name, and that of her husband's (Pranavan) and combining it with mutual passion Robotics, 'SP Robotic Works' was created. She was one of the youngest women to be awarded as 'Iconic Women' by the Women Economic Forum. From spearheading the development of curriculum and teamware to chartering the growth of the community, she is a driving force behind all of the company’s initiatives."
             android:textColor="@color/blackish"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_8ssp"
             android:textStyle="bold" />
 
     </LinearLayout>

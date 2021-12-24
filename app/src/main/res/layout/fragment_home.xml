@@ -102,7 +102,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
 
                         <ImageButton
                             android:id="@+id/notification_button"
@@ -215,7 +216,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="2"
-                tools:listitem="@layout/recyclerview_course"></androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/recyclerview_course" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/banner_slider"
@@ -253,19 +254,20 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
+                app:cardCornerRadius="@dimen/_10sdp"
                 app:cardElevation="0dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"
                     android:layout_centerInParent="true">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -438,6 +440,7 @@
                                 android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:layout_marginBottom="@dimen/_10sdp"
+                                android:backgroundTint="@color/colors13"
                                 android:text="Learn More"
                                 app:elevation="0dp" />
 

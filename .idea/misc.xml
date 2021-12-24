@@ -8,7 +8,9 @@
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/activity_welcome_one.xml" value="0.22" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/bottomsheet_otp_picker.xml" value="0.33" />
         <entry key="..\:/Android studio/SPRobotics/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_stat_one_signal_default.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/error_gradient_background.xml" value="0.3515625" />
+        <entry key="app/src/main/res/drawable/ic_call_call.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_cart.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_clear.xml" value="0.3111111111111111" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.3111111111111111" />
@@ -16,11 +18,12 @@
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.3494791666666667" />
         <entry key="app/src/main/res/drawable/ic_forward.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_phone.xml" value="0.3111111111111111" />
+        <entry key="app/src/main/res/drawable/ic_whatsapp_call.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/linearlayout_circle_grey.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_about_us.xml" value="0.31096088845968134" />
         <entry key="app/src/main/res/layout/activity_all_courses.xml" value="0.29473684210526313" />
         <entry key="app/src/main/res/layout/activity_billing.xml" value="0.3328125" />
-        <entry key="app/src/main/res/layout/activity_cart.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_cart.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_child_edit.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/activity_course_details.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_enquiry.xml" value="0.33541666666666664" />
@@ -43,7 +46,7 @@
         <entry key="app/src/main/res/layout/fragment_course_details.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/fragment_course_learn.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/fragment_enquaries.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.26532663316582916" />
         <entry key="app/src/main/res/layout/fragment_order_history.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_all_course.xml" value="0.33541666666666664" />
@@ -51,10 +54,11 @@
         <entry key="app/src/main/res/layout/recyclerview_course.xml" value="0.5" />
         <entry key="app/src/main/res/layout/recyclerview_enquaries.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/recyclerview_enquaries_list.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/recyclerview_faq.xml" value="0.33" />
         <entry key="app/src/main/res/layout/recyclerview_notification.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/layout/recyclerview_order_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/recyclerview_order_history_list.xml" value="0.33541666666666664" />
-        <entry key="app/src/main/res/layout/recyclerview_team_members.xml" value="0.33541666666666664" />
+        <entry key="app/src/main/res/layout/recyclerview_team_members.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recyclerview_video_carousel.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3484375" />
       </map>

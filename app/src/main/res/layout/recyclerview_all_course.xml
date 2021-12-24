@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/course_main"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_170sdp"
     android:layout_marginVertical="@dimen/_15sdp"
     android:layout_marginStart="@dimen/_20sdp"
     android:layout_marginEnd="@dimen/_20sdp"
     app:cardCornerRadius="@dimen/_15sdp"
-    android:id="@+id/course_main"
     app:cardElevation="@dimen/_5sdp">
 
     <LinearLayout
         android:id="@+id/lyt_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/course_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
+            android:ellipsize="end"
             android:gravity="center"
-            android:text="SCRATCH PROGRAMMING ONLINE COURSE (+ JUNIOR NCRC)"
-            android:textColor="@color/blackish"
-            android:textSize="@dimen/_10ssp"
+            android:maxLines="3"
             android:paddingLeft="@dimen/_10sdp"
             android:paddingRight="@dimen/_10sdp"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:textStyle="bold"
-            android:textFontWeight="900"/>
+            android:text="SCRATCH PROGRAMMING ONLINE COURSE (+ JUNIOR NCRC)"
+            android:textColor="@color/blackish"
+            android:textFontWeight="900"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -70,19 +69,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:clickable="false"
             android:id="@+id/course_view"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="-5dp"
             android:layout_gravity="center"
+            android:clickable="false"
             android:text="Add to cart"
-            android:textSize="@dimen/_8ssp"
-            android:textColor="@color/blackish"
-            app:icon="@drawable/ic_cart"
             android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colors6"
+            android:textSize="@dimen/_8ssp"
+            app:icon="@drawable/ic_cart"
             app:iconGravity="textStart"
-            app:iconTint="@color/blackish" />
+            app:iconTint="@color/white" />
     </LinearLayout>
 
 

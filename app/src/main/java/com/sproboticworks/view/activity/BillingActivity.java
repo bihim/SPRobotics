@@ -156,6 +156,12 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             //    options.put("order_id", "order_9A33XWu170gUtm");
             options.put("currency", "INR");
+            if (SessionManager.getLoginResponse().getData().getCustomerEmail()!=null){
+                options.put("prefill.email", SessionManager.getLoginResponse().getData().getCustomerEmail());
+            }
+            if (SessionManager.getLoginResponse().getData().getCustomerContactNo()!=null){
+                options.put("prefill.contact",SessionManager.getLoginResponse().getData().getCustomerContactNo());
+            }
 
             // calculate the amount
             Double total = Double.parseDouble(amount);

@@ -7,7 +7,7 @@
     android:background="#EFEFEF"
     tools:context=".view.activity.CourseDetailsActivity">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="none"
@@ -148,12 +148,33 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:id="@+id/course_details_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="sans-serif"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="INR 11,000"
+                android:textColor="@color/blackish"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="inclusive of all taxes"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/colors1"
+                android:textStyle="bold"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginBottom="@dimen/_10sdp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center_horizontal"
                 app:cardCornerRadius="@dimen/_6sdp"
                 app:cardElevation="0dp">
@@ -176,23 +197,35 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="We ship worldwide, FREE shipping within data"
+                        android:text="FREE shipping within India"
                         android:textColor="@color/black"
                         app:drawableTint="@color/black" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/course_details_money"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="sans-serif"
-                android:text="INR 11,000"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20ssp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:layout_marginVertical="@dimen/_11sdp">
+
+                <ImageButton
+                    android:id="@+id/call_phone"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_call_call"/>
+
+                <ImageButton
+                    android:id="@+id/whatsapp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="?selectableItemBackground"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_whatsapp_call"/>
+
+            </LinearLayout>
 
             <!--<LinearLayout
                 android:layout_width="match_parent"
@@ -399,7 +432,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -572,8 +606,37 @@
                     </LinearLayout>
                 </net.cachapa.expandablelayout.ExpandableLayout>
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <TextView
+                    android:id="@+id/faqTextDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_20sdp"
+                    android:text="FAQ"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/faqRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:listitem="@layout/recyclerview_faq"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <ImageButton
         android:id="@+id/back_button"
@@ -600,14 +663,14 @@
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_16sdp"
-            android:layout_marginRight="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_13sdp"
+            android:layout_marginRight="@dimen/_13sdp"
             android:layout_weight="1"
             android:backgroundTint="@color/colors1"
             android:paddingVertical="@dimen/_10sdp"
-            android:text="Enquire Now"
+            android:text="Enquire Demo"
             android:textAllCaps="false"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:cornerRadius="@dimen/_6sdp"
             app:elevation="0dp" />
@@ -617,13 +680,13 @@
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_weight="1"
             android:backgroundTint="@color/colors6"
             android:paddingVertical="@dimen/_10sdp"
             android:text="Buy Now"
             android:textAllCaps="false"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:cornerRadius="@dimen/_6sdp"
             app:elevation="0dp" />

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
-            id     'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 }
 
 android {
@@ -87,4 +88,9 @@ dependencies {
 
     /*Video Player*/
     implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:2.0.7'
+
+    /*One signal*/
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+
+
 }

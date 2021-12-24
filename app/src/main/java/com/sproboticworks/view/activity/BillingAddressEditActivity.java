@@ -27,6 +27,7 @@ import com.sproboticworks.R;
 import com.sproboticworks.model.AddressModel;
 import com.sproboticworks.model.ProfileEditModel;
 import com.sproboticworks.model.StateCityModel;
+import com.sproboticworks.network.util.Constant;
 import com.sproboticworks.preferences.SessionManager;
 
 import java.text.SimpleDateFormat;
@@ -75,6 +76,7 @@ public class BillingAddressEditActivity extends AppCompatActivity {
 
     private void setAddress(String address, String postalCode, String contactNo) {
         progressBarStudentAddress.setVisibility(View.VISIBLE);
+        Logger.d("City Id: "+cityId);
         Call<AddressModel> call = API_PLACE_HOLDER.setAddress(userId, address, cityId, stateId, postalCode, contactNo);
         call.enqueue(new Callback<AddressModel>() {
             @Override
@@ -95,16 +97,10 @@ public class BillingAddressEditActivity extends AppCompatActivity {
                             if (!addressModel.getData().get(0).getCityName().isEmpty()){
                                 autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
                             }
-                            if (addressModel.getData().get(0).getStateId()!=null){
+                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
                                 stateId = addressModel.getData().get(0).getStateId().toString();
                             }
-                            if (addressModel.getData().get(0).getCityId()!=null){
-                                cityId = addressModel.getData().get(0).getCityId().toString();
-                            }
-                            if (addressModel.getData().get(0).getStateId()!=null){
-                                stateId = addressModel.getData().get(0).getStateId().toString();
-                            }
-                            if (addressModel.getData().get(0).getCityId()!=null){
+                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
                                 cityId = addressModel.getData().get(0).getCityId().toString();
                             }
                             getCity(stateId);
@@ -145,22 +141,34 @@ public class BillingAddressEditActivity extends AppCompatActivity {
                     if (response.body() != null) {
                         AddressModel addressModel = response.body();
                         if (addressModel.getResponse()){
-                            textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
-                            textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
-                            textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
-                                autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                            if (addressModel.getData().size() > 0){
+                                textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
+                                textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
+                                textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                    autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                                }
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                    autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                                }
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                    stateId = addressModel.getData().get(0).getStateId().toString();
+                                }
+                                if (addressModel.getData().get(0).getCityName().size() != 0){
+                                    Logger.wtf("If "+addressModel.getData().get(0).getCityId().toString());
+                                    Logger.wtf("Halar size "+addressModel.getData().get(0).getCityName().size());
+                                    cityId = addressModel.getData().get(0).getCityId().toString();
+                                }
+                                else{
+                                    Logger.wtf("Else "+addressModel.getData().get(0).getCityName());
+                                    Logger.wtf("Halar size "+addressModel.getData().get(0).getCityName().size());
+                                }
+                                getCity(stateId);
                             }
-                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
-                                autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                            else{
+                                textInputEditTextAddress.setText(Constant.ADDRESS);
+                                textInputEditTextPostalCode.setText(Constant.PINCODE);
                             }
-                            if (addressModel.getData().get(0).getStateId()!=null){
-                                stateId = addressModel.getData().get(0).getStateId().toString();
-                            }
-                            if (addressModel.getData().get(0).getCityId()!=null){
-                                cityId = addressModel.getData().get(0).getCityId().toString();
-                            }
-                            getCity(stateId);
                         }
                         else{
                             SHOW_INFO_TOAST(activity, "Please update your address");
@@ -186,7 +194,6 @@ public class BillingAddressEditActivity extends AppCompatActivity {
     private void getCity(String stateId) {
         cityArrayList.clear();
         cityArrayListString.clear();
-        cityId = null;
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Cities");
         progressDialog.show();
@@ -423,14 +430,14 @@ public class BillingAddressEditActivity extends AppCompatActivity {
             if (textInputEditTextContactNo.getText().toString().length() < 10 || textInputEditTextStudentContactNo.getText().toString().length() < 10) {
                 SHOW_ERROR_TOAST(activity, "Invalid Number");
             } else {
-                getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
+                /*getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
                         textInputEditTextContactNo.getText().toString(),
                         textInputEditTextEmail.getText().toString(),
                         textInputEditTextStudentName.getText().toString(),
                         textInputEditTextStudentEmail.getText().toString(),
                         textInputEditTextStudentContactNo.getText().toString(),
                         dob, gender
-                );
+                );*/
             }
         });
 

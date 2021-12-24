@@ -47,6 +47,7 @@ import com.sproboticworks.preferences.SessionManager;
 import com.sproboticworks.util.MethodClass;
 import com.sproboticworks.util.NetworkCallFragment;
 import com.sproboticworks.view.activity.AboutUsActivity;
+import com.sproboticworks.view.activity.AllCoursesActivity;
 import com.sproboticworks.view.activity.CartActivity;
 
 import org.json.JSONArray;
@@ -116,7 +117,9 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         recyclerViewCourse = view.findViewById(R.id.course_recyclerview);
         sliderView = view.findViewById(R.id.imageSlider);
         recyclerViewCoursePopular = view.findViewById(R.id.course_recyclerview_popular);
-        textViewName.setText("Hi, " + SessionManager.getValue(SessionManager.CHILD_NAME));
+        String str = SessionManager.getValue(SessionManager.CHILD_NAME);
+        String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
+        textViewName.setText("Hi, " + cap);
 
         materialCardViewJunior = view.findViewById(R.id.junior_course_button);
         materialCardViewSenior = view.findViewById(R.id.senior_course_button);
@@ -128,6 +131,14 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         //textViewSuperSenior = view.findViewById(R.id.super_senior_course_text);
 
         getAgeGroupId();
+        setNotifications();
+    }
+
+
+    private void setNotifications(){
+        //notiCountView for layout
+        //NotiCount for number of noti
+        //imageButtonNoti to go to notification
     }
 
     private void setSliderView(List<String> videosList) {
@@ -179,6 +190,10 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
 
         });
 
+        materialCardViewLearnMore.setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), AllCoursesActivity.class));
+        });
+
         course_main.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), AboutUsActivity.class));
         });
@@ -228,6 +243,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
                 selectedTopButtonColor(materialCardViewJunior, textViewJunior);
                 unSelectedTopButtonColor(materialCardViewSenior, textViewSenior);
                 //unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
+                isSenior = false;
                 map.put("age_category_id", Constant.JUNIOR_AGE_ID);
                 break;
 
@@ -235,6 +251,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
                 unSelectedTopButtonColor(materialCardViewJunior, textViewJunior);
                 selectedTopButtonColor(materialCardViewSenior, textViewSenior);
                 //unSelectedTopButtonColor(materialCardViewSuperSenior, textViewSuperSenior);
+                isSenior = true;
                 map.put("age_category_id", Constant.SENIOR_AGE_ID);
                 break;
 
@@ -313,7 +330,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
                     }
 //                    setSliderView(videoUrls);
 
-                    playVideo(videoUrls.get(0));
+                    playVideo(videoUrls.get(4));
 
                 }
 

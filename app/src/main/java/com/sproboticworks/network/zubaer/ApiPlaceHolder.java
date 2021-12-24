@@ -71,8 +71,15 @@ public interface ApiPlaceHolder {
             @Field("message") String message);
 
     @FormUrlEncoded
-    @POST(Api.notification)
+    @POST(Api.notification) //Notifications
     Call<NotificationModel> getNotification(
+            @Field("customer_id") String customerId,
+            @Field("product_id") String productId,
+            @Field("message") String message);
+
+    @FormUrlEncoded
+    @POST(Api.mobileChecking) //Notifications
+    Call<NotificationModel> getMobileChecking(
             @Field("customer_id") String customerId,
             @Field("product_id") String productId,
             @Field("message") String message);

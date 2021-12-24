@@ -274,30 +274,49 @@
 
                     </LinearLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:background="@color/white"
-                        android:hint="Enter Your Email"
-                        android:textColorHint="@color/black"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
-                        app:boxCornerRadiusBottomStart="@dimen/_8sdp"
-                        app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-                        app:boxCornerRadiusTopStart="@dimen/_8sdp"
-                        app:hintTextColor="@color/black">
+                        android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/profile_email"
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:background="@color/white"
+                            android:hint="Enter Your Email"
+                            android:textColorHint="@color/black"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                            app:hintTextColor="@color/black">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/profile_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:textColor="@color/black" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <EditText
+                            android:id="@+id/profile_verify_emails"
+                            android:enabled="false"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:text="Verified"
+                            android:drawableStart="@drawable/ic_done"
+                            android:gravity="bottom"
                             android:textColor="@color/black" />
 
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -720,7 +739,7 @@
             </net.cachapa.expandablelayout.ExpandableLayout>
 
             <LinearLayout
-                android:id="@+id/about_us"
+                android:id="@+id/about_us_another"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
@@ -735,6 +754,42 @@
                     android:drawablePadding="@dimen/_8sdp"
                     android:gravity="center|start"
                     android:text="About"
+                    android:textColor="@color/black"
+                    app:drawableTint="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/about_icon_another"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_round_arrow_forward_ios_24"
+                        app:tint="@color/black"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/about_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:drawableStart="@drawable/ic_privacy_another"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:gravity="center|start"
+                    android:text="Terms and Privacy"
                     android:textColor="@color/black"
                     app:drawableTint="@color/black" />
 
@@ -774,6 +829,7 @@
                         android:backgroundTint="@color/white"
                         android:textColor="@color/black"
                         android:textAllCaps="false"
+                        android:visibility="gone"
                         android:gravity="start|center"
                         android:text="About SP Robotic Works"/>
 

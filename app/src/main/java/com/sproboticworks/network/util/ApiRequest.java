@@ -246,16 +246,13 @@ public class ApiRequest {
 
 
     public void onCallBackFailed(Call<String> call, Throwable t) {
-
-
         try {
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
-            errorAlert("OPPS", "Something went wrong");
+            //errorAlert("OPPS", "Something went wrong");
         } catch (Exception e) {
-
-            errorAlert("OPPS", "Something went wrong");
+            //errorAlert("OPPS", "Something went wrong");
         }
 
 

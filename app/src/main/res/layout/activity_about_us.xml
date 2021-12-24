@@ -177,6 +177,7 @@
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:text="India's #1 AI Led LEARNING PLATFORM - 'SPARKY'"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 android:textSize="@dimen/_14ssp"/>
 
             <TextView
@@ -187,6 +188,7 @@
                 android:text="To cater to an ever increasing Indian and Global demand for Coding and Robotics Education, SP Robotic Works has pioneered an Artificial Intelligence led Learning Platform - 'SPARKY'. SPARKY handles a whole suite of Courses and Modules spanning from simple ones such as Scratch Programming, Electronics and Android to more complex ones such as Robotics, Drones, Computer Vision, Machine Learning and Virtual and Augmented Reality. SPARKY understands what programs are suitable to you. It also adjusts the pace of delivery of the modules and testing so as to improve learning outcomes. SPARKY also suggests the next appropriate course/modules based on Learners' specific capabilities. Lastly SPARKY connects Learners with extended Community of like minded people to discuss and share Learnings and Learning Outcomes.SPARKY is an Artificial Intelligence Platform that understands a wide variety of Learners"
                 android:justificationMode="inter_word"
                 android:textColor="@color/blackish"
+                android:visibility="gone"
                 android:lineHeight="@dimen/_16sdp"
                 android:textSize="@dimen/_10sdp"/>
 

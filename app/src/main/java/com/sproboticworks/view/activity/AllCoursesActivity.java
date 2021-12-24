@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import com.sproboticworks.R;
 import com.sproboticworks.adapter.AllCourseAdapter;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 public class AllCoursesActivity extends NetworkCallActivity {
 
     RecyclerView course_recyclerview;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +30,12 @@ public class AllCoursesActivity extends NetworkCallActivity {
         setContentView(R.layout.activity_all_courses);
 
         course_recyclerview = findViewById(R.id.course_recyclerview);
+        imageButton = findViewById(R.id.back_button);
 
         apiRequest.postRequest(GET_ALL_COURSES, new HashMap<>(), GET_ALL_COURSES);
-
+        imageButton.setOnClickListener(v->{
+            onBackPressed();
+        });
 
     }
 
@@ -50,5 +55,10 @@ public class AllCoursesActivity extends NetworkCallActivity {
     public void OnCallBackError(String tag, String error, int i) {
         super.OnCallBackError(tag, error, i);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

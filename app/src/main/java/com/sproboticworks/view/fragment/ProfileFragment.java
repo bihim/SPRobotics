@@ -1,8 +1,6 @@
 package com.sproboticworks.view.fragment;
 
-import static com.sproboticworks.network.util.Constant.EMAIL_LOGIN;
 import static com.sproboticworks.network.util.Constant.EMAIL_OTP;
-import static com.sproboticworks.network.util.Constant.MOBILE_LOGIN;
 import static com.sproboticworks.network.zubaer.Global.API_PLACE_HOLDER;
 import static com.sproboticworks.network.zubaer.Global.SHOW_ERROR_TOAST;
 import static com.sproboticworks.network.zubaer.Global.SHOW_INFO_TOAST;
@@ -56,6 +54,7 @@ import com.sproboticworks.model.ProfileEditModel;
 import com.sproboticworks.model.StateCityModel;
 import com.sproboticworks.model.loginresponse.LogInResponse;
 import com.sproboticworks.model.mobileotp.PhoneOtpSentResponse;
+import com.sproboticworks.network.util.Constant;
 import com.sproboticworks.network.util.GsonUtil;
 import com.sproboticworks.network.util.ToastUtils;
 import com.sproboticworks.preferences.SessionManager;
@@ -125,7 +124,7 @@ public class ProfileFragment extends NetworkCallFragment {
     private ImageView emailOrPhone;
     private LinearLayout linearLayout;
     private boolean isEmailVerified, isPhoneVerified;
-    private EditText profile_verify;
+    private EditText profile_verify, profile_verify_emails;
     private String OTP = "";
     private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
     private MaterialTextView textview_otp_sent_to;
@@ -135,7 +134,7 @@ public class ProfileFragment extends NetworkCallFragment {
     private ProgressDialog progressDialog;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
     private String verificationCode;
-    private LinearLayout orderHistoryButton, enquireNow;
+    private LinearLayout orderHistoryButton, enquireNow, about_us_another;
 
 
     @Nullable
@@ -196,6 +195,7 @@ public class ProfileFragment extends NetworkCallFragment {
         emailOrPhone = view.findViewById(R.id.emailPhoneLogo);
         linearLayout = view.findViewById(R.id.verifyLayout);
         profile_verify = view.findViewById(R.id.profile_verify);
+        profile_verify_emails = view.findViewById(R.id.profile_verify_emails);
         bottomSheetDialogForPhone = new BottomSheetDialog(activity, R.style.BottomSheetDialogThemeNoFloating);
         bottomSheetDialogForPhone.setContentView(R.layout.bottomsheet_countrycode_picker);
         bottomSheetDialogForOtp = new BottomSheetDialog(activity, R.style.BottomSheetDialogThemeNoFloating);
@@ -209,6 +209,7 @@ public class ProfileFragment extends NetworkCallFragment {
         progressDialog.setMessage("please wait...");
         orderHistoryButton = view.findViewById(R.id.orderHistoryButton);
         enquireNow = view.findViewById(R.id.enquire_now);
+        about_us_another = view.findViewById(R.id.about_us_another);
         otherButtonsOfAboutUs(termsAndCondition, "terms");
         otherButtonsOfAboutUs(privacyPolicy, "privacy");
         otherButtonsOfAboutUs(disclaimer, "disclaimer");
@@ -228,6 +229,9 @@ public class ProfileFragment extends NetworkCallFragment {
             getActivity().startActivity(new Intent(getActivity(), EnquiryActivity.class).putExtra("bottomTag", "page_4"));
             getActivity().overridePendingTransition(0, 0);
         });
+        about_us_another.setOnClickListener(v->{
+            startActivity(new Intent(getActivity(), AboutUsActivity.class));
+        });
 
         about_us.setOnClickListener(v -> {
             if (expandableLayoutAboutus.isExpanded()) {
@@ -243,9 +247,9 @@ public class ProfileFragment extends NetworkCallFragment {
             startActivity(new Intent(getActivity(), OrderHistoryActivity.class));
         });
 
-        aboutSp.setOnClickListener(v -> {
+        /*aboutSp.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), AboutUsActivity.class));
-        });
+        });*/
 
 
         profileButton.setOnClickListener(v -> {
@@ -296,8 +300,10 @@ public class ProfileFragment extends NetworkCallFragment {
         });
 
         materialButtonUpdateStudentAndProfile.setOnClickListener(v -> {
-            if (textInputEditTextContactNo.getText().toString().length() < 10 || textInputEditTextStudentContactNo.getText().toString().length() < 10) {
+            if (textInputEditTextContactNo.getText().toString().length() < 10) {
                 SHOW_ERROR_TOAST(activity, "Invalid Number");
+            }else if(textInputEditTextStudentContactNo.getText().toString().length() < 10){
+                SHOW_ERROR_TOAST(activity, "Invalid Student Number");
             } else if (textInputEditTextEmail.getText().toString().isEmpty()) {
                 SHOW_ERROR_TOAST(getActivity(), "Insert your email first");
             } else {
@@ -339,7 +345,7 @@ public class ProfileFragment extends NetworkCallFragment {
 
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
-        String neededFormat = "yy/dd/MM"; //In which you need put here
+        String neededFormat = "yyyy-dd-MM"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         SimpleDateFormat sdfNeeded = new SimpleDateFormat(neededFormat, Locale.US);
         textInputEditTextStudentDateOfBirth.setText(sdf.format(myCalendar.getTime()));
@@ -378,16 +384,12 @@ public class ProfileFragment extends NetworkCallFragment {
                             if (!addressModel.getData().get(0).getCityName().isEmpty()){
                                 autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
                             }
-                            /*autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
-                            autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);*/
-                            if (addressModel.getData().get(0).getStateId()!=null){
+                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
                                 stateId = addressModel.getData().get(0).getStateId().toString();
                             }
-                            if (addressModel.getData().get(0).getCityId()!=null){
+                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
                                 cityId = addressModel.getData().get(0).getCityId().toString();
                             }
-                            /*stateId = addressModel.getData().get(0).getStateId().toString();
-                            cityId = addressModel.getData().get(0).getCityId().toString();*/
                             getCity(stateId);
                             SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
                         } else {
@@ -435,15 +437,17 @@ public class ProfileFragment extends NetworkCallFragment {
                                 if (!addressModel.getData().get(0).getCityName().isEmpty()){
                                     autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
                                 }
-                                if (addressModel.getData().get(0).getStateId()!=null){
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
                                     stateId = addressModel.getData().get(0).getStateId().toString();
                                 }
-                                if (addressModel.getData().get(0).getCityId()!=null){
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()){
                                     cityId = addressModel.getData().get(0).getCityId().toString();
                                 }
                                 getCity(stateId);
                             } else {
-                                SHOW_INFO_TOAST(activity, "Please update your address");
+                                textInputEditTextAddress.setText(Constant.ADDRESS);
+                                textInputEditTextPostalCode.setText(Constant.PINCODE);
+                                //SHOW_INFO_TOAST(activity, "Please update your address");
                             }
                         } else {
                             SHOW_INFO_TOAST(activity, "Please update your address");
@@ -470,7 +474,6 @@ public class ProfileFragment extends NetworkCallFragment {
         cityArrayList.clear();
         cityArrayListString.clear();
         //autoCompleteTextViewCity.setText("");
-        cityId = null;
         ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Loading Cities");
         progressDialog.show();
@@ -560,6 +563,10 @@ public class ProfileFragment extends NetworkCallFragment {
                 @Override
                 public void onResponse(Call<ProfileEditModel> call, Response<ProfileEditModel> response) {
                     String responseString = new Gson().toJson(response.body());
+                    Logger.d(response.body());
+                    Logger.d(response.message());
+                    Logger.d(response.errorBody());
+                    Logger.d(response.code());
                     Logger.d(responseString);
                     progressBarStudentProfile.setVisibility(View.GONE);
                     if (response.isSuccessful()) {
@@ -575,7 +582,7 @@ public class ProfileFragment extends NetworkCallFragment {
                                     profile_verify.setText("Verified");
                                 } else {
                                     emailOrPhone.setImageResource(R.drawable.ic_phone);
-                                    verifyStatus.setText("Verify Phone");
+                                    verifyStatus.setText("Add Your Phone");
                                     isPhoneVerified = false;
                                     profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
                                     profile_verify.setText("Unverified");
@@ -584,10 +591,14 @@ public class ProfileFragment extends NetworkCallFragment {
                                     textInputEditTextEmail.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
                                     isEmailVerified = true;
                                     textInputEditTextEmail.setEnabled(false);
+                                    profile_verify_emails.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_done, 0, 0, 0);
+                                    profile_verify_emails.setText("Verified");
                                 } else {
                                     emailOrPhone.setImageResource(R.drawable.ic_email);
-                                    verifyStatus.setText("Verify Email Address");
+                                    verifyStatus.setText("Add Your Email Address");
                                     isEmailVerified = false;
+                                    profile_verify_emails.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
+                                    profile_verify_emails.setText("Unverified");
                                 }
                                 Logger.d("Is verified: " + (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty() && !profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()));
                                 if (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty() && !profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()) {
@@ -631,7 +642,7 @@ public class ProfileFragment extends NetworkCallFragment {
 
                 @Override
                 public void onFailure(Call<ProfileEditModel> call, Throwable t) {
-                    SHOW_ERROR_TOAST(activity, "Something went wrong");
+                    SHOW_ERROR_TOAST(activity, t.getMessage());
                     progressBarStudentProfile.setVisibility(View.GONE);
                     Logger.e(t.getMessage());
                 }
@@ -662,7 +673,7 @@ public class ProfileFragment extends NetworkCallFragment {
                                         profile_verify.setText("Verified");
                                     } else {
                                         emailOrPhone.setImageResource(R.drawable.ic_phone);
-                                        verifyStatus.setText("Verify Phone");
+                                        verifyStatus.setText("Add Your Phone");
                                         isPhoneVerified = false;
                                         profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
                                         profile_verify.setText("Unverified");
@@ -670,7 +681,7 @@ public class ProfileFragment extends NetworkCallFragment {
                                 }
                                 else{
                                     emailOrPhone.setImageResource(R.drawable.ic_phone);
-                                    verifyStatus.setText("Verify Phone");
+                                    verifyStatus.setText("Add Your Phone");
                                     isPhoneVerified = false;
                                     profile_verify.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
                                     profile_verify.setText("Unverified");
@@ -680,16 +691,22 @@ public class ProfileFragment extends NetworkCallFragment {
                                         textInputEditTextEmail.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
                                         isEmailVerified = true;
                                         textInputEditTextEmail.setEnabled(false);
+                                        profile_verify_emails.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_done, 0, 0, 0);
+                                        profile_verify_emails.setText("Verified");
                                     } else {
                                         emailOrPhone.setImageResource(R.drawable.ic_email);
-                                        verifyStatus.setText("Verify Email Address");
+                                        verifyStatus.setText("Add Your Email Address");
                                         isEmailVerified = false;
+                                        profile_verify_emails.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
+                                        profile_verify_emails.setText("Unverified");
                                     }
                                 }
                                 else{
                                     emailOrPhone.setImageResource(R.drawable.ic_email);
-                                    verifyStatus.setText("Verify Email Address");
+                                    verifyStatus.setText("Add Your Email Address");
                                     isEmailVerified = false;
+                                    profile_verify_emails.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clear, 0, 0, 0);
+                                    profile_verify_emails.setText("Unverified");
                                 }
                                 //Logger.d("Is verified: " + (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty() && !profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()));
                                 if (profileEditModel.getData().get(0).getDetails().getCustomerContactNo()!=null && profileEditModel.getData().get(0).getDetails().getCustomerEmail()!=null){
@@ -714,7 +731,9 @@ public class ProfileFragment extends NetworkCallFragment {
                                 textInputEditTextStudentEmail.setText(profileEditModel.getData().get(0).getDetails().getStudentEmailId());
                                 textInputEditTextStudentContactNo.setText(profileEditModel.getData().get(0).getDetails().getStudentContactNo());
                                 textInputEditTextStudentDateOfBirth.setText(profileEditModel.getData().get(0).getDetails().getDob());
-                                dob = profileEditModel.getData().get(0).getDetails().getDob();
+                                String gettingDob = profileEditModel.getData().get(0).getDetails().getDob();
+                                String[] dateSplit = gettingDob.split("-");
+                                dob = dateSplit[2]+"-"+dateSplit[1]+"-"+dateSplit[0];
                                 if (profileEditModel.getData().get(0).getDetails().getGender() != null) {
                                     if (profileEditModel.getData().get(0).getDetails().getGender().equals("MALE")) {
                                         radioGroupGender.check(R.id.profile_student_male);
@@ -760,12 +779,12 @@ public class ProfileFragment extends NetworkCallFragment {
             gotoEmail.setText("Proceed with Mobile Number");
             bottomSheetDialogForOtp.show();
         }
-        if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
+        /*if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
             LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
             SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
             SessionManager.setLoggedIn(true);
             ToastUtils.showLong(activity, "Logged in successfully");
-        }
+        }*/
     }
 
     public void requestForEmailOtp(String email_id) {
@@ -889,7 +908,7 @@ public class ProfileFragment extends NetworkCallFragment {
                         bottomSheetDialogForOtp.dismiss();
                         MethodClass.hideKeyboard(activity);
                         MethodClass.showAlertDialog(activity, true, "OTP verified", "OTP verified successfully", false);
-                        loginWithEmailOrMobile("E");
+                        //loginWithEmailOrMobile("E");
                         getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
                                 textInputEditTextContactNo.getText().toString(),
                                 textInputEditTextEmail.getText().toString(),
@@ -952,7 +971,7 @@ public class ProfileFragment extends NetworkCallFragment {
         if (type.equalsIgnoreCase("M"))
             map.put("mobile", phone_number);
         else map.put("email", email);
-        apiRequest.postRequest(type.equalsIgnoreCase("M") ? MOBILE_LOGIN : EMAIL_LOGIN, map, MOBILE_LOGIN);
+        //apiRequest.postRequest(type.equalsIgnoreCase("M") ? MOBILE_LOGIN : EMAIL_LOGIN, map, MOBILE_LOGIN);
     }
 
     private void startFirebaseLogin() {
@@ -968,7 +987,7 @@ public class ProfileFragment extends NetworkCallFragment {
                 if (bottomSheetDialogForOtp.isShowing())
                     bottomSheetDialogForOtp.dismiss();
 
-                loginWithEmailOrMobile("M");
+                //loginWithEmailOrMobile("M");
             }
 
             @Override
@@ -1006,7 +1025,7 @@ public class ProfileFragment extends NetworkCallFragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
-                            loginWithEmailOrMobile("M");
+                            //loginWithEmailOrMobile("M");
                             if (bottomSheetDialogForOtp.isShowing())
                                 bottomSheetDialogForOtp.dismiss();
                             if (bottomSheetDialogForPhone.isShowing())
