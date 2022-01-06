@@ -441,6 +441,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
+                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:background="@color/white"
                         android:hint="Enter Contact No"

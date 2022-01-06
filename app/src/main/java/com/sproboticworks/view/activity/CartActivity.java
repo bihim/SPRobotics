@@ -7,22 +7,30 @@ import static com.sproboticworks.network.util.Constant.DISCOUNT_COUPON;
 import static com.sproboticworks.network.util.Constant.GET_CART;
 import static com.sproboticworks.network.util.Constant.SET_GET_ADDRESS;
 import static com.sproboticworks.network.util.Constant.UPDATE_CART_ITEM;
+import static com.sproboticworks.network.zubaer.Global.API_PLACE_HOLDER;
+import static com.sproboticworks.network.zubaer.Global.SHOW_ERROR_TOAST;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.sproboticworks.R;
 import com.sproboticworks.adapter.CartAdapter;
+import com.sproboticworks.model.StateCityModel;
 import com.sproboticworks.model.address.AddressResponse;
 import com.sproboticworks.model.cartrespone.CartResponse;
 import com.sproboticworks.model.couponresponse.CouponResponse;
@@ -37,6 +45,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends NetworkCallActivity {
 
@@ -67,6 +79,15 @@ public class CartActivity extends NetworkCallActivity {
 
     double igstCalculation;
 
+    private ArrayList<StateCityModel.Datum> stateArrayList = new ArrayList<>();
+    private ArrayList<StateCityModel.Datum> cityArrayList = new ArrayList<>();
+    private ArrayList<String> stateArrayListString = new ArrayList<>();
+    private ArrayList<String> cityArrayListString = new ArrayList<>();
+    private String stateId;
+    private String cityId;
+
+    private Activity activity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +95,7 @@ public class CartActivity extends NetworkCallActivity {
         setContentView(R.layout.activity_cart);
 
         adapter = new CartAdapter(new ArrayList<>(), CartActivity.this);
-
-
+        activity = this;
         cart_delivery_pincode = findViewById(R.id.cart_delivery_pincode);
         cart_delivery_address = findViewById(R.id.cart_delivery_address);
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
@@ -225,6 +245,94 @@ public class CartActivity extends NetworkCallActivity {
         tv_cart_total.setText(total);
     }
 
+    private void getStatesIfNoAddressSaved() {
+        stateArrayList.clear();
+        stateArrayListString.clear();
+        Call<StateCityModel> call = API_PLACE_HOLDER.getStates();
+        call.enqueue(new Callback<StateCityModel>() {
+            @Override
+            public void onResponse(Call<StateCityModel> call, Response<StateCityModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        StateCityModel stateCityModel = response.body();
+                        stateArrayList = new ArrayList<>(stateCityModel.getData());
+                        for (StateCityModel.Datum data : stateArrayList) {
+                            stateArrayListString.add(data.getName());
+                        }
+                        if (stateArrayListString.contains(Constant.STATE)){
+                            int index = stateArrayListString.indexOf(Constant.STATE);
+                            stateId = stateArrayList.get(index).getId().toString();
+                            Constant.STATE_ID = stateId;
+                            getCity(stateId);
+                            //Toast.makeText(activity, "State ID: "+stateId, Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            //Toast.makeText(activity, "No state found", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        SHOW_ERROR_TOAST(activity, "Could not get states");
+                    }
+                } else {
+                    SHOW_ERROR_TOAST(activity, "Could not get states");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StateCityModel> call, Throwable t) {
+                SHOW_ERROR_TOAST(activity, "Server error");
+                Logger.e(t.getMessage());
+            }
+        });
+    }
+
+    private void getCity(String stateId) {
+        cityArrayList.clear();
+        cityArrayListString.clear();
+        //autoCompleteTextViewCity.setText("");
+        ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Loading Cities");
+        progressDialog.show();
+        Call<StateCityModel> call = API_PLACE_HOLDER.getCity(stateId);
+        call.enqueue(new Callback<StateCityModel>() {
+            @Override
+            public void onResponse(Call<StateCityModel> call, Response<StateCityModel> response) {
+                progressDialog.dismiss();
+                String json = new Gson().toJson(response.body());
+                Logger.d(json);
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        StateCityModel stateCityModel = response.body();
+                        cityArrayList = new ArrayList<>(stateCityModel.getData());
+                        for (StateCityModel.Datum data : cityArrayList) {
+                            cityArrayListString.add(data.getName());
+                        }
+                        if (cityArrayListString.contains(Constant.DEMOCITY)){
+                            int index = cityArrayListString.indexOf(Constant.DEMOCITY);
+                            cityId = cityArrayList.get(index).getId().toString();
+                            Constant.COUNTRY_ID = cityId;
+                            //Toast.makeText(activity, "City ID: "+cityId, Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            //Toast.makeText(activity, "No city id found. City Geo is: "+Constant.CITY, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(activity, "No city id found", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        SHOW_ERROR_TOAST(activity, "Could not load city");
+                    }
+                } else {
+                    SHOW_ERROR_TOAST(activity, "Could not load city");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StateCityModel> call, Throwable t) {
+                SHOW_ERROR_TOAST(activity, "Server error");
+                progressDialog.dismiss();
+                Logger.e(t.getMessage());
+            }
+        });
+    }
+
 
     @Override
     public void OnCallBackSuccess(String tag, String response) {
@@ -294,12 +402,12 @@ public class CartActivity extends NetworkCallActivity {
 
                     cart_delivery_pincode.setText(Constant.PINCODE);
                     cart_delivery_address.setText(Constant.ADDRESS);
-
+                    getStatesIfNoAddressSaved();
                     HashMap<String, String> map = new HashMap<>();
                     map.put("customer_id", SessionManager.getLoginResponse().getData().getCustomerId());
                     map.put("address",  Constant.ADDRESS);
-                    map.put("city", Constant.CITY);
-                    map.put("state",  Constant.STATE);
+                    map.put("city", cityId);
+                    map.put("state",  stateId);
                     map.put("postal_code", Constant.PINCODE);
                     map.put("contact_no", SessionManager.getLoginResponse().getData().getCustomerContactNo());
                     map.put("landmark", "");
@@ -383,5 +491,11 @@ public class CartActivity extends NetworkCallActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAddress();
     }
 }

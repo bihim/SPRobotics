@@ -85,28 +85,23 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends NetworkCallActivity {
 
-    private String loginType = "M";
-    private String OTP = "";
-    private String email = "";
-
-    private Activity activity;
-    private BottomNavigationView bottomNavigationView;
-    private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
-    private FragmentManager fragmentManager;
-    private String str_links;
-
     ProgressDialog progressDialog;
-
     ////Firebase
     String phone_number, firebase_otp, otpFor = "";
     String bottomTag = "page_1";
     FirebaseAuth auth;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback;
-
     MaterialTextView textview_otp_sent_to;
-
     MaterialButton gotoEmail;
-
+    String verificationCode;
+    private String loginType = "M";
+    private String OTP = "";
+    private String email = "";
+    private Activity activity;
+    private BottomNavigationView bottomNavigationView;
+    private BottomSheetDialog bottomSheetDialogForPhone, bottomSheetDialogForOtp, bottomSheetDialogForEmail;
+    private FragmentManager fragmentManager;
+    private String str_links;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,14 +122,13 @@ public class MainActivity extends NetworkCallActivity {
         } else {
             MethodClass.displayLocationSettingsRequest(activity);
         }
-
+        FirebaseApp.initializeApp(this);
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
-                Logger.d("Token: "+ instanceIdResult.getToken());
+                Logger.d("Token: " + instanceIdResult.getToken());
             }
         });
-
 
 
         findViewById();
@@ -145,7 +139,6 @@ public class MainActivity extends NetworkCallActivity {
         setFragment(savedInstanceState);
         startFirebaseLogin();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -163,8 +156,12 @@ public class MainActivity extends NetworkCallActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-        fragment.onActivityResult(requestCode, resultCode, data);
+        try {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+            fragment.onActivityResult(requestCode, resultCode, data);
+        } catch (Exception e) {
+            Logger.d(e.getMessage());
+        }
 
     }
 
@@ -174,6 +171,9 @@ public class MainActivity extends NetworkCallActivity {
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //  Toast.makeText(activity, "Permission Granted", Toast.LENGTH_SHORT).show();
+                /*startActivity(new Intent(this, MainActivity.class));
+                this.overridePendingTransition(0, 0);
+                finish();*/
 
             } else {
                 new androidx.appcompat.app.AlertDialog.Builder(activity)
@@ -196,9 +196,14 @@ public class MainActivity extends NetworkCallActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         /*Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
         fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);*/
+        try {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        } catch (Exception e) {
+            Logger.d(e.getMessage());
+        }
 
     }
-
 
     private void gettingCurrentLocationByButtonClick() {
 
@@ -293,7 +298,6 @@ public class MainActivity extends NetworkCallActivity {
         LocationServices.getFusedLocationProviderClient(activity).requestLocationUpdates(mLocationRequest, mLocationCallback, null);
     }
 
-
     private void findViewById() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fragmentManager = getSupportFragmentManager();
@@ -315,19 +319,17 @@ public class MainActivity extends NetworkCallActivity {
                     bottomTag = "page_2";
                     if (SessionManager.isLoggedIn()) {
                         fragmentManager.beginTransaction().replace(R.id.fragment_container, new MyOrdersFragment()).commit();
-                    }
-                    else {
+                    } else {
                         bottomSheetDialogForPhone.show();
                     }
                     return true;
                 case R.id.page_3:
                     bottomTag = "page_3";
-                    if (SessionManager.isLoggedIn()){
+                    if (SessionManager.isLoggedIn()) {
                         /*this.startActivity(new Intent(this, EnquiryActivity.class).putExtra("bottomTag", bottomTag));
                         this.overridePendingTransition(0, 0);*/
                         fragmentManager.beginTransaction().replace(R.id.fragment_container, new EnquiryFragment()).commit();
-                    }
-                    else {
+                    } else {
                         bottomSheetDialogForPhone.show();
                     }
                     return true;
@@ -485,13 +487,11 @@ public class MainActivity extends NetworkCallActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 10) {
 
-                    if (s.toString().startsWith("6") || s.toString().startsWith("7")|| s.toString().startsWith("8")|| s.toString().startsWith("9")) {
+                    if (s.toString().startsWith("6") || s.toString().startsWith("7") || s.toString().startsWith("8") || s.toString().startsWith("9")) {
                         loginType = "M";
                         sentOTPRequest(s.toString());
-                    }
-
-                    else {
-                        ToastUtils.showLong(MainActivity.this,"Enter a valid Mobile Number");
+                    } else {
+                        ToastUtils.showLong(MainActivity.this, "Enter a valid Mobile Number");
                     }
                 }
 
@@ -503,15 +503,14 @@ public class MainActivity extends NetworkCallActivity {
     }
 
 
+    // API calling
+
     private void setFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.home);
         }
     }
-
-
-    // API calling
 
     public void requestForEmailOtp(String email_id) {
         this.email = email_id;
@@ -521,11 +520,10 @@ public class MainActivity extends NetworkCallActivity {
 
     }
 
-
     public void loginWithEmailOrMobile(String type) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
-        map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
+        map.put("name", SessionManager.getValue(this, SessionManager.CHILD_NAME));
+        map.put("child_age", SessionManager.getValue(this, SessionManager.CHILD_AGE));
         if (type.equalsIgnoreCase("M"))
             map.put("mobile", phone_number);
         else map.put("email", email);
@@ -549,7 +547,7 @@ public class MainActivity extends NetworkCallActivity {
         }
         if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
             LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
-            SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
+            SessionManager.setValue(this, SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
             SessionManager.setLoggedIn(true);
             ToastUtils.showLong(MainActivity.this, "Logged in successfully");
         }
@@ -567,10 +565,6 @@ public class MainActivity extends NetworkCallActivity {
                 activity,        // Activity (for callback binding)
                 mCallback);
     }
-
-
-    String verificationCode;
-
 
     private void startFirebaseLogin() {
         FirebaseApp.initializeApp(this);

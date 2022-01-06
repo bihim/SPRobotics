@@ -3,6 +3,8 @@ package com.sproboticworks.view.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.onesignal.OSInAppMessageAction;
 import com.onesignal.OneSignal;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -17,6 +20,9 @@ import com.orhanobut.logger.Logger;
 import com.sproboticworks.R;
 import com.sproboticworks.preferences.SessionManager;
 import com.sproboticworks.view.activity.welcome.WelcomeOneActivity;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -28,10 +34,18 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         Logger.addLogAdapter(new AndroidLogAdapter());
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
-        OneSignal.initWithContext(this);
-        OneSignal.setAppId(ONESIGNAL_APP_ID);
-        OneSignal.setInAppMessageClickHandler(result -> startActivity(new Intent(this, MainActivity.class)));
+
+        /*try {
+            if (!isWorkScheduled(ONESIGNAL_APP_ID)){
+                OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+                OneSignal.initWithContext(this);
+                OneSignal.setAppId(ONESIGNAL_APP_ID);
+                OneSignal.setInAppMessageClickHandler(result -> startActivity(new Intent(this, MainActivity.class)));
+            }
+        }
+        catch (Exception e){
+            Logger.d(e.getMessage());
+        }*/
 
 
         if (!isLocationPermissionGranted()) {
@@ -64,7 +78,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
 
-            if (SessionManager.getValue(SessionManager.CHILD_NAME).isEmpty())
+            if (SessionManager.getValue(this, SessionManager.CHILD_NAME).isEmpty())
                 startActivity(
                         new Intent(this, WelcomeOneActivity.class));
             else
@@ -83,6 +97,24 @@ public class SplashScreenActivity extends AppCompatActivity {
                 && (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
     }
 
-
+    private boolean isWorkScheduled(String tag) {
+        WorkManager instance = WorkManager.getInstance();
+        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
+        try {
+            boolean running = false;
+            List<WorkInfo> workInfoList = statuses.get();
+            for (WorkInfo workInfo : workInfoList) {
+                WorkInfo.State state = workInfo.getState();
+                running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+            }
+            return running;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

@@ -76,7 +76,7 @@ public class BillingAddressEditActivity extends AppCompatActivity {
 
     private void setAddress(String address, String postalCode, String contactNo) {
         progressBarStudentAddress.setVisibility(View.VISIBLE);
-        Logger.d("City Id: "+cityId);
+        Logger.d("City Id: " + cityId);
         Call<AddressModel> call = API_PLACE_HOLDER.setAddress(userId, address, cityId, stateId, postalCode, contactNo);
         call.enqueue(new Callback<AddressModel>() {
             @Override
@@ -87,28 +87,35 @@ public class BillingAddressEditActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         AddressModel addressModel = response.body();
-                        if (addressModel.getResponse()){
-                            textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
-                            textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
-                            textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
-                                autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                        if (addressModel.getData().size() != 0) {
+                            if (addressModel.getResponse()) {
+                                textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
+                                textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
+                                textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()) {
+                                    autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                                }
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()) {
+                                    autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                                }
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()) {
+                                    stateId = addressModel.getData().get(0).getStateId().toString();
+                                }
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()) {
+                                    cityId = addressModel.getData().get(0).getCityId().toString();
+                                }
+                                getCity(stateId);
+                                SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
+                                onBackPressed();
+                            } else {
+                                SHOW_ERROR_TOAST(activity, "Could not update");
                             }
-                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
-                                autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
-                            }
-                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
-                                stateId = addressModel.getData().get(0).getStateId().toString();
-                            }
-                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
-                                cityId = addressModel.getData().get(0).getCityId().toString();
-                            }
-                            getCity(stateId);
-                            SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
+                        } else {
+                            setAddress(address, postalCode, contactNo);
+                            /*textInputEditTextAddress.setText(Constant.ADDRESS);
+                            textInputEditTextPostalCode.setText(Constant.PINCODE);*/
                         }
-                        else{
-                            SHOW_ERROR_TOAST(activity, "Could not update");
-                        }
+
                     } else {
                         SHOW_ERROR_TOAST(activity, "Could not update");
                     }
@@ -140,37 +147,34 @@ public class BillingAddressEditActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         AddressModel addressModel = response.body();
-                        if (addressModel.getResponse()){
-                            if (addressModel.getData().size() > 0){
+                        if (addressModel.getResponse()) {
+                            if (addressModel.getData().size() > 0) {
                                 textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
                                 textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
                                 textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()) {
                                     autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
                                 }
-                                if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()) {
                                     autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
                                 }
-                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()) {
                                     stateId = addressModel.getData().get(0).getStateId().toString();
                                 }
-                                if (addressModel.getData().get(0).getCityName().size() != 0){
-                                    Logger.wtf("If "+addressModel.getData().get(0).getCityId().toString());
-                                    Logger.wtf("Halar size "+addressModel.getData().get(0).getCityName().size());
+                                if (addressModel.getData().get(0).getCityName().size() != 0) {
+                                    Logger.wtf("If " + addressModel.getData().get(0).getCityId().toString());
+                                    Logger.wtf("Halar size " + addressModel.getData().get(0).getCityName().size());
                                     cityId = addressModel.getData().get(0).getCityId().toString();
-                                }
-                                else{
-                                    Logger.wtf("Else "+addressModel.getData().get(0).getCityName());
-                                    Logger.wtf("Halar size "+addressModel.getData().get(0).getCityName().size());
+                                } else {
+                                    Logger.wtf("Else " + addressModel.getData().get(0).getCityName());
+                                    Logger.wtf("Halar size " + addressModel.getData().get(0).getCityName().size());
                                 }
                                 getCity(stateId);
-                            }
-                            else{
+                            } else {
                                 textInputEditTextAddress.setText(Constant.ADDRESS);
                                 textInputEditTextPostalCode.setText(Constant.PINCODE);
                             }
-                        }
-                        else{
+                        } else {
                             SHOW_INFO_TOAST(activity, "Please update your address");
                         }
                     } else {
@@ -201,7 +205,13 @@ public class BillingAddressEditActivity extends AppCompatActivity {
         call.enqueue(new Callback<StateCityModel>() {
             @Override
             public void onResponse(Call<StateCityModel> call, Response<StateCityModel> response) {
-                progressDialog.dismiss();
+                try {
+                    if ((progressDialog != null) && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                } catch (final IllegalArgumentException e) {
+                    // Handle or log or ignore
+                }
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         StateCityModel stateCityModel = response.body();
@@ -403,7 +413,7 @@ public class BillingAddressEditActivity extends AppCompatActivity {
 
     private void setButtonCallBacks() {
 
-        imageButton.setOnClickListener(v->{
+        imageButton.setOnClickListener(v -> {
             onBackPressed();
         });
 
@@ -441,11 +451,23 @@ public class BillingAddressEditActivity extends AppCompatActivity {
             }
         });
 
-        materialButtonUpdateAddress.setOnClickListener(v->{
-            if (textInputEditTextContactNoAddress.getText().toString().length()<10){
+        materialButtonUpdateAddress.setOnClickListener(v -> {
+            /*if (textInputEditTextContactNoAddress.getText().toString().length()<10){
                 SHOW_ERROR_TOAST(activity, "Invalid Number");
+            }*/
+            if (textInputEditTextAddress.getText().toString().isEmpty()) {
+                SHOW_ERROR_TOAST(activity, "Input Address");
+            } else if (textInputEditTextPostalCode.getText().toString().isEmpty()) {
+                SHOW_ERROR_TOAST(activity, "Input Postal Code");
             }
-            else{
+            /*else if (textInputEditTextContactNoAddress.getText().toString().isEmpty()){
+                SHOW_ERROR_TOAST(activity, "Input Contact No");
+            }*/
+            else if (stateId == null) {
+                SHOW_ERROR_TOAST(activity, "Select State");
+            } else if (cityId == null) {
+                SHOW_ERROR_TOAST(activity, "Select City");
+            } else {
                 setAddress(textInputEditTextAddress.getText().toString(), textInputEditTextPostalCode.getText().toString(), textInputEditTextContactNoAddress.getText().toString());
             }
         });

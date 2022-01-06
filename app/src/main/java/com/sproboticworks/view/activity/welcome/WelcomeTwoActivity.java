@@ -43,13 +43,14 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
         cardAgeThirteen.setOnClickListener(this);
         //cardAboveThirteen.setOnClickListener(this);
 
-        SessionManager.setValue(SessionManager.CHILD_AGE, "10");
+        SessionManager.setValue(this, SessionManager.CHILD_AGE, "10");
         //selected_bottom_layout(activity, cardAgeTen, textViewAgeTen);
         selectedTopButtonColor(cardAgeTen, textViewAgeTen);
 
 
         materialButton.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         });
 
 
@@ -86,14 +87,14 @@ public class WelcomeTwoActivity extends NetworkCallActivity implements View.OnCl
         switch (v.getId()) {
 
             case R.id.cardAgeTen:
-                SessionManager.setValue(SessionManager.CHILD_AGE, "10");
+                SessionManager.setValue(this, SessionManager.CHILD_AGE, "10");
                 //selected_bottom_layout(activity, cardAgeTen, textViewAgeTen);
                 selectedTopButtonColor(cardAgeTen, textViewAgeTen);
                 unSelectedTopButtonColor(cardAgeThirteen, textViewAgeThirteen);
                 break;
 
             case R.id.cardAgeThirteen:
-                SessionManager.setValue(SessionManager.CHILD_AGE, "13");
+                SessionManager.setValue(this, SessionManager.CHILD_AGE, "13");
                 //selected_bottom_layout(activity, cardAgeThirteen, textViewAgeThirteen);
                 unSelectedTopButtonColor(cardAgeTen, textViewAgeTen);
                 selectedTopButtonColor(cardAgeThirteen, textViewAgeThirteen);

@@ -3,11 +3,14 @@ package com.sproboticworks.network.zubaer;
 
 import com.sproboticworks.model.AddressModel;
 import com.sproboticworks.model.AllCoursesModel;
+import com.sproboticworks.model.EmailCheckingModel;
 import com.sproboticworks.model.EnquiryModel;
+import com.sproboticworks.model.MobileCheckingModel;
 import com.sproboticworks.model.NotificationModel;
 import com.sproboticworks.model.OrderHistoryModel;
 import com.sproboticworks.model.ProfileEditModel;
 import com.sproboticworks.model.StateCityModel;
+import com.sproboticworks.network.util.Constant;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -17,7 +20,7 @@ import retrofit2.http.POST;
 public interface ApiPlaceHolder {
 
     @FormUrlEncoded
-    @POST(Api.profileUpdate)
+    @POST(Constant.profileUpdate)
     Call<ProfileEditModel> setProfile(
             @Field("customer_id") String customerId,
             @Field("customer_name") String customerName,
@@ -30,17 +33,17 @@ public interface ApiPlaceHolder {
             @Field("gender") String gender);
 
     @FormUrlEncoded
-    @POST(Api.profileUpdate)
+    @POST(Constant.profileUpdate)
     Call<ProfileEditModel> getProfile(
             @Field("customer_id") String customerId);
 
     @FormUrlEncoded
-    @POST(Api.customerAddressSave)
+    @POST(Constant.customerAddressSave)
     Call<AddressModel> getAddress(
             @Field("customer_id") String customerId);
 
     @FormUrlEncoded
-    @POST(Api.customerAddressSave)
+    @POST(Constant.customerAddressSave)
     Call<AddressModel> setAddress(
             @Field("customer_id") String customerId,
             @Field("address") String address,
@@ -50,41 +53,44 @@ public interface ApiPlaceHolder {
             @Field("contact_no") String contactNo
     );
 
-    @POST(Api.state)
+    @POST(Constant.state)
     Call<StateCityModel> getStates();
 
     @FormUrlEncoded
-    @POST(Api.city)
+    @POST(Constant.city)
     Call<StateCityModel> getCity(
             @Field("state_id") String stateId);
 
     @FormUrlEncoded
-    @POST(Api.orderHistory)
+    @POST(Constant.orderHistory)
     Call<OrderHistoryModel> getOrderHistory(
             @Field("customer_id") String customerId);
 
     @FormUrlEncoded
-    @POST(Api.enquiry)
+    @POST(Constant.enquiry)
     Call<EnquiryModel> setEnquiry(
             @Field("customer_id") String customerId,
             @Field("product_id") String productId,
             @Field("message") String message);
 
     @FormUrlEncoded
-    @POST(Api.notification) //Notifications
+    @POST(Constant.notification) //Notifications
     Call<NotificationModel> getNotification(
             @Field("customer_id") String customerId,
             @Field("product_id") String productId,
             @Field("message") String message);
 
     @FormUrlEncoded
-    @POST(Api.mobileChecking) //Notifications
-    Call<NotificationModel> getMobileChecking(
-            @Field("customer_id") String customerId,
-            @Field("product_id") String productId,
-            @Field("message") String message);
+    @POST(Constant.mobileChecking)
+    Call<MobileCheckingModel> getMobileChecking(
+            @Field("mobile") String mobile);
+
+    @FormUrlEncoded
+    @POST(Constant.emailChecking)
+    Call<EmailCheckingModel> getEmailChecking(
+            @Field("email") String email);
 
 
-    @POST(Api.allCourse)
+    @POST(Constant.allCourse)
     Call<AllCoursesModel> getAllCourses();
 }

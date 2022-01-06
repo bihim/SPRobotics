@@ -71,7 +71,7 @@
                             android:id="@+id/cart_delivery_pincode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="7000502"
+                            android:text=""
                             android:textColor="@color/blackish"
                             android:textStyle="bold" />
 
@@ -236,7 +236,7 @@
                             android:gravity="end"
                             android:textColor="@color/blackish"
                             android:textSize="@dimen/_12ssp"
-                            tools:text="$1450" />
+                            tools:text="" />
 
                     </LinearLayout>
 
@@ -374,7 +374,7 @@
                             android:gravity="end"
                             android:textColor="@color/blackish"
                             android:textSize="@dimen/_12ssp"
-                            tools:text="$869" />
+                            tools:text="" />
 
                     </LinearLayout>
                 </LinearLayout>

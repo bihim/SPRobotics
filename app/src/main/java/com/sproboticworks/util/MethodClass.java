@@ -213,6 +213,7 @@ public class MethodClass {
                 Constant.LOCATION=obj.getLocality();
                 Constant.CITY=obj.getCountryName();
                 Constant.STATE=obj.getAdminArea();
+                Constant.DEMOCITY=obj.getLocality();
                 address = add;
             }
         } catch (IOException e) {

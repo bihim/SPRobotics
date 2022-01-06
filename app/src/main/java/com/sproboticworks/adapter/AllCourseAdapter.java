@@ -353,8 +353,8 @@ public class AllCourseAdapter extends RecyclerView.Adapter<AllCourseAdapter.Cour
 
     public void loginWithEmailOrMobile(String type) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
-        map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
+        map.put("name", SessionManager.getValue(context, SessionManager.CHILD_NAME));
+        map.put("child_age", SessionManager.getValue(context, SessionManager.CHILD_AGE));
         if (type.equalsIgnoreCase("M"))
             map.put("mobile", phone_number);
         else map.put("email", email);
@@ -437,7 +437,7 @@ public class AllCourseAdapter extends RecyclerView.Adapter<AllCourseAdapter.Cour
         }
         if (tag.equalsIgnoreCase(MOBILE_LOGIN)) {
             LogInResponse response1 = (LogInResponse) GsonUtil.toObject(response, LogInResponse.class);
-            SessionManager.setValue(SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
+            SessionManager.setValue(context, SessionManager.LOGIN_RESPONSE, GsonUtil.toJsonString(response1));
             SessionManager.setLoggedIn(true);
             ToastUtils.showLong(activity, "Logged in successfully");
         }

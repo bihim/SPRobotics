@@ -117,7 +117,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
         recyclerViewCourse = view.findViewById(R.id.course_recyclerview);
         sliderView = view.findViewById(R.id.imageSlider);
         recyclerViewCoursePopular = view.findViewById(R.id.course_recyclerview_popular);
-        String str = SessionManager.getValue(SessionManager.CHILD_NAME);
+        String str = SessionManager.getValue(getActivity(),SessionManager.CHILD_NAME);
         String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
         textViewName.setText("Hi, " + cap);
 
@@ -237,7 +237,7 @@ public class HomeFragment extends NetworkCallFragment implements VideoCarouselAd
 
         HashMap<String, String> map = new HashMap<>();
 
-        switch (SessionManager.getValue(SessionManager.CHILD_AGE)) {
+        switch (SessionManager.getValue(getActivity(),SessionManager.CHILD_AGE)) {
 
             case "10":
                 selectedTopButtonColor(materialCardViewJunior, textViewJunior);

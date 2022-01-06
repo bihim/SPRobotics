@@ -50,6 +50,8 @@ import com.mukesh.OtpView;
 import com.orhanobut.logger.Logger;
 import com.sproboticworks.R;
 import com.sproboticworks.model.AddressModel;
+import com.sproboticworks.model.EmailCheckingModel;
+import com.sproboticworks.model.MobileCheckingModel;
 import com.sproboticworks.model.ProfileEditModel;
 import com.sproboticworks.model.StateCityModel;
 import com.sproboticworks.model.loginresponse.LogInResponse;
@@ -145,6 +147,7 @@ public class ProfileFragment extends NetworkCallFragment {
         setButtonCallBacks();
         getProfileInfo();
         //getProfileInfo();
+        Logger.d("User Id: "+userId);
         getAndSetProfileInfo(true, "", "", "", "", "", "", "", "");
         getStates();
         getAddress();
@@ -274,7 +277,7 @@ public class ProfileFragment extends NetworkCallFragment {
         });
 
         logoutButton.setOnClickListener(v -> {
-            SessionManager.setValue(CHILD_NAME, "");
+            SessionManager.setValue(getActivity(), CHILD_NAME, "");
             SessionManager.setLoggedIn(false);
             startActivity(new Intent(getActivity(), SplashScreenActivity.class));
             getActivity().finish();
@@ -306,13 +309,17 @@ public class ProfileFragment extends NetworkCallFragment {
                 SHOW_ERROR_TOAST(activity, "Invalid Student Number");
             } else if (textInputEditTextEmail.getText().toString().isEmpty()) {
                 SHOW_ERROR_TOAST(getActivity(), "Insert your email first");
+            } else if (textInputEditTextStudentEmail.getText().toString().isEmpty()) {
+                SHOW_ERROR_TOAST(getActivity(), "Insert student email first");
             } else {
                 if (!isEmailVerified) {
-                    loginType = "E";
-                    requestForEmailOtp(textInputEditTextEmail.getText().toString());
+                    checkEmail();
+                    /*loginType = "E";
+                    requestForEmailOtp(textInputEditTextEmail.getText().toString());*/
                 } else if (!isPhoneVerified) {
-                    loginType = "M";
-                    sentOTPRequest(textInputEditTextContactNo.getText().toString());
+                    checkMobileNumber();
+                    /*loginType = "M";
+                    sentOTPRequest(textInputEditTextContactNo.getText().toString());*/
                 } else {
                     getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
                             textInputEditTextContactNo.getText().toString(),
@@ -323,22 +330,105 @@ public class ProfileFragment extends NetworkCallFragment {
                             dob, gender
                     );
                 }
-                /*getAndSetProfileInfo(false, textInputEditTextName.getText().toString(),
-                        textInputEditTextContactNo.getText().toString(),
-                        textInputEditTextEmail.getText().toString(),
-                        textInputEditTextStudentName.getText().toString(),
-                        textInputEditTextStudentEmail.getText().toString(),
-                        textInputEditTextStudentContactNo.getText().toString(),
-                        dob, gender
-                );*/
             }
         });
 
         materialButtonUpdateAddress.setOnClickListener(v -> {
-            if (textInputEditTextContactNoAddress.getText().toString().length() < 10) {
+            /*if (textInputEditTextContactNoAddress.getText().toString().length() < 10) {
                 SHOW_ERROR_TOAST(activity, "Invalid Number");
-            } else {
+            }
+            else*/ if (textInputEditTextAddress.getText().toString().isEmpty()){
+                SHOW_ERROR_TOAST(activity, "Input Address");
+            }
+            else if (textInputEditTextPostalCode.getText().toString().isEmpty()){
+                SHOW_ERROR_TOAST(activity, "Input Postal Code");
+            }
+            /*else if (textInputEditTextContactNoAddress.getText().toString().isEmpty()){
+                SHOW_ERROR_TOAST(activity, "Input Contact No");
+            }*/
+            else if (stateId == null){
+                SHOW_ERROR_TOAST(activity, "Select State");
+            }
+            else if (cityId == null){
+                SHOW_ERROR_TOAST(activity, "Select City");
+            }
+
+            else {
                 setAddress(textInputEditTextAddress.getText().toString(), textInputEditTextPostalCode.getText().toString(), textInputEditTextContactNoAddress.getText().toString());
+            }
+        });
+    }
+
+    private void checkMobileNumber(){
+        ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
+        Call<MobileCheckingModel> call = API_PLACE_HOLDER.getMobileChecking(textInputEditTextContactNo.getText().toString());
+        call.enqueue(new Callback<MobileCheckingModel>() {
+            @Override
+            public void onResponse(Call<MobileCheckingModel> call, Response<MobileCheckingModel> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()){
+                    if (response.body()!=null){
+                        MobileCheckingModel mobileCheckingModel = response.body();
+                        if (mobileCheckingModel.getResponse()){
+                            loginType = "M";
+                            sentOTPRequest(textInputEditTextContactNo.getText().toString());
+                        }
+                        else{
+                            SHOW_ERROR_TOAST(activity, mobileCheckingModel.getMessage());
+                        }
+                    }
+                    else{
+                        SHOW_ERROR_TOAST(activity, "Failed to check number");
+                    }
+                }
+                else{
+                    SHOW_ERROR_TOAST(activity, "Response Error");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MobileCheckingModel> call, Throwable t) {
+                progressDialog.dismiss();
+                SHOW_ERROR_TOAST(activity, "Something went wrong");
+            }
+        });
+    }
+
+    private void checkEmail(){
+        ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
+        Call<EmailCheckingModel> call = API_PLACE_HOLDER.getEmailChecking(textInputEditTextEmail.getText().toString());
+        call.enqueue(new Callback<EmailCheckingModel>() {
+            @Override
+            public void onResponse(Call<EmailCheckingModel> call, Response<EmailCheckingModel> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()){
+                    if (response.body()!=null){
+                        EmailCheckingModel emailCheckingModel = response.body();
+                        if (emailCheckingModel.getResponse()){
+                            loginType = "E";
+                            requestForEmailOtp(textInputEditTextEmail.getText().toString());
+                        }
+                        else{
+                            SHOW_ERROR_TOAST(activity, emailCheckingModel.getMessage());
+                        }
+                    }
+                    else{
+                        SHOW_ERROR_TOAST(activity, "Failed to check email");
+                    }
+                }
+                else{
+                    SHOW_ERROR_TOAST(activity, "Response Error");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EmailCheckingModel> call, Throwable t) {
+                progressDialog.dismiss();
+                SHOW_ERROR_TOAST(activity, "Something went wrong");
             }
         });
     }
@@ -364,6 +454,8 @@ public class ProfileFragment extends NetworkCallFragment {
 
     private void setAddress(String address, String postalCode, String contactNo) {
         progressBarStudentAddress.setVisibility(View.VISIBLE);
+        Logger.d("City: "+cityId+" State: "+stateId);
+        Logger.d("User Id: "+userId);
         Call<AddressModel> call = API_PLACE_HOLDER.setAddress(userId, address, cityId, stateId, postalCode, contactNo);
         call.enqueue(new Callback<AddressModel>() {
             @Override
@@ -374,27 +466,30 @@ public class ProfileFragment extends NetworkCallFragment {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         AddressModel addressModel = response.body();
-                        if (addressModel.getResponse()) {
-                            textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
-                            textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
-                            textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
-                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
-                                autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                        if (addressModel.getData().size()!=0){
+                            if (addressModel.getResponse()) {
+                                textInputEditTextAddress.setText(addressModel.getData().get(0).getAddress());
+                                textInputEditTextPostalCode.setText(addressModel.getData().get(0).getPostalCode());
+                                textInputEditTextContactNoAddress.setText(addressModel.getData().get(0).getContactNo());
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                    autoCompleteTextViewState.setText(addressModel.getData().get(0).getStateName().get(0), false);
+                                }
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                    autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
+                                }
+                                if (!addressModel.getData().get(0).getStateName().isEmpty()){
+                                    stateId = addressModel.getData().get(0).getStateId().toString();
+                                }
+                                if (!addressModel.getData().get(0).getCityName().isEmpty()){
+                                    cityId = addressModel.getData().get(0).getCityId().toString();
+                                }
+                                getCity(stateId);
+                                SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
+                            } else {
+                                SHOW_ERROR_TOAST(activity, "Could not update");
                             }
-                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
-                                autoCompleteTextViewCity.setText(addressModel.getData().get(0).getCityName().get(0), false);
-                            }
-                            if (!addressModel.getData().get(0).getStateName().isEmpty()){
-                                stateId = addressModel.getData().get(0).getStateId().toString();
-                            }
-                            if (!addressModel.getData().get(0).getCityName().isEmpty()){
-                                cityId = addressModel.getData().get(0).getCityId().toString();
-                            }
-                            getCity(stateId);
-                            SHOW_SUCCESS_TOAST(activity, "Address Updated Successfully");
-                        } else {
-                            SHOW_ERROR_TOAST(activity, "Could not update");
                         }
+
                     } else {
                         SHOW_ERROR_TOAST(activity, "Could not update");
                     }
@@ -451,20 +546,29 @@ public class ProfileFragment extends NetworkCallFragment {
                             }
                         } else {
                             SHOW_INFO_TOAST(activity, "Please update your address");
+                            textInputEditTextAddress.setText(Constant.ADDRESS);
+                            textInputEditTextPostalCode.setText(Constant.PINCODE);
+                            //getStatesIfNoAddressSaved();
                         }
                     } else {
-                        SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                        //SHOW_ERROR_TOAST(activity, "Address could not fetch");
+                        textInputEditTextAddress.setText(Constant.ADDRESS);
+                        textInputEditTextPostalCode.setText(Constant.PINCODE);
                     }
                 } else {
-                    SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                    //SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                    textInputEditTextAddress.setText(Constant.ADDRESS);
+                    textInputEditTextPostalCode.setText(Constant.PINCODE);
                 }
             }
 
             @Override
             public void onFailure(Call<AddressModel> call, Throwable t) {
-                SHOW_ERROR_TOAST(activity, "Server error");
+                //SHOW_ERROR_TOAST(activity, "Server error");
                 progressDialog.dismiss();
                 Logger.e(t.getMessage());
+                textInputEditTextAddress.setText(Constant.ADDRESS);
+                textInputEditTextPostalCode.setText(Constant.PINCODE);
             }
         });
     }
@@ -498,10 +602,10 @@ public class ProfileFragment extends NetworkCallFragment {
                             cityId = cityArrayList.get(i).getId().toString();
                         });
                     } else {
-                        SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                        SHOW_ERROR_TOAST(activity, "Could not load city");
                     }
                 } else {
-                    SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                    SHOW_ERROR_TOAST(activity, "Could not load city");
                 }
             }
 
@@ -537,10 +641,52 @@ public class ProfileFragment extends NetworkCallFragment {
                             getCity(stateId);
                         });
                     } else {
-                        SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                        SHOW_ERROR_TOAST(activity, "Could not get states");
                     }
                 } else {
-                    SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                    SHOW_ERROR_TOAST(activity, "Could not get states");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StateCityModel> call, Throwable t) {
+                SHOW_ERROR_TOAST(activity, "Server error");
+                Logger.e(t.getMessage());
+            }
+        });
+    }
+
+    private void getStatesIfNoAddressSaved() {
+        stateArrayList.clear();
+        stateArrayListString.clear();
+        Call<StateCityModel> call = API_PLACE_HOLDER.getStates();
+        call.enqueue(new Callback<StateCityModel>() {
+            @Override
+            public void onResponse(Call<StateCityModel> call, Response<StateCityModel> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        StateCityModel stateCityModel = response.body();
+                        stateArrayList = new ArrayList<>(stateCityModel.getData());
+                        for (StateCityModel.Datum data : stateArrayList) {
+                            stateArrayListString.add(data.getName());
+                        }
+                        if (stateArrayListString.contains(Constant.STATE)){
+                            int index = stateArrayListString.indexOf(Constant.STATE);
+                            stateId = stateArrayList.get(index).getId().toString();
+                            getCity(stateId);
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, stateArrayListString);
+                        autoCompleteTextViewState.setAdapter(adapter);
+                        autoCompleteTextViewState.setOnItemClickListener((adapterView, view, i, l) -> {
+                            Logger.d("Selected State: " + stateArrayList.get(i).getName());
+                            stateId = stateArrayList.get(i).getId().toString();
+                            getCity(stateId);
+                        });
+                    } else {
+                        SHOW_ERROR_TOAST(activity, "Could not get states");
+                    }
+                } else {
+                    SHOW_ERROR_TOAST(activity, "Could not get states");
                 }
             }
 
@@ -630,10 +776,10 @@ public class ProfileFragment extends NetworkCallFragment {
                                 SHOW_SUCCESS_TOAST(activity, "Updated Successfully");
 
                             } else {
-                                SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                                SHOW_ERROR_TOAST(activity, "Profile Update Error");
                             }
                         } else {
-                            SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                            SHOW_ERROR_TOAST(activity, "Profile Update Error");
                         }
                     } else {
                         SHOW_ERROR_TOAST(activity, "No Response");
@@ -745,10 +891,10 @@ public class ProfileFragment extends NetworkCallFragment {
                                 }
 
                             } else {
-                                SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                                SHOW_ERROR_TOAST(activity, "Profile getting error");
                             }
                         } else {
-                            SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                            SHOW_ERROR_TOAST(activity, "Profile getting error");
                         }
                     } else {
                         SHOW_ERROR_TOAST(activity, "No Response");
@@ -814,6 +960,7 @@ public class ProfileFragment extends NetworkCallFragment {
                             if (profileEditModel.getData().get(0).getDetails().getCustomerEmail() != null) {
                                 if (!profileEditModel.getData().get(0).getDetails().getCustomerEmail().isEmpty()) {
                                     textViewEmailAddress.setText(profileEditModel.getData().get(0).getDetails().getCustomerEmail());
+                                    textViewEmailAddress.setVisibility(View.VISIBLE);
                                 } else {
                                     textViewEmailAddress.setVisibility(View.GONE);
                                 }
@@ -825,6 +972,7 @@ public class ProfileFragment extends NetworkCallFragment {
                             if (profileEditModel.getData().get(0).getDetails().getCustomerContactNo() != null) {
                                 if (!profileEditModel.getData().get(0).getDetails().getCustomerContactNo().isEmpty()) {
                                     phoneNumber.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
+                                    phoneNumber.setVisibility(View.VISIBLE);
                                 } else {
                                     phoneNumber.setVisibility(View.GONE);
                                 }
@@ -835,10 +983,10 @@ public class ProfileFragment extends NetworkCallFragment {
 
                             //phoneNumber.setText(profileEditModel.getData().get(0).getDetails().getCustomerContactNo());
                         } else {
-                            SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                            SHOW_ERROR_TOAST(activity, "Profile getting error");
                         }
                     } else {
-                        SHOW_ERROR_TOAST(activity, "Data Fetch Error");
+                        SHOW_ERROR_TOAST(activity, "Profile getting error");
                     }
                 } else {
                     SHOW_ERROR_TOAST(activity, "No Response");
@@ -962,16 +1110,6 @@ public class ProfileFragment extends NetworkCallFragment {
     public void OTP_Verification(String otptext) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, otptext);
         signInWithPhoneAuthCredential(credential, otptext);
-    }
-
-    public void loginWithEmailOrMobile(String type) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("name", SessionManager.getValue(SessionManager.CHILD_NAME));
-        map.put("child_age", SessionManager.getValue(SessionManager.CHILD_AGE));
-        if (type.equalsIgnoreCase("M"))
-            map.put("mobile", phone_number);
-        else map.put("email", email);
-        //apiRequest.postRequest(type.equalsIgnoreCase("M") ? MOBILE_LOGIN : EMAIL_LOGIN, map, MOBILE_LOGIN);
     }
 
     private void startFirebaseLogin() {

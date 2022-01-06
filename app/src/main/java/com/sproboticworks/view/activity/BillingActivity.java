@@ -1,6 +1,7 @@
 package com.sproboticworks.view.activity;
 
 import static com.sproboticworks.network.util.Constant.PLACE_ORDER;
+import static com.sproboticworks.network.util.Constant.RAZORPAY_KEY_ID;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,10 +32,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
     private TextView billingName, billingNumber, billingAddress, billingEdit, billingDelete;
     private MaterialCardView materialCardViewPayNow;
     private ImageButton imageButton;
-
-    TextView tv_cart_value_of_products, tv_cart_discount, tv_cart_estimated_gst, tv_cart_shipping, tv_cart_total, tv_label_gst;
-
-
+    private TextView tv_cart_value_of_products, tv_cart_discount, tv_cart_estimated_gst, tv_cart_shipping, tv_cart_total, tv_label_gst;
     private Bundle bundle;
 
 
@@ -90,7 +88,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
     }
 
     private void setData() {
-        billingName.setText(SessionManager.getValue(SessionManager.CHILD_NAME));
+        billingName.setText(SessionManager.getValue(this,SessionManager.CHILD_NAME));
         billingNumber.setText(SessionManager.getLoginResponse().getData().getCustomerContactNo());
       //  billingAddress.setText(Constant.ADDRESS);
 
@@ -135,7 +133,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
         map.put("customer_state_id", Constant.STATE_ID);
         map.put("customer_city_id", Constant.COUNTRY_ID);
         map.put("customer_state", Constant.STATE);
-        map.put("customer_city",Constant.CITY);
+        map.put("customer_city",Constant.DEMOCITY);
 
 
         apiRequest.postRequest(PLACE_ORDER, map, PLACE_ORDER);
@@ -148,6 +146,7 @@ public class BillingActivity extends NetworkCallActivity implements PaymentResul
 
         Checkout checkout = new Checkout();
         checkout.setImage(R.drawable.icon);
+        checkout.setKeyID(RAZORPAY_KEY_ID);
         final Activity activity = this;
         try {
             JSONObject options = new JSONObject();

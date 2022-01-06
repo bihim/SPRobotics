@@ -29,7 +29,7 @@ public class WelcomeOneActivity extends AppCompatActivity {
             if (validate()){
                 String str = editTextName.getText().toString();
                 String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
-                SessionManager.setValue(CHILD_NAME,cap);
+                SessionManager.setValue(this, CHILD_NAME,cap);
                 startActivity(new Intent(this, WelcomeTwoActivity.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
